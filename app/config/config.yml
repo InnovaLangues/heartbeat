@@ -75,3 +75,6 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Innova\Heartbeat\AppBundle\Entity\User
+    registration:
+        confirmation:
+            enabled: true
