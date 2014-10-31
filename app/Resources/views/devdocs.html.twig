@@ -1,0 +1,37 @@
+{% extends  "::base.html.twig" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xs-2">
+        <aside>
+            <section>
+                <ul>
+
+                    {% for file in files %}
+
+                    <li>
+                        <a href="{{ 'devdocs/' ~ file.getRelativePathname }}">
+                            <i class="fa fa-th"></i> <span>{{ file.getRelativePathname }}</span>
+                        </a>
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+            </section>
+        </aside>
+
+    </div>
+    <div class="col-xs-10">
+        <section class="content">
+            <h4>Welcome to the Devdocs</h4>
+            <p>Hello Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto atque autem consectetur culpa deleniti dignissimos eius inventore, laudantium mollitia nihil soluta suscipit, voluptas? Aperiam ea necessitatibus porro similique tempora. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto asperiores aut commodi culpa eius est expedita illo itaque maiores, officiis perferendis, perspiciatis qui reprehenderit, saepe sed sit sunt tempora veritatis! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad blanditiis, cum dignissimos dolorem esse ex exercitationem facere fuga fugiat fugit in, itaque minus molestiae nesciunt qui recusandae tenetur voluptate. Esse.</p>
+            <footer>
+                Clone the docs : donovan@88.80.186.29:/home/git/repos/docs.git/
+            </footer>
+        </section>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% extends  "::base.html.twig" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tbody><tr>
+                        <th>Name</th>
+                        <th>URL</th>
+                        <th>Status</th>
+                    </tr>
+
+                    {% for app in apps %}
+
+                        <tr>
+                            <td>{{ app.name }}</td>
+                            <td><a href="{{ app.url }}">{{ app.url }}</a></td>
+
+                            {% if app.statusCode == 200 %}
+                                <td><span class="label label-success">{{ app.statusCode }}</span></td>
+                            {% elseif app.statusCode == 500 %}
+                                <td><span class="label label-danger">{{ app.statusCode }}</span></td>
+                            {% else %}
+                                <td><span class="label label-warning">{{ app.statusCode }}</span></td>
+                            {% endif %}
+                        </tr>
+
+
+                    {% endfor %}
+
+                    </tbody></table>
+            </div><!-- /.box-body -->
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
