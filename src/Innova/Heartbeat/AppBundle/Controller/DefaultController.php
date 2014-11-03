@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Finder\Finder;
+use Innova\Heartbeat\AppBundle\Entity\Server;
 use Goutte\Client;
 
 class DefaultController extends Controller
@@ -43,6 +44,23 @@ class DefaultController extends Controller
             array(
                 'title'   => 'Servers',
                 'servers' => $servers
+            )
+        );
+    }
+
+    /**
+     * @Route("server/{id}", name="server")
+     * @Template()
+     */
+    public function serverAction(Server $server)
+    {
+        //$servers = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:Server')->findAll();
+
+        return $this->render(
+            'server.html.twig',
+            array(
+                'title'   => 'Server',
+                'server' => $server
             )
         );
     }

@@ -12,21 +12,13 @@
                         <th>Name</th>
                         <th>OS</th>
                         <th>Status</th>
-                        <th>View</th>
                     </tr>
-
-                    {% for server in servers %}
-
                     <tr>
                         <td>{{ server.ip }}</td>
                         <td>{{ server.name }}</td>
                         <td>{{ server.os }}</td>
-                        <th><a href="{{ path('server', {'id': server.id}) }}">View</a></th>
                         <td><span class="label label-success">Online</span></td>
                     </tr>
-
-                    {% endfor %}
-
                     </tbody></table>
             </div><!-- /.box-body -->
         </div>
