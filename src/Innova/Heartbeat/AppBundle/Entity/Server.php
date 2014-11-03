@@ -42,6 +42,13 @@ class Server
      */
     private $os;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="linuxDashUrl", type="string", length=255)
+     */
+    private $linuxDashUrl;
+
 
     /**
      * Get id
@@ -120,5 +127,28 @@ class Server
     public function getOs()
     {
         return $this->os;
+    }
+
+    /**
+     * Set linuxDashUrl
+     *
+     * @param string $linuxDashUrl
+     * @return Server
+     */
+    public function setLinuxDashUrl($linuxDashUrl)
+    {
+        $this->linuxDashUrl = $linuxDashUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get linuxDashUrl
+     *
+     * @return string 
+     */
+    public function getLinuxDashUrl()
+    {
+        return $this->linuxDashUrl;
     }
 }
