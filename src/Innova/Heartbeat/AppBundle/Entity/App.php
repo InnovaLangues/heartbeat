@@ -35,11 +35,18 @@ class App
      */
     private $url;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="thumb", type="string", length=255)
+     */
+    private $thumb;
+
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -62,7 +69,7 @@ class App
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -85,10 +92,33 @@ class App
     /**
      * Get url
      *
-     * @return string 
+     * @return string
      */
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * Set thumb
+     *
+     * @param string $thumb
+     * @return App
+     */
+    public function setThumb($thumb)
+    {
+        $this->thumb = $thumb;
+
+        return $this;
+    }
+
+    /**
+     * Get thumb
+     *
+     * @return string
+     */
+    public function getThumb()
+    {
+        return $this->thumb;
     }
 }
