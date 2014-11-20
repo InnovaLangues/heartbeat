@@ -1,0 +1,28 @@
+ul.doc-toc {
+    padding: 0;
+    position: fixed;
+}
+
+ul.doc-toc li {
+    list-style-type: none;
+}
+
+ul.doc-toc li .h1,
+ul.doc-toc li .h2,
+ul.doc-toc li .h3 {
+    color: #3c8dbc;
+}
+
+ul.doc-toc li .h1 {
+    font-size: 16px;
+}
+
+ul.doc-toc li .h2 {
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+ul.doc-toc li .h3 {
+    margin-left: 20px;
+    font-size: 12px;
+}

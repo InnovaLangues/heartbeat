@@ -18,7 +18,9 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Innova\Heartbeat\AppBundle\InnovaHeartbeatAppBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
-            new FOS\UserBundle\FOSUserBundle()
+            new FOS\UserBundle\FOSUserBundle(),
+            new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
+            new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

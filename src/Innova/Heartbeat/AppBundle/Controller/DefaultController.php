@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Finder\Finder;
 use Innova\Heartbeat\AppBundle\Entity\Server;
 use Goutte\Client;
+use Symfony\Component\DomCrawler\Crawler;
+use \Wa72\HtmlPageDom\HtmlPageCrawler;
 
 class DefaultController extends Controller
 {
@@ -122,21 +124,43 @@ class DefaultController extends Controller
      */
     public function devdocsAction()
     {
-        $finder = new Finder();
-        $finder->files()->in($this->get('kernel')->getRootDir() . "/devdocs");
-        $files = array();
+        $path = $this->get('kernel')->getRootDir() . '/devdocs/index.md';
 
-        foreach ($finder as $file) {
-            $file->isFile();
+        $text = file_get_contents($path);
 
-            $files[] = $file;
-        }
+        $html = $this->container->get('markdown.parser')->transformMarkdown($text);
+
+        $editedHtml = new HtmlPageCrawler($html);
+
+        $headings = array();
+        $title = null;
+        $count = 0;
+
+        $editedHtml->filter('h1, h2, h3')->each(function ($node, $i) use (&$headings, &$title, &$count) {
+
+            $count++;
+
+            $slug = $this->get('cocur_slugify')->slugify($node->text()) .  '_' . $count;
+
+            $heading = new \stdClass();
+
+            $node->setAttribute('id', $slug);
+
+            $heading->text = $node->text();
+            $heading->class = $node->nodeName();
+            $heading->slug = $slug;
+
+            $headings[] = $heading;
+        });
+
+        $html = $editedHtml->saveHTML();
 
         return $this->render(
             'devdocs.html.twig',
             array(
-                'title' => 'Devdocs',
-                'files' => $files
+                'title' => $headings[0]->text,
+                'headings' => $headings,
+                'html' => $html
             )
         );
     }
