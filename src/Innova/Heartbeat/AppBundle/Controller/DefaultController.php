@@ -139,25 +139,23 @@ class DefaultController extends Controller
 
             if($i == 0) {
                 $node->addClass('hidden');
+            } else {
+                $slug = $this->get('cocur_slugify')->slugify($node->text()) .  '_' . $i;
+
+                $heading = new \stdClass();
+
+                $node->setAttribute('id', $slug);
+
+                $heading->text = $node->text();
+                $heading->class = $node->nodeName();
+                $heading->slug = $slug;
+
+                $headings[] = $heading;
             }
 
-            $slug = $this->get('cocur_slugify')->slugify($node->text()) .  '_' . $i;
-
-            $heading = new \stdClass();
-
-            $node->setAttribute('id', $slug);
-
-            $heading->text = $node->text();
-            $heading->class = $node->nodeName();
-            $heading->slug = $slug;
-
-            $headings[] = $heading;
         });
 
         $html = $editedHtml->saveHTML();
-
-        //Pop first title
-        $headings = array_shift($headings);
 
         return $this->render(
             'devdocs.html.twig',
