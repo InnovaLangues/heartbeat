@@ -8,6 +8,7 @@
             <div class="box-body table-responsive no-padding">
                 <table class="table table-hover">
                     <tbody><tr>
+                        <th></th>
                         <th>Name</th>
                         <th>URL</th>
                         <th>Status</th>
@@ -17,9 +18,9 @@
 
                         <tr>
                             <td>
-                                  <div class="thumbnail">
-                                	    <iframe src="{{ app.url }}"></iframe>
-                                	</div>
+                                	<img src="{{ asset('img/web-thumbs/' ~ app.thumb ) }}" alt="{{ app.name }}" width="200px"/>
+                            </td>
+                            <td>
                                   {{ app.name }}
                               </td>
                             <td><a href="{{ app.url }}">{{ app.url }}</a></td>
