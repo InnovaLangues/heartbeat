@@ -137,7 +137,9 @@ class DefaultController extends Controller
 
         $editedHtml->filter('h1, h2, h3')->each(function ($node, $i) use (&$headings, &$title) {
 
-            $node->addClass('hidden');
+            if($i == 0) {
+                $node->addClass('hidden');
+            }
 
             $slug = $this->get('cocur_slugify')->slugify($node->text()) .  '_' . $i;
 
@@ -153,6 +155,9 @@ class DefaultController extends Controller
         });
 
         $html = $editedHtml->saveHTML();
+
+        //Pop first title
+        $headings = array_shift($headings);
 
         return $this->render(
             'devdocs.html.twig',
