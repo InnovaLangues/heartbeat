@@ -1,3 +1,3 @@
 $(document).ready(function(){
-    $(".sticky").sticky({topSpacing:0});
+    $(".sticky").sticky({topSpacing:60});
 });

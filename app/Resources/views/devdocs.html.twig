@@ -3,8 +3,8 @@
 {% block content %}
 
 <div class="row">
-        <div class="col-xs-3 sticky">
-            <ul class="doc-toc">
+        <div class="col-xs-3">
+            <ul class="doc-toc sticky">
             {% for heading in headings %}
                 <li><a href="#{{ heading.slug}}" class="{{ heading.class }}">{{ heading.text }}</a></li>
             {% endfor %}
