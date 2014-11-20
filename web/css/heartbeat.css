@@ -2,13 +2,17 @@
 .devdoc h2,
 .devdoc h3
 {
-    border-top: 1px solid #ccc;
     padding-top: 20px;
+}
+
+.devdoc h2,
+.devdoc h3
+{
+    border-top: 1px solid #ccc;
 }
 
 ul.doc-toc {
     padding: 0;
-    position: fixed;
 }
 
 ul.doc-toc li {

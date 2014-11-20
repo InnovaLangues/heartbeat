@@ -134,13 +134,12 @@ class DefaultController extends Controller
 
         $headings = array();
         $title = null;
-        $count = 0;
 
-        $editedHtml->filter('h1, h2, h3')->each(function ($node, $i) use (&$headings, &$title, &$count) {
+        $editedHtml->filter('h1, h2, h3')->each(function ($node, $i) use (&$headings, &$title) {
 
-            $count++;
+            $node->addClass('hidden');
 
-            $slug = $this->get('cocur_slugify')->slugify($node->text()) .  '_' . $count;
+            $slug = $this->get('cocur_slugify')->slugify($node->text()) .  '_' . $i;
 
             $heading = new \stdClass();
 
