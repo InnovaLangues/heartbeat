@@ -16,7 +16,12 @@
                     {% for app in apps %}
 
                         <tr>
-                            <td>{{ app.name }}</td>
+                            <td>
+                                  <div class="thumbnail">
+                                	    <iframe src="{{ app.url }}"></iframe>
+                                	</div>
+                                  {{ app.name }}
+                              </td>
                             <td><a href="{{ app.url }}">{{ app.url }}</a></td>
 
                             {% if app.statusCode == 200 %}
