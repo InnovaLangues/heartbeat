@@ -3,14 +3,14 @@
 {% block content %}
 
 <div class="row">
-        <div class="col-xs-2">
+        <div class="col-xs-3">
             <ul class="doc-toc">
             {% for heading in headings %}
                 <li><a href="#{{ heading.slug}}" class="{{ heading.class }}">{{ heading.text }}</a></li>
             {% endfor %}
             </ul>
         </div>
-        <div class="devdoc col-xs-10">
+        <div class="devdoc col-xs-9">
             {{ html|raw }}
         </div>
 </div>
