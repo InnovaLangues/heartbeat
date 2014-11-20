@@ -1,8 +1,13 @@
-.devdoc h1,
-.devdoc h2,
+.devdoc h1
+{
+    padding-top: 100px;
+}
+.devdoc h2{
+    padding-top: 50px;
+}
 .devdoc h3
 {
-    padding-top: 50px;
+    padding-top: 20px;
 }
 
 .devdoc h2,
