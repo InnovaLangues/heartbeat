@@ -139,6 +139,7 @@ class DefaultController extends Controller
 
             if($i == 0) {
                 $node->addClass('hidden');
+                $title = $node->text();
             } else {
                 $slug = $this->get('cocur_slugify')->slugify($node->text()) .  '_' . $i;
 
@@ -160,7 +161,7 @@ class DefaultController extends Controller
         return $this->render(
             'devdocs.html.twig',
             array(
-                'title' => $headings[0]->text,
+                'title' => $title,
                 'headings' => $headings,
                 'html' => $html
             )
