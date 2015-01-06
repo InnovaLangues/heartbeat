@@ -20,7 +20,8 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
-            new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle()
+            new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle(),
+            new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

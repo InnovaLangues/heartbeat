@@ -5,74 +5,36 @@ namespace Innova\Heartbeat\AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\Finder\Finder;
-use Innova\Heartbeat\AppBundle\Entity\Server;
 use Goutte\Client;
-use Symfony\Component\DomCrawler\Crawler;
 use \Wa72\HtmlPageDom\HtmlPageCrawler;
 
-class DefaultController extends Controller
-{
+class HomeController extends Controller {
+
     /**
      * @Route("/", name="home")
      * @Template()
      */
-    public function indexAction()
-    {
+    public function indexAction() {
+        //$servers = $this->get('doctrine_mongodb')->getRepository('InnovaHeartbeatAppBundle:Server')->findAll();
         $servers = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:Server')->findAll();
         $apps = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:App')->findAll();
-        $users = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:User')->findAll();
+        $users = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:User')->findAll();        
+     
         return $this->render(
-            'index.html.twig',
-            array(
-                'title'   => 'Dashboard',
-                'servers' => $servers,
-                'apps'    => $apps,
-                'users'   => $users,
-            )
+            'index.html.twig', array(
+            'title' => 'Dashboard',
+            'servers' => $servers,
+            'apps' => $apps,
+            'users' => $users,
+           )
         );
     }
-
-    /**
-     * @Route("servers", name="servers")
-     * @Template()
-     */
-    public function serversAction()
-    {
-        $servers = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:Server')->findAll();
-
-        return $this->render(
-            'servers.html.twig',
-            array(
-                'title'   => 'Servers',
-                'servers' => $servers
-            )
-        );
-    }
-
-    /**
-     * @Route("server/{id}", name="server")
-     * @Template()
-     */
-    public function serverAction(Server $server)
-    {
-        //$servers = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:Server')->findAll();
-
-        return $this->render(
-            'server.html.twig',
-            array(
-                'title'   => 'Server',
-                'server' => $server
-            )
-        );
-    }
-
+    
     /**
      * @Route("apps", name="apps")
      * @Template()
      */
-    public function appsAction()
-    {
+    public function appsAction() {
         $apps = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:App')->findAll();
 
         foreach ($apps as $app) {
@@ -87,17 +49,16 @@ class DefaultController extends Controller
                 $app->statusCode = 500;
             }
 
-            if($app->statusCode != 500) {
+            if ($app->statusCode != 500) {
                 $app->statusCode = $client->getResponse()->getStatus();
             }
         }
 
         return $this->render(
-            'apps.html.twig',
-            array(
-                'title' => 'Apps',
-                'apps'  => $apps
-            )
+                        'apps.html.twig', array(
+                    'title' => 'Apps',
+                    'apps' => $apps
+                        )
         );
     }
 
@@ -105,16 +66,14 @@ class DefaultController extends Controller
      * @Route("users", name="users")
      * @Template()
      */
-    public function usersAction()
-    {
+    public function usersAction() {
         $users = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:User')->findAll();
 
         return $this->render(
-            'users.html.twig',
-            array(
-                'title' => 'Servers',
-                'users' => $users
-            )
+                        'users.html.twig', array(
+                    'title' => 'Servers',
+                    'users' => $users
+                        )
         );
     }
 
@@ -122,8 +81,7 @@ class DefaultController extends Controller
      * @Route("devdocs", name="devdocs")
      * @Template()
      */
-    public function devdocsAction()
-    {
+    public function devdocsAction() {
         $path = $this->get('kernel')->getRootDir() . '/devdocs/index.md';
 
         $text = file_get_contents($path);
@@ -137,11 +95,11 @@ class DefaultController extends Controller
 
         $editedHtml->filter('h1, h2, h3')->each(function ($node, $i) use (&$headings, &$title) {
 
-            if($i == 0) {
+            if ($i == 0) {
                 $node->addClass('hidden');
                 $title = $node->text();
             } else {
-                $slug = $this->get('cocur_slugify')->slugify($node->text()) .  '_' . $i;
+                $slug = $this->get('cocur_slugify')->slugify($node->text()) . '_' . $i;
 
                 $heading = new \stdClass();
 
@@ -153,18 +111,16 @@ class DefaultController extends Controller
 
                 $headings[] = $heading;
             }
-
         });
 
         $html = $editedHtml->saveHTML();
 
         return $this->render(
-            'devdocs.html.twig',
-            array(
-                'title' => $title,
-                'headings' => $headings,
-                'html' => $html
-            )
+                        'devdocs.html.twig', array(
+                    'title' => $title,
+                    'headings' => $headings,
+                    'html' => $html
+                        )
         );
     }
 }

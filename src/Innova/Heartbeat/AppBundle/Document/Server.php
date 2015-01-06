@@ -1,51 +1,50 @@
 <?php
 
-namespace Innova\Heartbeat\AppBundle\Entity;
+namespace Innova\Heartbeat\AppBundle\Document;
 
-use Doctrine\ORM\Mapping as ORM;
+
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  * Server
  *
- * @ORM\Table("server")
- * @ORM\Entity
+ * @MongoDB\Document
  */
 class Server
 {
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="uid", type="guid")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="UUID")
+     * 
+     * @MongoDB\Id
      */
-    private $uid;
+    private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ip", type="string", length=255)
+     * @MongoDB\String
      */
     private $ip;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @MongoDB\String
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="os", type="string", length=255)
+     * @MongoDB\String
      */
     private $os;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="linuxDashUrl", type="string", length=255)
+     * @MongoDB\String
      */
     private $linuxDashUrl;
 
@@ -53,11 +52,11 @@ class Server
     /**
      * Get id
      *
-     * @return integer 
+     * @return string 
      */
-    public function getUid()
+    public function getId()
     {
-        return $this->uid;
+        return $this->id;
     }
 
     /**

@@ -1,0 +1,12 @@
+## YAML Template.
+---
+services:
+    innova.server.manager:
+        class: Innova\Heartbeat\AppBundle\Manager\ServerManager
+        arguments:
+            entityManager: @doctrine.orm.entity_manager
+    innova.serverdata.manager:
+        class: Innova\Heartbeat\AppBundle\Manager\ServerDataManager
+        arguments:
+            entityManager: @doctrine_mongodb.odm.document_manager
+

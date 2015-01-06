@@ -1,0 +1,58 @@
+{% extends  "::base.html.twig" %}
+
+{% block content %}
+    
+    <div class="row server-form-container">
+        <div class="col-xs-12">
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+            {{ form_errors(form) }}
+            <div class="form-group">
+                <div class="col-sm-3">
+                    {{ form_label(form.ip, "IP", {'label_attr': {'class': 'control-label'}}) }}                        
+                    {{ form_errors(form.ip) }}
+                </div>
+                <div class="col-sm-4">
+                    {{ form_widget(form.ip, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    {{ form_label(form.name, "Name", {'label_attr': {'class': 'control-label'}}) }}                        
+                    {{ form_errors(form.name) }}
+                </div>
+                <div class="col-sm-4">
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group required">
+                <div class="col-sm-3">
+                    {{ form_label(form.os, "OS", {'label_attr': {'class': 'control-label'}}) }}                        
+                    {{ form_errors(form.os) }}
+                </div>
+                <div class="col-sm-4">
+                    {{ form_widget(form.os, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group ">
+                <div class="col-sm-3">
+                    {{ form_label(form.linuxDashUrl, "URL", {'label_attr': {'class': 'control-label'}}) }}                        
+                    {{ form_errors(form.linuxDashUrl) }}
+                </div>
+                <div class="col-sm-4">
+                    {{ form_widget(form.linuxDashUrl, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+
+            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+
+            {# Génération automatique des champs pas encore écrits.
+               Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+               et tous les champs cachés (type « hidden »). #}
+            {{ form_rest(form) }}
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock content %}

@@ -14,6 +14,8 @@ framework:
     validation:      { enable_annotations: true }
     templating:
         engines: ['twig']
+        assets_base_urls:
+            http: [http://localhost/patrick/heartbeat/web/]
         #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
     trusted_hosts:   ~
@@ -78,3 +80,14 @@ fos_user:
     registration:
         confirmation:
             enabled: true
+            
+# app/config/config.yml
+doctrine_mongodb:
+    connections:
+        default:
+            server: mongodb://localhost:27017
+            options: {}
+    default_database: heartbeat
+    document_managers:
+        default:
+            auto_mapping: true
