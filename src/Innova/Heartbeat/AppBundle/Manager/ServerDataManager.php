@@ -44,19 +44,8 @@ class ServerDataManager {
     }
     
     public function findByServerId($id){
-        return $this->getRepository()->findOneBy(array('serverId' => $id), array('date' => 'desc'), 1, 0);
-        // print_r($result->getDetails());die;
-        // return $this->getRepository()->findOneBy(array('serverId' => $id));
-      
-       /* $data = $this->dm->createQueryBuilder('Innova\Heartbeat\AppBundle\Document\ServerData')
-                ->field('serverId')
-                ->equals($id)
-                ->sort('date', 'DESC')
-                ->limit(1)
-                ->getQuery()
-                ->execute();
-        print_r($data->getCollection()->findOne());die;
-        return $data->getCollection()->findOne();*/
+        $result = $this->getRepository()->findBy(array('serverId' => $id), array('date' => 'desc'), 1, 0);
+        return  $result[0];
     }
 
     public function save(ServerData $serverData) {
