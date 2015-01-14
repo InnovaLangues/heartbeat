@@ -41,13 +41,13 @@ sio.set('authorization', function (data, accept) {
 });    
 
 sio.sockets.on('connection', function (socket) {
-   
+
     console.log('A socket with sessionID ' + socket.request.sessionID + ' connected!');  
 
 	var watcher = new mongoWatch({parser: 'pretty'});
 	watcher.watch('heartbeat.ServerData', function(event) {
 		socket.volatile.emit('notification', event.o);
-		console.log('Something changed : ', event.o);
+		console.log('Something changed : ');
 
 	});
 
