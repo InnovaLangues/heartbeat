@@ -19,12 +19,11 @@ class ServerController extends Controller {
      */
     public function serversAction() {
         $servers = $this->get('innova.server.manager')->getAll();
-        // $this->getServersDataAction();
         return $this->render(
-                    'servers.html.twig', array(
-                    'title' => 'Servers',
-                    'servers' => $servers
-                        )
+            'servers.html.twig', array(
+                'title'   => 'Servers',
+                'servers' => $servers
+            )
         );
     }
 
@@ -72,7 +71,7 @@ class ServerController extends Controller {
         $details = json_decode($serverData->getDetails());
         return $this->render(
                 'server.html.twig', array(
-                'title' => 'Servers',
+                'title' => 'Server : ' . $server->getName(),
                 'server' => $server,
                 'data' => array('id' => $serverData->getId(), 'date' => $serverData->getDate()),
                 'details' => $details
