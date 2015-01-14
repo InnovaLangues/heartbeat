@@ -8,29 +8,14 @@ var cookie = require('cookie');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var sessionStore = new session.MemoryStore();    
+var mongoWatch = require('mongo-watch');
 
 var app = express();    
 
-//Use morgan instead
-//app.use(express.logger('dev'));
 app.use(cookieParser());
 app.use(session({store: sessionStore, secret: "secret", key: 'express.sid'}));
 
-//web page
-app.use(express.static('public'));    
-
-app.get('/', function(req, res) {
-  var body = '';
-  if (req.session.views) {
-    ++req.session.views;
-  } else {
-    req.session.views = 1;
-    body += '<p>First time visiting? view this page in several browsers :)</p>';
-  }
-  res.send(body + '<p>viewed <strong>' + req.session.views + '</strong> times.</p>');
-});    
-
-var sio = require('socket.io').listen(app.listen(3000));   
+var sio = require('socket.io').listen(app.listen(config.websocket.port));   
 
 sio.set('authorization', function (data, accept) {
     // check if there's a cookie header
@@ -56,23 +41,18 @@ sio.set('authorization', function (data, accept) {
 });    
 
 sio.sockets.on('connection', function (socket) {
+   
+    console.log('A socket with sessionID ' + socket.request.sessionID + ' connected!');  
 
-    //Replace with mongowatch
-    
-    console.log('A socket with sessionID ' + socket.request.sessionID + ' connected!');
-    // it sets data every 5 seconds
-    var handle = setInterval(function() {
-        sessionStore.get(socket.request.sessionID, function (err, data) {
-            if (err || !data) {
-                console.log('no session data yet');
-            } else {
-                socket.emit('views', data);
-            }
-        });
-    }, 5000);    
+	var watcher = new mongoWatch({parser: 'pretty'});
+	watcher.watch('heartbeat.ServerData', function(event) {
+		socket.volatile.emit('notification', event.o);
+		console.log('Something changed : ', event.o);
+
+	});
 
     socket.on('disconnect', function() {
-        clearInterval(handle);
+    	console.log('Disconnected')
     });
 });
 
