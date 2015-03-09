@@ -25,14 +25,14 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="prefeeredUID", type="string", length=255)
+     * @ORM\Column(name="preferedUID", type="string", length=255)
      */
     private $preferedUID;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="prefeeredGID", type="string", length=255)
+     * @ORM\Column(name="preferedGID", type="string", length=255)
      */
     private $preferedGID;
 
