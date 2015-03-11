@@ -46,7 +46,7 @@ class Server
      *
      * @MongoDB\String
      */
-    private $linuxDashUrl;
+    private $status;
 
 
     /**
@@ -129,25 +129,25 @@ class Server
     }
 
     /**
-     * Set linuxDashUrl
+     * Set Status
      *
-     * @param string $linuxDashUrl
+     * @param string $status
      * @return Server
      */
-    public function setLinuxDashUrl($linuxDashUrl)
+    public function setStatus($status)
     {
-        $this->linuxDashUrl = $linuxDashUrl;
+        $this->Status = $status;
 
         return $this;
     }
 
     /**
-     * Get linuxDashUrl
+     * Get Status
      *
      * @return string 
      */
-    public function getLinuxDashUrl()
+    public function getStatus()
     {
-        return $this->linuxDashUrl;
+        return $this->status;
     }
 }

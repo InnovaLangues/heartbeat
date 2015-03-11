@@ -109,7 +109,6 @@ class ServerData
      * @return Date
      */
     public function getDate(){
-        //print_r($this->date);die;
         return $this->date;
     }
 }

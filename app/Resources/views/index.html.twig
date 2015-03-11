@@ -9,11 +9,13 @@
         <div class="small-box bg-aqua">
             <div class="inner">
                 <h3>
-                    {{ servers|length }}
+                    {{ servers|length }} Servers
                 </h3>
-                <p>
-                    Servers
-                </p>
+                <ul class="sidebar-menu">
+                    {% for server in servers %}
+                        <li><span class="label label-success">OK</span>{{ server.name }}</li>
+                    {% endfor %}
+                </ul>
             </div>
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>

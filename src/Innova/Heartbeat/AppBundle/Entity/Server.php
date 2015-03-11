@@ -45,9 +45,9 @@ class Server
     /**
      * @var string
      *
-     * @ORM\Column(name="linuxDashUrl", type="string", length=255)
+     * @ORM\Column(name="status", type="boolean")
      */
-    private $linuxDashUrl;
+    private $status;
 
 
     /**
@@ -130,25 +130,25 @@ class Server
     }
 
     /**
-     * Set linuxDashUrl
+     * Set Status
      *
-     * @param string $linuxDashUrl
+     * @param string $status
      * @return Server
      */
-    public function setLinuxDashUrl($linuxDashUrl)
+    public function setStatus($status)
     {
-        $this->linuxDashUrl = $linuxDashUrl;
+        $this->Status = $status;
 
         return $this;
     }
 
     /**
-     * Get linuxDashUrl
+     * Get Status
      *
-     * @return string 
+     * @return boolean 
      */
-    public function getLinuxDashUrl()
+    public function getStatus()
     {
-        return $this->linuxDashUrl;
+        return $this->status;
     }
 }
