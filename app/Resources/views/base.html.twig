@@ -44,59 +44,60 @@
     </head>
     <body class="skin-blue fixed">
         <!-- header logo: style can be found in header.less -->
-        <header class="main-header">
-            <a href="{{ path('home') }}" class="logo">
-                <!-- Add the class icon to your logo image or logo icon to add the margining -->
-                Heartbeat | Innova
-            </a>
 
-            <nav class="navbar navbar-static-top" role="navigation">
-                <!-- Sidebar toggle button-->
-                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
+        <div class="wrapper">
+            <header class="main-header">
+                <a href="{{ path('home') }}" class="logo">
+                    <!-- Add the class icon to your logo image or logo icon to add the margining -->
+                    Heartbeat | Innova
                 </a>
-                <div class="navbar-custom-menu">
-                    <ul class="nav navbar-nav">
-                      <!-- User Account: style can be found in dropdown.less -->
-                      <li class="dropdown user user-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                          <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
-                          <span class="hidden-xs">{{ app.user.username }}</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                          <!-- User image -->
-                          <li class="user-header">
-                            <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
-                            <p>
-                              {{ app.user.username }} - Web Developer
-                              <small>Member since Nov. 2012</small>
-                            </p>
-                          </li>
-                          <!-- Menu Body -->
-                          <li class="user-body">
-                            <div class="col-xs-12 text-center">
-                              <a href="#">Github</a>
-                            </div>
-                          </li>
-                          <!-- Menu Footer-->
-                          <li class="user-footer">
-                            <div class="pull-left">
-                              <a href="{{ path('fos_user_profile_show') }}" class="btn btn-default btn-flat">Profile</a>
-                            </div>
-                            <div class="pull-right">
-                              <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn-flat">Sign out</a>
-                            </div>
+
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                          <!-- User Account: style can be found in dropdown.less -->
+                          <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                              <span class="hidden-xs">{{ app.user.username }}</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                              <!-- User image -->
+                              <li class="user-header">
+                                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                                <p>
+                                  {{ app.user.username }} - Web Developer
+                                  <small>Member since Nov. 2012</small>
+                                </p>
+                              </li>
+                              <!-- Menu Body -->
+                              <li class="user-body">
+                                <div class="col-xs-12 text-center">
+                                  <a href="#">Github</a>
+                                </div>
+                              </li>
+                              <!-- Menu Footer-->
+                              <li class="user-footer">
+                                <div class="pull-left">
+                                  <a href="{{ path('fos_user_profile_show') }}" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                  <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                              </li>
+                            </ul>
                           </li>
                         </ul>
-                      </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
+                    </div>
+                </nav>
+            </header>
 
-        <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
-            <aside class="left-side sidebar-offcanvas">
+            <aside class="main-sidebar">
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
                     <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -136,8 +137,8 @@
                 <!-- /.sidebar -->
             </aside>
 
-            <!-- Right side column. Contains the navbar and content of the page -->
-            <aside class="right-side">
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>{{ title }}</h1>
@@ -152,7 +153,13 @@
                     {% block content %}
                     {% endblock %}
                 </section><!-- /.content -->
-            </aside><!-- /.right-side -->
+            </div><!-- /.content-wrapper -->
+            <footer class="main-footer">
+                <div class="pull-right hidden-xs">
+                    <b>Version</b> DEV
+                </div>
+                <strong>Powered by <a href="http://innovalangues.fr">Innovalangues</a>.</strong>
+            </footer>
         </div><!-- ./wrapper -->
 
         <!-- add new calendar event modal -->
