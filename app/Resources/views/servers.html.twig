@@ -25,7 +25,13 @@
                             {% for server in servers %}
 
                                 <tr>
-                                    <td><span class="label label-success">Online</span></td>
+                                    <td>
+                                    {% if server.status %}
+                                        <span class="label bg-green">Online</span>
+                                    {% else %}
+                                        <span class="label bg-red">Offline</span>
+                                    {% endif %}
+                                    </td>
                                     <td><a href="{{ path('server', {'id': server.uid}) }}">{{ server.name }}</a></td>
                                     <td>{{ server.ip }}</td>                               
                                 </tr>
