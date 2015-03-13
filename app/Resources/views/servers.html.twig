@@ -17,23 +17,17 @@
                     <table class="table table-hover table-bordered">
                         <tbody>
                             <tr>
-                                <th>IP</th>
+                                <th style="width: 20px">Status</th>
                                 <th>Name</th>
-                                <th>OS</th>
-                                <th>Status</th>
-                                <th>View</th>
-                                <th>Delete</th>
+                                <th>IP</th>
                             </tr>
 
                             {% for server in servers %}
 
                                 <tr>
-                                    <td>{{ server.ip }}</td>
-                                    <td>{{ server.name }}</td>
-                                    <td>{{ server.os }}</td>                                   
                                     <td><span class="label label-success">Online</span></td>
-                                    <td><a href="{{ path('server', {'id': server.uid}) }}">View</a></td>
-                                    <td><a href="{{ path('delete_server', {'id': server.uid}) }}">Delete</a></td>
+                                    <td><a href="{{ path('server', {'id': server.uid}) }}">{{ server.name }}</a></td>
+                                    <td>{{ server.ip }}</td>                               
                                 </tr>
 
                             {% endfor %}
