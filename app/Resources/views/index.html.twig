@@ -12,9 +12,21 @@
                     {{ servers|length }} Servers
                 </h3>
                 <ul class="sidebar-menu">
-                    {% for server in servers %}
-                        <li><span class="label label-success">OK</span>{{ server.name }}</li>
-                    {% endfor %}
+
+                {% for server in servers %}
+                    
+                {% if server.status %}
+                
+                    <li><span class="label bg-green">Online</span>{{ server.name }}</li>
+                
+                {% else %}
+                    
+                    <li><span class="label bg-red">Offline</span>{{ server.name }}</li>
+                
+                {% endif %}
+                
+                {% endfor %}
+                
                 </ul>
             </div>
             <div class="icon">
