@@ -4,11 +4,11 @@
 
 {% block fos_user_content %}
 
-    <div class="form-box" id="login-box">
-        <div class="header">Sign In</div>
-        <form action="{{ path("fos_user_security_check") }}" method="post">
+<div class="login-box-body">
+    <p class="login-box-msg">Sign in to start your session</p>
+    <form action="{{ path("fos_user_security_check") }}" method="post">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-        <div class="body bg-gray">
+        <div class="body">
 
             {% if error %}
 
@@ -16,23 +16,33 @@
 
             {% endif %}
 
-            <div class="form-group">
+            <div class="form-group has-feedback">
                 <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control" placeholder="Username" required="required"/>
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback">
                 <input type="password" id="password" name="_password" required="required" class="form-control" placeholder="Password"/>
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
-            <div class="form-group">
-                <input type="checkbox" id="remember_me" name="_remember_me" value="on"/> Remember me
+            <div class="row">
+                <div class="col-xs-8">    
+                    <div class="checkbox icheck">
+                        <label>
+                            <input type="checkbox" id="remember_me" name="_remember_me" value="on"/> Remember me
+                        </label>
+                    </div>                        
+                </div><!-- /.col -->
+                <div class="col-xs-4">
+                    <button type="submit" id="_submit" name="_submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                </div><!-- /.col -->
             </div>
         </div>
-        <div class="footer">
-            <button type="submit" id="_submit" name="_submit" class="btn bg-olive btn-block">Sign me in</button>
-
-            <p><a href="{{ path('fos_user_resetting_request') }}">I forgot my password</a></p>
-
-            <a href="{{ path('fos_user_registration_register') }}" class="text-center">Register a new membership</a>
-        </div>
+        <div class="social-auth-links text-center">
+            <p>- OR -</p>
+            <a href="{{ path('hwi_oauth_connect_service', {'service': 'github'}) }}" class="btn btn-block btn-social btn-github btn-flat"><i class="fa fa-github"></i> Sign in using Github</a>
+        </div><!-- /.social-auth-links -->
+        <a href="{{ path('fos_user_resetting_request') }}">I forgot my password</a><br>
+        <a href="{{ path('fos_user_registration_register') }}" class="text-center">Register a new membership</a>
     </form>
 </div>
 
