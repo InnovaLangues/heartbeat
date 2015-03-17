@@ -27,7 +27,8 @@
         "wa72/htmlpagedom" : "dev-master",
         "doctrine/mongodb-odm": "1.0.*@dev",
         "doctrine/mongodb-odm-bundle": "3.0.*@dev",
-        "knplabs/github-api": "~1.2"
+        "knplabs/github-api": "~1.2",
+        "hwi/oauth-bundle": "0.4.*@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

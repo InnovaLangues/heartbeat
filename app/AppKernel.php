@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle()
         );
 

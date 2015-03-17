@@ -25,21 +25,27 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="preferedUID", type="string", length=255)
+     * @ORM\Column(name="githubId", type="string", nullable=true)
+     */
+    private $githubId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="preferedUID", type="string", nullable=true, length=255)
      */
     private $preferedUID;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="preferedGID", type="string", length=255)
+     * @ORM\Column(name="preferedGID", type="string", nullable=true, length=255)
      */
     private $preferedGID;
 
     public function __construct()
     {
         parent::__construct();
-        // your own logic
     }
 
     /**
@@ -50,6 +56,29 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set githubId
+     *
+     * @param string $githubID
+     * @return Server
+     */
+    public function setGithubID($githubId)
+    {
+        $this->githubId = $githubId;
+
+        return $this;
+    }
+
+    /**
+     * Get githubId
+     *
+     * @return string 
+     */
+    public function getGithubId()
+    {
+        return $this->githubId;
     }
 
     /**

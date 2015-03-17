@@ -26,9 +26,20 @@ security:
                 key: "%secret%"
                 lifetime: 2232000
 
+            oauth:
+                failure_path: /connect
+                login_path: /connect
+                check_path: /connect
+                provider: fos_userbundle
+                resource_owners:
+                    github:           "/login/check-github"
+                oauth_user_provider:
+                    service: hwi_oauth.user.provider.fosub_bridge
+
     access_control:
         - { path: ^/keys, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/connect, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, role: ROLE_USER }
