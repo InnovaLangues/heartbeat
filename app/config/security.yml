@@ -30,11 +30,11 @@ security:
 
             oauth:
                 failure_path: /connect
-                login_path: /login
+                login_path: /connect
                 check_path: /connect
                 provider: fos_userbundle
                 resource_owners:
-                    github:           "/connect/check-github"
+                    github:           "/login/check-github"
                 oauth_user_provider:
                     service: hwi_oauth.user.provider.fosub_bridge
 
