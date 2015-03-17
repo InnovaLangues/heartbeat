@@ -43,3 +43,10 @@ ul.doc-toc li .h3 {
     margin-left: 20px;
     font-size: 12px;
 }
+
+.table-img {
+    float: left;
+    height: 22px;
+    width: 22px;
+    margin-right: 5px;
+}

@@ -17,8 +17,8 @@ class UserController extends Controller {
 
         return $this->render(
             'users.html.twig', array(
-            'title' => 'Servers',
-            'users' => $users
+                'title' => 'Servers',
+                'users' => $users
             )
         );
     }

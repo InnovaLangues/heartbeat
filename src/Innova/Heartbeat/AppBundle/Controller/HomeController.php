@@ -7,6 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Goutte\Client;
 use \Wa72\HtmlPageDom\HtmlPageCrawler;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Finder\Finder;
 
 class HomeController extends Controller {
 
@@ -116,11 +118,35 @@ class HomeController extends Controller {
         $html = $editedHtml->saveHTML();
 
         return $this->render(
-                        'devdocs.html.twig', array(
-                    'title' => $title,
-                    'headings' => $headings,
-                    'html' => $html
-                        )
+            'devdocs.html.twig', array(
+                'title'    => $title,
+                'headings' => $headings,
+                'html'     => $html
+            )
         );
+    }
+
+    /**
+     * @Route("keys", name="keys")
+     * @Template()
+     */
+    public function keysAction() {
+
+        $response = new Response();
+
+        $finder = new Finder();
+        $finder->files()->in('../app/config')->name('public.key');
+
+        foreach ($finder as $file) {
+            $contents = $file->getContents();
+        }
+
+
+        $response
+            ->setStatusCode(200)
+            ->setContent($contents)
+            ->headers->set('Content-Type', 'text/plain');
+
+        return $response;
     }
 }
