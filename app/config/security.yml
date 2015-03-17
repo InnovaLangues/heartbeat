@@ -20,7 +20,9 @@ security:
             form_login:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
-            logout:       true
+            logout:
+                path: /logout
+                target: /login
             anonymous:    true
             remember_me:
                 key: "%secret%"
@@ -28,11 +30,11 @@ security:
 
             oauth:
                 failure_path: /connect
-                login_path: /connect
+                login_path: /login
                 check_path: /connect
                 provider: fos_userbundle
                 resource_owners:
-                    github:           "/login/check-github"
+                    github:           "/connect/check-github"
                 oauth_user_provider:
                     service: hwi_oauth.user.provider.fosub_bridge
 
