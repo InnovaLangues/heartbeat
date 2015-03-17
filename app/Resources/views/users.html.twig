@@ -16,7 +16,7 @@
                     {% for user in users %}
 
                         <tr>
-                            <td><img src="{{ app.user.username|githubAvatarURL }}" class="table-img img-circle" alt="User avatar" />{{ user.username }}</td>
+                            <td><img src="{{ user.username|githubAvatarURL }}" class="table-img img-circle" alt="User avatar" />{{ user.username }}</td>
                             <td>{{ user.username|githubName }}</td>
                             <td><a href="mailto:{{ user.email }}"><i class="fa fa-envelope"></i> <span>{{ user.email }}</span></a></td>
                         </tr>
