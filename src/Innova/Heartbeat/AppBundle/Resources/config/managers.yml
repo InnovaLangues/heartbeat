@@ -8,7 +8,8 @@ services:
     innova.serverdata.manager:
         class: Innova\Heartbeat\AppBundle\Manager\ServerDataManager
         arguments:
-            entityManager: @doctrine_mongodb.odm.document_manager
+            documentManager: @doctrine_mongodb.odm.document_manager
+            entityManager: @doctrine.orm.entity_manager
 
     innova.github.twig_extension:
         class: Innova\Heartbeat\AppBundle\Twig\GithubExtension

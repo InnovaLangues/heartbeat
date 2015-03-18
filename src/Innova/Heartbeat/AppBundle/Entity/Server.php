@@ -137,7 +137,7 @@ class Server
      */
     public function setStatus($status)
     {
-        $this->Status = $status;
+        $this->status = $status;
 
         return $this;
     }

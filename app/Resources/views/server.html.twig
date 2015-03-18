@@ -30,70 +30,79 @@
 
 {% block content %}
 
-    <div class="row">
-        <div class="col-xs-3">
-            <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">CPU ({{ details.cpu.count }} Cores)</span>
-                    <span class="info-box-number">Cores used : {{ details.cpu.load.min15 / details.cpu.count}} %</span>
-                    <span class="info-box-number">Load (15min) : {{ details.cpu.load.min15 }}</span>
-                </div><!-- /.info-box-content -->
-            </div><!-- /.info-box -->
-        </div>
-        <div class="col-xs-3">
-            <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">RAM</span>
-                    <span class="info-box-number">Free : {{ ((details.memory.free / details.memory.total) * 100)|number_format }} %</span>
-                    <span class="info-box-number">Total : {{ forms.bytesToSize(details.memory.total) }}</span>
-                </div><!-- /.info-box-content -->
-            </div><!-- /.info-box -->
-        </div>
-        <div class="col-xs-3">
-            <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">SWAP</span>
-                    <span class="info-box-number">Free : {{ ((details.memory.swap.free / details.memory.swap.total) * 100)|number_format }} %</span>
-                    <span class="info-box-number">Total : {{ forms.bytesToSize(details.memory.swap.total) }}</span>
-                </div><!-- /.info-box-content -->
-            </div><!-- /.info-box -->
-        </div>
-        <div class="col-xs-3">
-            <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Disks</span>
-                    <span class="info-box-number">Free : {{ ((details.disk.free / details.disk.total) * 100)|number_format }} %</span>
-                    <span class="info-box-number">Total : {{ forms.bytesToSize(details.disk.total) }}</span>
-                </div><!-- /.info-box-content -->
-            </div><!-- /.info-box -->
-        </div>
+{% if details %}
+
+<div class="row">
+    <div class="col-xs-3">
+        <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">CPU ({{ details.cpu.count }} Cores)</span>
+                <span class="info-box-number">Cores used : {{ details.cpu.load.min15 / details.cpu.count}} %</span>
+                <span class="info-box-number">Load (15min) : {{ details.cpu.load.min15 }}</span>
+            </div><!-- /.info-box-content -->
+        </div><!-- /.info-box -->
     </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box box-solid">
-                <div class="box-header">
-                  <h3 class="box-title">Network</h3>
-                </div>
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover">
-                        <tbody>
-                            <tr>
-                                <th>IP</th>
-                                <th>Hostname</th>
-                            </tr>
-                            <tr>
-                                <td>{{ server.ip }}</td>
-                                <td>{{ server.name }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div><!-- /.box-body -->
+    <div class="col-xs-3">
+        <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">RAM</span>
+                <span class="info-box-number">Free : {{ ((details.memory.free / details.memory.total) * 100)|number_format }} %</span>
+                <span class="info-box-number">Total : {{ forms.bytesToSize(details.memory.total) }}</span>
+            </div><!-- /.info-box-content -->
+        </div><!-- /.info-box -->
+    </div>
+    <div class="col-xs-3">
+        <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">SWAP</span>
+                <span class="info-box-number">Free : {{ ((details.memory.swap.free / details.memory.swap.total) * 100)|number_format }} %</span>
+                <span class="info-box-number">Total : {{ forms.bytesToSize(details.memory.swap.total) }}</span>
+            </div><!-- /.info-box-content -->
+        </div><!-- /.info-box -->
+    </div>
+    <div class="col-xs-3">
+        <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Disks</span>
+                <span class="info-box-number">Free : {{ ((details.disk.free / details.disk.total) * 100)|number_format }} %</span>
+                <span class="info-box-number">Total : {{ forms.bytesToSize(details.disk.total) }}</span>
+            </div><!-- /.info-box-content -->
+        </div><!-- /.info-box -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-solid">
+            <div class="box-header">
+              <h3 class="box-title">Network</h3>
             </div>
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th>IP</th>
+                            <th>Hostname</th>
+                        </tr>
+                        <tr>
+                            <td>{{ server.ip }}</td>
+                            <td>{{ server.name }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div><!-- /.box-body -->
         </div>
     </div>
+</div>
+
+{% else %}
+<div class="callout callout-info">
+    <h4>No data!</h4>
+    <p>There is no data for this server yet. <br> Pease check that te IP is correct</p>
+</div>
+{% endif %}
 
 {% endblock content %}

@@ -68,13 +68,21 @@ class ServerController extends Controller {
         $server = $this->get('innova.server.manager')->findOne($id);
         $serverData = $this->get('innova.serverdata.manager')->findByServerId($id);
 
-        $details = json_decode($serverData->getDetails());
+        $details = null;
+        $id = null;
+        $date = null;
+
+        if($serverData) {
+            $details = json_decode($serverData->getDetails());
+            $id = $serverData->getId();
+            $date = $serverData->getDate();
+        }
 
         return $this->render(
                 'server.html.twig', array(
                 'title' => 'Server : ' . $server->getName(),
                 'server' => $server,
-                'data' => array('id' => $serverData->getId(), 'date' => $serverData->getDate()),
+                'data' => array('id' => $id, 'date' => $date),
                 'details' => $details
             )
         );
