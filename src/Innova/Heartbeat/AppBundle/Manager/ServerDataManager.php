@@ -67,9 +67,6 @@ class ServerDataManager {
 
         $this->entityManager->persist($server);
         $this->entityManager->flush();
-        echo($server->getName());
-        echo($server->getStatus());
-
 
         return $connection;
     }
