@@ -31,131 +31,63 @@
 {% block content %}
 
     <div class="row">
+        <div class="col-xs-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">CPU ({{ details.cpu.count }} Cores)</span>
+                    <span class="info-box-number">Cores used : {{ details.cpu.load.min15 / details.cpu.count}} %</span>
+                    <span class="info-box-number">Load (15min) : {{ details.cpu.load.min15 }}</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+        <div class="col-xs-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">RAM</span>
+                    <span class="info-box-number">Free : {{ ((details.memory.free / details.memory.total) * 100)|number_format }} %</span>
+                    <span class="info-box-number">Total : {{ forms.bytesToSize(details.memory.total) }}</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+        <div class="col-xs-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">SWAP</span>
+                    <span class="info-box-number">Free : {{ ((details.memory.swap.free / details.memory.swap.total) * 100)|number_format }} %</span>
+                    <span class="info-box-number">Total : {{ forms.bytesToSize(details.memory.swap.total) }}</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+        <div class="col-xs-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Disks</span>
+                    <span class="info-box-number">Free : {{ ((details.disk.free / details.disk.total) * 100)|number_format }} %</span>
+                    <span class="info-box-number">Total : {{ forms.bytesToSize(details.disk.total) }}</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+    </div>
+    <div class="row">
         <div class="col-xs-12">
-            <div class="box">
+            <div class="box box-solid">
+                <div class="box-header">
+                  <h3 class="box-title">Network</h3>
+                </div>
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-hover">
-                        <tbody><tr>
+                        <tbody>
+                            <tr>
                                 <th>IP</th>
-                                <th>Name</th>
-                                <th>OS</th>
-                                <th>Status</th>
+                                <th>Hostname</th>
                             </tr>
                             <tr>
                                 <td>{{ server.ip }}</td>
                                 <td>{{ server.name }}</td>
-                                <td>{{ server.os }}</td>
-                                <td><span class="label label-success">Online</span></td>
-                            </tr>
-                        </tbody></table>
-                </div><!-- /.box-body -->
-            </div>
-        </div>
-    </div>
-    <!-- server data row (id + date) -->
-    <div class="row">
-        <div class="col-xs-12">
-            <h3> Server details:</h3>
-            <div class="box">
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover">
-                        <tbody>
-                            <tr>
-                                <th>@id</th>
-                                <th>Date</th>
-                            </tr>
-                            <tr>
-                                <td>{{ data['id'] }}</td>
-                                <td>{{ data['date'] | date('d/m/Y H:i:s') }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div><!-- /.box-body -->
-            </div>
-        </div>
-    </div>
-    <!-- disk row -->
-    <div class="row">
-        <div class="col-xs-12">
-            <h3>Server disk:</h3>
-            <div class="box">
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover">
-                        <tbody>
-                            <tr>
-                                <th>Used</th>
-                                <th>Total</th>
-                                <th>Free</th>
-                            </tr>
-                            <tr>
-                                <td>{{ forms.bytesToSize(details.disk.used)  }}</td>
-                                <td>{{ forms.bytesToSize(details.disk.total) }}</td>
-                                <td>{{ forms.bytesToSize(details.disk.free) }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div><!-- /.box-body -->
-            </div>
-        </div>
-
-    </div>
-    <!-- cpu row -->
-    <div class="row">
-        <div class="col-xs-12">
-            <h3>Server CPU:</h3>
-            <div class="box">
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover">
-                        <tbody>
-                            <tr>
-                                <th>Number of CPU(s)</th>
-                                <th>Averaged number of running process over last 1 minute</th>
-                                <th>Averaged number of running process over last 5 minutes</th>
-                                <th>Averaged number of running process over last 15 minutes</th>
-                            </tr>
-                            <tr>
-                                <td>{{ details.cpu.count }}</td>
-                                <td>{{ details.cpu.load.min1 }}</td>
-                                <td>{{ details.cpu.load.min5 }}</td>
-                                <td>{{ details.cpu.load.min15 }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div><!-- /.box-body -->
-            </div>
-        </div>
-    </div>
-    <!-- memory row -->
-    <div class="row">
-        <div class="col-xs-12">
-            <h3>Server Memory:</h3>
-            <div class="box">
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover">
-                        <tbody>
-                            <tr>
-                                <th>Total</th>
-                                <th>Used</th>
-                                <th>Free</th>
-                                <th colspan="2">Buffers cache</th>
-                                <th colspan="3">SWAP</th>
-                            </tr>
-                            <tr>
-                                <td rowspan="2">{{ details.memory.total }}</td>
-                                <td rowspan="2">{{ details.memory.used }}</td>
-                                <td rowspan="2">{{ details.memory.free }}</td>
-                                <th>Used</th>
-                                <th>Free</th>
-                                <th>Total</th>
-                                <th>Used</th>
-                                <th>Free</th>
-                            </tr>
-                            <tr>
-                                <td>{{ details.memory.buffersCache.used }}</td>
-                                <td>{{ details.memory.buffersCache.free }}</td>
-                                <td>{{ details.memory.swap.total }}</td>
-                                <td>{{ details.memory.swap.used }}</td>
-                                <td>{{ details.memory.swap.free }}</td>
                             </tr>
                         </tbody>
                     </table>
