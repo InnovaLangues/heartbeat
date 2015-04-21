@@ -5,56 +5,47 @@ namespace Innova\Heartbeat\AppBundle\Manager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Innova\Heartbeat\AppBundle\Document\ServerData;
+use Mmoreram\GearmanBundle\Service\GearmanClient;
 
 /**
  * Manager for ServerData Entity
  *
  * 
  */
-class ServerDataManager {
+class ServerDataManager
+{
 
     protected $documentManager;
     protected $entityManager;
+    protected $gearman;
 
-    public function __construct(DocumentManager $documentManager, EntityManager $entityManager) {
+    public function __construct(DocumentManager $documentManager, EntityManager $entityManager, GearmanClient $gearman) {
         $this->documentManager = $documentManager;
         $this->entityManager = $entityManager;
         $this->mongoDataRepo = $this->documentManager->getRepository('InnovaHeartbeatAppBundle:ServerData');
         $this->dataRepo = $this->entityManager->getRepository('InnovaHeartbeatAppBundle:Server');
+        $this->gearman = $gearman;
     }
 
     /**
      * get server connection
      */
-    public function getConnections() {   
+    public function getConnections() { 
         $servers = $this->dataRepo->findAll();
-        $results = array();
         
         foreach ($servers as $server) {
-            // connect to server
-            $connection = $this->getConnection($server, 'heartbeat', '');
-
-            if ($connection != null) {
-                // get data
-                $stream = ssh2_exec($connection, '/home/heartbeat/HeartbeatClient/client.sh', 0700);
-                stream_set_blocking($stream, true);
-                $stream_out = ssh2_fetch_stream($stream, SSH2_STREAM_STDIO);
-                $jsonResponse = stream_get_contents($stream_out);
-                $result = json_decode($jsonResponse);
-                
-                $results[$server->getUid()] = $result;
-
-                // save data in mongodb
-                $serverData = new ServerData();
-                $serverData->setServerId($server->getUid());
-                $serverData->setDetails($jsonResponse);
-                
-               $this->save($serverData);
-            }
+            $this->gearman->doBackgroundJob(
+                'InnovaHeartbeatAppBundleWorkersSshWorker~getData', 
+                json_encode(
+                    array(
+                        'serverUid' => $server->getUid()
+                    )
+                )
+            );
         }
 
     }
-
+/*
     public function getConnection($server, $user, $pass){
         $connection = @ssh2_connect($server->getIp(), 22, array('hostkey' => 'ssh-rsa'));
         
@@ -70,7 +61,7 @@ class ServerDataManager {
 
         return $connection;
     }
-
+*/
     public function findByServerId($id){
         $result = $this->getRepository()->findBy(array('serverId' => $id), array('date' => 'desc'), 1, 0);
         if(isset($result[0])) {

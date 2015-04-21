@@ -10,24 +10,27 @@ use \Wa72\HtmlPageDom\HtmlPageCrawler;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Finder\Finder;
 
-class HomeController extends Controller {
+class HomeController extends Controller 
+{
 
     /**
      * @Route("/", name="home")
      * @Template()
      */
-    public function indexAction() {
+    public function indexAction() 
+    {
         //$servers = $this->get('doctrine_mongodb')->getRepository('InnovaHeartbeatAppBundle:Server')->findAll();
         $servers = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:Server')->findAll();
         $apps = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:App')->findAll();
         $users = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:User')->findAll();        
      
         return $this->render(
-            'index.html.twig', array(
-            'title' => 'Dashboard',
-            'servers' => $servers,
-            'apps' => $apps,
-            'users' => $users,
+            'index.html.twig', 
+            array(
+                'title'   => 'Dashboard',
+                'servers' => $servers,
+                'apps'    => $apps,
+                'users'   => $users
            )
         );
     }
@@ -36,7 +39,8 @@ class HomeController extends Controller {
      * @Route("apps", name="apps")
      * @Template()
      */
-    public function appsAction() {
+    public function appsAction() 
+    {
         $apps = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:App')->findAll();
 
         foreach ($apps as $app) {
@@ -57,10 +61,10 @@ class HomeController extends Controller {
         }
 
         return $this->render(
-                        'apps.html.twig', array(
-                    'title' => 'Apps',
-                    'apps' => $apps
-                        )
+            'apps.html.twig', array(
+                'title' => 'Apps',
+                'apps' => $apps
+            )
         );
     }
 
@@ -68,14 +72,15 @@ class HomeController extends Controller {
      * @Route("users", name="users")
      * @Template()
      */
-    public function usersAction() {
+    public function usersAction() 
+    {
         $users = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:User')->findAll();
 
         return $this->render(
-                        'users.html.twig', array(
-                    'title' => 'Servers',
-                    'users' => $users
-                        )
+            'users.html.twig', array(
+                'title' => 'Servers',
+                'users' => $users
+            )
         );
     }
 
@@ -83,17 +88,14 @@ class HomeController extends Controller {
      * @Route("devdocs", name="devdocs")
      * @Template()
      */
-    public function devdocsAction() {
-        $path = $this->get('kernel')->getRootDir() . '/devdocs/index.md';
-
-        $text = file_get_contents($path);
-
-        $html = $this->container->get('markdown.parser')->transformMarkdown($text);
-
+    public function devdocsAction() 
+    {
+        $path       = $this->get('kernel')->getRootDir() . '/devdocs/index.md';
+        $text       = file_get_contents($path);
+        $html       = $this->container->get('markdown.parser')->transformMarkdown($text);
         $editedHtml = new HtmlPageCrawler($html);
-
-        $headings = array();
-        $title = null;
+        $headings   = array();
+        $title      = null;
 
         $editedHtml->filter('h1, h2, h3')->each(function ($node, $i) use (&$headings, &$title) {
 
@@ -107,9 +109,9 @@ class HomeController extends Controller {
 
                 $node->setAttribute('id', $slug);
 
-                $heading->text = $node->text();
+                $heading->text  = $node->text();
                 $heading->class = $node->nodeName();
-                $heading->slug = $slug;
+                $heading->slug  = $slug;
 
                 $headings[] = $heading;
             }
@@ -130,17 +132,16 @@ class HomeController extends Controller {
      * @Route("keys", name="keys")
      * @Template()
      */
-    public function keysAction() {
-
+    public function keysAction() 
+    {
         $response = new Response();
+        $finder   = new Finder();
 
-        $finder = new Finder();
         $finder->files()->in('../app/config')->name('public.key');
 
         foreach ($finder as $file) {
             $contents = $file->getContents();
         }
-
 
         $response
             ->setStatusCode(200)

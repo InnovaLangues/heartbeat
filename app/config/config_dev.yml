@@ -46,3 +46,10 @@ assetic:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+
+#config_dev.yml
+doctrine_cache:
+    providers:
+        gearman_cache:
+            type: array
+            namespace: doctrine_cache.ns.gearman
