@@ -33,17 +33,23 @@
 {% if details %}
 
 <div class="row">
-    <div class="col-xs-3">
+    <div class="col-md-6 col-lg-3">
         <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
+            {% if (details.cpu.load.min5 / details.cpu.count) > 0.8 %}
+                <span class="info-box-icon bg-red"><i class="fa fa-thumbs-o-down"></i></span>
+            {% elseif (details.cpu.load.min5 / details.cpu.count) > 0.5 %}
+                <span class="info-box-icon bg-orange"><i class="fa fa-thumbs-o-up"></i></span>
+            {% else %}
+                <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
+            {% endif %}
             <div class="info-box-content">
                 <span class="info-box-text">CPU ({{ details.cpu.count }} Cores)</span>
-                <span class="info-box-number">Cores used : {{ details.cpu.load.min15 / details.cpu.count}} %</span>
-                <span class="info-box-number">Load (15min) : {{ details.cpu.load.min15 }}</span>
+                <span class="info-box-number">Cores used : {{ details.cpu.load.min5 / details.cpu.count}} %</span>
+                <span class="info-box-number">Load (5min) : {{ details.cpu.load.min5 }}</span>
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
     </div>
-    <div class="col-xs-3">
+    <div class="col-md-6 col-lg-3">
         <div class="info-box">
             <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
             <div class="info-box-content">
@@ -53,9 +59,15 @@
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
     </div>
-    <div class="col-xs-3">
+    <div class="col-md-6 col-lg-3">
         <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
+            {% if (details.memory.swap.used / details.memory.swap.total) > 0.8 %}
+                <span class="info-box-icon bg-red"><i class="fa fa-thumbs-o-down"></i></span>
+            {% elseif (details.memory.swap.used / details.memory.swap.total) > 0.5 %}
+                <span class="info-box-icon bg-orange"><i class="fa fa-thumbs-o-up"></i></span>
+            {% else %}
+                <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
+            {% endif %}
             <div class="info-box-content">
                 <span class="info-box-text">SWAP</span>
                 <span class="info-box-number">Free : {{ ((details.memory.swap.free / details.memory.swap.total) * 100)|number_format }} %</span>
@@ -63,9 +75,15 @@
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
     </div>
-    <div class="col-xs-3">
+    <div class="col-md-6 col-lg-3">
         <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
+            {% if (details.disk.used / details.disk.total) > 0.8 %}
+                <span class="info-box-icon bg-red"><i class="fa fa-thumbs-o-down"></i></span>
+            {% elseif (details.disk.used / details.disk.total) > 0.5 %}
+                <span class="info-box-icon bg-orange"><i class="fa fa-thumbs-o-up"></i></span>
+            {% else %}
+                <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
+            {% endif %}
             <div class="info-box-content">
                 <span class="info-box-text">Disks</span>
                 <span class="info-box-number">Free : {{ ((details.disk.free / details.disk.total) * 100)|number_format }} %</span>
