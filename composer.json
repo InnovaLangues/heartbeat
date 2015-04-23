@@ -32,7 +32,8 @@
         "hwi/oauth-bundle": "0.4.*@dev",
         "mmoreram/gearman-bundle": "3",
         "doctrine/doctrine-cache-bundle": "~1",
-        "phpunit/phpunit": "4.0.*"
+        "phpunit/phpunit": "4.0.*",
+        "laupifrpar/pusher-bundle": "~1.2"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

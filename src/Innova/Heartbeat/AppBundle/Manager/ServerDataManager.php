@@ -32,7 +32,7 @@ class ServerDataManager
      */
     public function getConnections() { 
         $servers = $this->dataRepo->findAll();
-        
+
         foreach ($servers as $server) {
             $this->gearman->doBackgroundJob(
                 'InnovaHeartbeatAppBundleWorkersSshWorker~getData', 

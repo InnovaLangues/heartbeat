@@ -24,7 +24,8 @@ class AppKernel extends Kernel
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
             new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
-            new Mmoreram\GearmanBundle\GearmanBundle()
+            new Mmoreram\GearmanBundle\GearmanBundle(),
+            new Lopi\Bundle\PusherBundle\LopiPusherBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
