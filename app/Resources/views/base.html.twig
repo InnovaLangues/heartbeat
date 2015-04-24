@@ -26,6 +26,8 @@
             <link href="plugins/iCheck/flat/blue.css" rel="stylesheet" type="text/css" />
             <!-- gridster -->
             <link href="{{ asset('/css/gridster/jquery.gridster.css') }}" rel="stylesheet" type="text/css" />
+            <!-- toaster -->
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" type="text/css">
             <!-- Theme style -->
             <link href="{{ asset('/css/AdminLTE.css') }}" rel="stylesheet" type="text/css" />
             <!-- AdminLTE Skins. Choose a skin from the css/skins 
@@ -198,7 +200,57 @@
 
             <script src="{{ asset('/js/plugins/gridster/jquery.gridster.js') }}" type="text/javascript"></script>
 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.2.1/socket.io.min.js" type="text/javascript"></script>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" type="text/javascript"></script>
+
             <script src="{{ asset('/js/heartbeat.js') }}" type="text/javascript"></script>
+
+            <script>
+                $(function() {
+
+                    var channels = [
+                        '6dea4db3-97e1-11e4-a878-f23c91dbba43'
+                        //'9ea7dffc-97e4-11e4-a878-f23c91dbba43',
+                        //'6dea4db3-97e1-11e4-a878-f23c91dbba43'
+
+                    ];
+
+                    // socket.io specific code
+                    var socket = io.connect(
+                        'http://localhost:3000', 
+                        {
+                            query: {
+                                channels: channels
+                            }
+                        }
+                    );
+
+                    socket.on('notification', function (data) {
+
+                        if (data.type == 'info') {
+                            toastr.info(data.message, data.title)
+                        }
+
+                        if (data.type == 'warning') {
+                            toastr.warning(data.message, data.title)
+                        }
+
+                        if (data.type == 'success') {
+                            toastr.success(data.message, data.title)
+                        }
+
+                        if (data.type == 'error') {
+                            toastr.error(data.message, data.title)
+                        }
+                    });
+
+                    socket.on('serverUpdate', function (data) {
+                        toastr.success('server update')
+                        console.log(data);
+                    });
+                });
+            </script>
 
         {% endblock %}
 

@@ -77,7 +77,7 @@ class SshWorker extends ContainerAware
 
             /*
 
-            // TODO entity ?
+            // TODO entity ? //use use + entity
             $notification = new \stdClass();
 
             $notification->type = "info";
