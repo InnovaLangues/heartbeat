@@ -83,7 +83,8 @@ class ServerController extends Controller {
                 'title' => 'Server : ' . $server->getName(),
                 'server' => $server,
                 'data' => array('id' => $id, 'date' => $date),
-                'details' => $details
+                'details' => $details,
+                'channels' => array($server->getUid())
             )
         );
     }

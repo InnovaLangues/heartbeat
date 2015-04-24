@@ -1,5 +1,7 @@
 {% macro bytesToSize(bytes) %}
     {% spaceless %}
+        {# TODO chop off .0s #}
+
         {# bytes are given in 1K-blocks #}
         {% set bytes = bytes * 1024 %}
         {% set kilobyte = 1024 %}
@@ -11,15 +13,15 @@
         {% if bytes < kilobyte %}
             {{ bytes ~ ' B' }}
         {% elseif bytes < megabyte %}
-            {{ (bytes / kilobyte)|number_format(2, '.') ~ ' KB' }}
+            {{ (bytes / kilobyte)|number_format(1, '.') ~ ' KB' }}
         {% elseif bytes < gigabyte %}
-            {{ (bytes / megabyte)|number_format(2, '.') ~ ' MB' }}
+            {{ (bytes / megabyte)|number_format(1, '.') ~ ' MB' }}
         {% elseif bytes < terabyte %}
-            {{ (bytes / gigabyte)|number_format(2, '.') ~ ' GB' }}
+            {{ (bytes / gigabyte)|number_format(1, '.') ~ ' GB' }}
         {% elseif bytes < petabyte %}
-            {{ (bytes / terabyte)|number_format(2, '.') ~ ' TB' }}
+            {{ (bytes / terabyte)|number_format(1, '.') ~ ' TB' }}
         {% else %}
-            {{ (bytes / petabyte)|number_format(2, '.') ~ ' PB' }}
+            {{ (bytes / petabyte)|number_format(1, '.') ~ ' PB' }}
         {% endif %}
     {% endspaceless %}
 {% endmacro %}
@@ -34,60 +36,66 @@
 
 <div class="row">
     <div class="col-md-6 col-lg-3">
-        <div class="info-box">
-            {% if (details.cpu.load.min5 / details.cpu.count) > 0.8 %}
-                <span class="info-box-icon bg-red"><i class="fa fa-thumbs-o-down"></i></span>
-            {% elseif (details.cpu.load.min5 / details.cpu.count) > 0.5 %}
-                <span class="info-box-icon bg-orange"><i class="fa fa-thumbs-o-up"></i></span>
+        <div class="info-box info-box-cpu">
+            {% if (details.cpu.load.min1 / details.cpu.count) > 0.8 %}
+                <span class="info-box-cpu-icon info-box-icon bg-red"><i class="fa fa-thumbs-o-down"></i></span>
+            {% elseif (details.cpu.load.min1 / details.cpu.count) > 0.5 %}
+                <span class="info-box-cpu-icon info-box-icon bg-orange"><i class="fa fa-thumbs-o-up"></i></span>
             {% else %}
-                <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
+                <span class="info-box-cpu-icon info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
             {% endif %}
             <div class="info-box-content">
-                <span class="info-box-text">CPU ({{ details.cpu.count }} Cores)</span>
-                <span class="info-box-number">Cores used : {{ details.cpu.load.min5 / details.cpu.count}} %</span>
-                <span class="info-box-number">Load (5min) : {{ details.cpu.load.min5 }}</span>
+                <div class="info-box-text">Cores : <span class="cpu-count">{{ details.cpu.count }}</span></div>
+                <div class="info-box-number">Cores used : <span class="cpu-cores-percent-used">{{ details.cpu.load.min1 / details.cpu.count}} %</span></div>
+                <div class="info-box-number">Load (1min) : <span class="cpu-load-min1">{{ details.cpu.load.min1 }}</span></div>
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
     </div>
     <div class="col-md-6 col-lg-3">
-        <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
+        <div class="info-box info-box-memory">
+            {% if (details.memory.used / details.memory.total) > 0.8 %}
+                <span class="info-box-memory-icon info-box-icon bg-red"><i class="fa fa-thumbs-o-down"></i></span>
+            {% elseif (details.memory.used / details.memory.total) > 0.5 %}
+                <span class="info-box-memory-icon info-box-icon bg-orange"><i class="fa fa-thumbs-o-up"></i></span>
+            {% else %}
+                <span class="info-box-memory-icon info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
+            {% endif %}
             <div class="info-box-content">
-                <span class="info-box-text">RAM</span>
-                <span class="info-box-number">Free : {{ ((details.memory.free / details.memory.total) * 100)|number_format }} %</span>
-                <span class="info-box-number">Total : {{ forms.bytesToSize(details.memory.total) }}</span>
+                <div class="info-box-text">RAM</div>
+                <div class="info-box-number">Used : <span class="memory-percent-used">{{ ((details.memory.used / details.memory.total) * 100)|number_format }} %</span></div>
+                <div class="info-box-number">Total : <span class="memory-total">{{ forms.bytesToSize(details.memory.total) }}</span></div>
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
     </div>
     <div class="col-md-6 col-lg-3">
-        <div class="info-box">
+        <div class="info-box info-box-memory-swap">
             {% if (details.memory.swap.used / details.memory.swap.total) > 0.8 %}
-                <span class="info-box-icon bg-red"><i class="fa fa-thumbs-o-down"></i></span>
+                <span class="info-box-memory-swap-icon info-box-icon bg-red"><i class="fa fa-thumbs-o-down"></i></span>
             {% elseif (details.memory.swap.used / details.memory.swap.total) > 0.5 %}
-                <span class="info-box-icon bg-orange"><i class="fa fa-thumbs-o-up"></i></span>
+                <span class="info-box-memory-swap-icon info-box-icon bg-orange"><i class="fa fa-thumbs-o-up"></i></span>
             {% else %}
-                <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
+                <span class="info-box-memory-swap-icon info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
             {% endif %}
             <div class="info-box-content">
-                <span class="info-box-text">SWAP</span>
-                <span class="info-box-number">Free : {{ ((details.memory.swap.free / details.memory.swap.total) * 100)|number_format }} %</span>
-                <span class="info-box-number">Total : {{ forms.bytesToSize(details.memory.swap.total) }}</span>
+                <div class="info-box-text">SWAP</div>
+                <div class="info-box-number">Used : <span class="memory-swap-percent-used">{{ ((details.memory.swap.used / details.memory.swap.total) * 100)|number_format }} %</span></div>
+                <div class="info-box-number">Total : <span class="memory-swap-total">{{ forms.bytesToSize(details.memory.swap.total) }}</span></div>
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
     </div>
     <div class="col-md-6 col-lg-3">
-        <div class="info-box">
+        <div class="info-box info-box-disk">
             {% if (details.disk.used / details.disk.total) > 0.8 %}
-                <span class="info-box-icon bg-red"><i class="fa fa-thumbs-o-down"></i></span>
+                <span class="info-box-disk-icon info-box-icon bg-red"><i class="fa fa-thumbs-o-down"></i></span>
             {% elseif (details.disk.used / details.disk.total) > 0.5 %}
-                <span class="info-box-icon bg-orange"><i class="fa fa-thumbs-o-up"></i></span>
+                <span class="info-box-disk-icon info-box-icon bg-orange"><i class="fa fa-thumbs-o-up"></i></span>
             {% else %}
-                <span class="info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
+                <span class="info-box-disk-icon info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
             {% endif %}
             <div class="info-box-content">
-                <span class="info-box-text">Disks</span>
-                <span class="info-box-number">Free : {{ ((details.disk.free / details.disk.total) * 100)|number_format }} %</span>
-                <span class="info-box-number">Total : {{ forms.bytesToSize(details.disk.total) }}</span>
+                <div class="info-box-text">Disks</div>
+                <div class="info-box-number">Used : <span class="disk-percent-used">{{ ((details.disk.used / details.disk.total) * 100)|number_format }} %</span></div>
+                <div class="info-box-number">Total : <span class="disk-total">{{ forms.bytesToSize(details.disk.total) }}</span></div>
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
     </div>
@@ -112,6 +120,86 @@
                     </tbody>
                 </table>
             </div><!-- /.box-body -->
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-solid">
+            <div class="box-header">
+              <h3 class="box-title">Debug</h3>
+            </div>
+            <div class="box-body debug-consol">
+                <ul>
+                    
+                    <!-- 
+                        DISK
+                    -->
+                    
+                    <li>
+                        Disk Total : <span class="disk-total">Unknown</span>
+                    </li>
+                    <li>
+                        Disk Used : <span class="disk-used">Unknown</span>
+                    </li>
+                    <li>
+                        Disk Free : <span class="disk-free">Unknown</span>
+                    </li>
+                    <li>
+                        Disk Percent Used : <span class="disk-percent-used">Unknown</span>
+                    </li>
+
+                    <!-- 
+                        CPU
+                    -->
+
+                    <li>
+                        Cores Count : <span class="cpu-count">Unknown</span> <!-- Done -->
+                    </li>
+                    <li>
+                        Count Percent Used: <span class="cpu-cores-percent-used">Unknown</span> <!-- Done -->
+                    </li>
+                    <li>
+                        CPU Load 1 min : <span class="cpu-load-min1">Unknown</span> <!-- Done -->
+                    </li>
+                    <li>
+                        CPU Load 5 min : <span class="cpu-load-min5">Unknown</span> <!-- Done -->
+                    </li>
+                    <li>
+                        CPU Load 15 min : <span class="cpu-load-min15">Unknown</span> <!-- Done -->
+                    </li>
+                    
+                    <!-- 
+                        MEMORY
+                    -->
+
+                    <li>
+                        Memory Total : <span class="memory-total">Unknown</span>
+                    </li>
+                    <li>
+                        Memory Used : <span class="memory-used">Unknown</span>
+                    </li>
+                    <li>
+                        Memory Free : <span class="memory-free">Unknown</span>
+                    </li>
+                    <li>
+                        Memory Percent Used : <span class="memory-percent-used">Unknown</span>
+                    </li>
+                    <li>
+                        Memory Swap Total : <span class="memory-swap-total">Unknown</span>
+                    </li>
+                    <li>
+                        Memory Swap Used : <span class="memory-swap-used">Unknown</span>
+                    </li>
+                    <li>
+                        Memory Swap Free : <span class="memory-swap-free">Unknown</span>
+                    </li>
+                    <li>
+                        Memory Swap Percent Used : <span class="memory-swap-percent-used">Unknown</span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
