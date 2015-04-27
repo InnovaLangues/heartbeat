@@ -319,7 +319,7 @@ $(function () {
 
         });
 
-        $('#container').highcharts({
+        $('#cpu-container').highcharts({
             chart: {
                 type: 'spline',
                 animation: Highcharts.svg, // don't animate in old IE
@@ -387,6 +387,227 @@ $(function () {
                 enabled: false
             },
             series: [loadMax, load1min, load5min, load15min]
+        });
+
+
+
+
+
+
+
+
+
+        var memoryTotal = {
+            name: 'Total',
+            color: '#dd4b39',
+            marker : {
+                enabled : false
+            }
+        };
+
+        var memoryUsed = {
+            name: 'Used',
+            color: '#00c0ef',
+            type: 'areaspline',
+            marker : {
+                enabled : false
+            }
+        };
+
+        var details;
+
+        memoryTotal.data = [];
+        memoryUsed.data = [];
+
+        serverDatas.forEach(function(data) {
+            details = JSON.parse(data.details)
+            console.log("Memory : ");     
+            console.log(details.memory.used);     
+            console.log("Timestamp : ");     
+            console.log(details.timestamp);     
+
+            memoryTotal.data.push({
+                x: details.timestamp * 1000,
+                y: parseFloat(details.memory.total)
+            });
+
+            memoryUsed.data.push({
+                x: details.timestamp * 1000,
+                y: parseFloat(details.memory.used)
+            });
+
+        });
+
+        $('#memory-container').highcharts({
+            chart: {
+                type: 'spline',
+                animation: Highcharts.svg, // don't animate in old IE
+                marginRight: 10,
+                events: {
+                    load: function () {
+                        console.log(this.series)
+
+                        var memoryTotal = this.series[0];
+                        var memoryUsed = this.series[1];
+
+
+                        socket.on('serverUpdate', function (data) {
+                        
+                            var data = JSON.parse(data),x,y;
+
+                            x = data.timestamp * 1000,
+
+                            y = parseFloat(data.memory.total);
+                            memoryTotal.addPoint([x, y], true, true);
+                            
+                            y = parseFloat(data.memory.used);
+                            memoryUsed.addPoint([x, y], true, true);
+                        })
+                    }
+                }
+            },
+            title: {
+                text: 'Memory (Last hour)'
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150
+            },
+            yAxis: {
+                title: {
+                    text: 'Memory'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                        Highcharts.dateFormat('%d-%m-%Y %H:%M:%S', this.x) + '<br/>' +
+                        Highcharts.numberFormat(this.y, 2);
+                }
+            },
+            legend: {
+                enabled: true
+            },
+            exporting: {
+                enabled: false
+            },
+            series: [memoryTotal, memoryUsed]
+        });
+
+
+
+
+
+
+
+
+
+
+        var diskTotal = {
+            name: 'Total',
+            color: '#dd4b39',
+            marker : {
+                enabled : false
+            }
+        };
+
+        var diskUsed = {
+            name: 'Used',
+            color: '#00c0ef',
+            type: 'areaspline',
+            marker : {
+                enabled : false
+            }
+        };
+
+        var details;
+
+        diskTotal.data = [];
+        diskUsed.data = [];
+
+        serverDatas.forEach(function(data) {
+            details = JSON.parse(data.details)
+            console.log("Disk : ");     
+            console.log(details.disk.used);     
+            console.log("Timestamp : ");     
+            console.log(details.timestamp);     
+
+            diskTotal.data.push({
+                x: details.timestamp * 1000,
+                y: parseFloat(details.disk.total)
+            });
+
+            diskUsed.data.push({
+                x: details.timestamp * 1000,
+                y: parseFloat(details.disk.used)
+            });
+
+        });
+
+        $('#disk-container').highcharts({
+            chart: {
+                type: 'spline',
+                animation: Highcharts.svg, // don't animate in old IE
+                marginRight: 10,
+                events: {
+                    load: function () {
+                        console.log(this.series)
+
+                        var diskTotal = this.series[0];
+                        var diskUsed = this.series[1];
+
+
+                        socket.on('serverUpdate', function (data) {
+                        
+                            var data = JSON.parse(data),x,y;
+
+                            x = data.timestamp * 1000,
+
+                            y = parseFloat(data.disk.total);
+                            diskTotal.addPoint([x, y], true, true);
+                            
+                            y = parseFloat(data.disk.used);
+                            diskUsed.addPoint([x, y], true, true);
+                        })
+                    }
+                }
+            },
+            title: {
+                text: 'Disk (Last hour)'
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150
+            },
+            yAxis: {
+                title: {
+                    text: 'Disk'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                        Highcharts.dateFormat('%d-%m-%Y %H:%M:%S', this.x) + '<br/>' +
+                        Highcharts.numberFormat(this.y, 2);
+                }
+            },
+            legend: {
+                enabled: true
+            },
+            exporting: {
+                enabled: false
+            },
+            series: [diskTotal, diskUsed]
         });
     });
 });
