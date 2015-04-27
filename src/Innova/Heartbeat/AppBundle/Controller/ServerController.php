@@ -66,7 +66,11 @@ class ServerController extends Controller {
      */
     public function serverDetailsAction($id) {
         $server = $this->get('innova.server.manager')->findOne($id);
-        $serverData = $this->get('innova.serverdata.manager')->findByServerId($id);
+        $serverDatas = $this->get('innova.serverdata.manager')->findByServerId($id, 20);
+
+        $serverData = $serverDatas[0];
+
+        $serverDatas = $this->container->get('serializer')->serialize($serverDatas, 'json');
 
         $details = null;
         $id = null;
@@ -84,7 +88,8 @@ class ServerController extends Controller {
                 'server' => $server,
                 'data' => array('id' => $id, 'date' => $date),
                 'details' => $details,
-                'channels' => array($server->getUid())
+                'channels' => array($server->getUid()),
+                'serverDatas' => $serverDatas
             )
         );
     }

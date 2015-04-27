@@ -62,13 +62,8 @@ class ServerDataManager
         return $connection;
     }
 */
-    public function findByServerId($id){
-        $result = $this->getRepository()->findBy(array('serverId' => $id), array('date' => 'desc'), 1, 0);
-        if(isset($result[0])) {
-            return  $result[0];
-        }
-
-        return null;
+    public function findByServerId($id, $limit=1){
+        return $result = $this->getRepository()->findBy(array('serverId' => $id), array('date' => 'desc'), $limit, 0);
     }
 
     public function getRepository() {
