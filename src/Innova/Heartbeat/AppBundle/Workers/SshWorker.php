@@ -29,7 +29,7 @@ class SshWorker extends ContainerAware
      */
     public function getData(\GearmanJob $job)
     {
-        echo "Entering job";
+        echo "Entering job \n";
         $data = json_decode($job->workload(), true);
         $serverUid = $data['serverUid'];
         $server = $this->getServer($serverUid);
@@ -38,7 +38,7 @@ class SshWorker extends ContainerAware
         $connection = $this->getConnection($serverUid, 'heartbeat', '');
 
         if ($connection != null) {
-            echo "Connected";
+            echo "Executing client.sh \n";
             // get data
             $stream = ssh2_exec($connection, '/home/heartbeat/HeartbeatClient/client.sh', 0700);
             stream_set_blocking($stream, true);
@@ -47,6 +47,12 @@ class SshWorker extends ContainerAware
             $result = json_decode($jsonResponse);
             
             $results[$server->getUid()] = $result;
+
+            echo "Data returned \n";
+            echo $jsonResponse;
+            echo "\n";
+
+            echo "Saving data to MongoDB \n";
 
             // save data in mongodb
             $serverData = new ServerData();
@@ -59,6 +65,8 @@ class SshWorker extends ContainerAware
 
             $pusher = $this->container->get('lopi_pusher.pusher');
 
+            echo "Triggering push notification \n";
+
             // Push update
             $pusher->trigger(
                 $serverData->getServerId(), 
@@ -68,6 +76,8 @@ class SshWorker extends ContainerAware
                 null, 
                 true
             );
+
+            echo "Exiting \n \n";
         }
     }
 
@@ -75,12 +85,15 @@ class SshWorker extends ContainerAware
 
         $server = $this->getServer($serverUid);
         
+        echo "Attempting connection \n";
+
         $connection = @ssh2_connect($server->getIp(), 22, array('hostkey' => 'ssh-rsa'));
 
         $server->setStatus(FALSE);
         
         if ($connection && ssh2_auth_pubkey_file($connection, $user, '/home/heartbeat/.ssh/id_rsa.pub', '/home/heartbeat/.ssh/id_rsa', '')) {
             $server->setStatus(TRUE);
+            echo "Connected \n";
         }
 
         $this->container->get('doctrine.orm.entity_manager')->persist($server);
