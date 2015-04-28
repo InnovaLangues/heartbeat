@@ -66,7 +66,7 @@ class ServerController extends Controller {
      */
     public function serverDetailsAction($id) {
         $server = $this->get('innova.server.manager')->findOne($id);
-        $serverDatas = $this->get('innova.serverdata.manager')->findByServerId($id, 20);
+        $serverDatas = $this->get('innova.serverdata.manager')->findByServerId($id, 720); //1440 24h
 
         $serverData = $serverDatas[0];
 

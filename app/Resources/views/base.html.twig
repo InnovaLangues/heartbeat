@@ -508,6 +508,124 @@ $(function () {
 
 
 
+
+        var swapTotal = {
+            name: 'Total',
+            color: '#dd4b39',
+            marker : {
+                enabled : false
+            }
+        };
+
+        var swapUsed = {
+            name: 'Used',
+            color: '#00c0ef',
+            type: 'areaspline',
+            marker : {
+                enabled : false
+            }
+        };
+
+        var details;
+
+        swapTotal.data = [];
+        swapUsed.data = [];
+
+        serverDatas.forEach(function(data) {
+            details = JSON.parse(data.details)
+            console.log("Swap : ");     
+            console.log(details.memory.swap.used);     
+            console.log("Timestamp : ");     
+            console.log(details.timestamp);     
+
+            swapTotal.data.push({
+                x: details.timestamp * 1000,
+                y: parseFloat(details.memory.swap.total)
+            });
+
+            swapUsed.data.push({
+                x: details.timestamp * 1000,
+                y: parseFloat(details.memory.swap.used)
+            });
+
+        });
+
+        $('#swap-container').highcharts({
+            chart: {
+                type: 'spline',
+                animation: Highcharts.svg, // don't animate in old IE
+                marginRight: 10,
+                events: {
+                    load: function () {
+                        console.log(this.series)
+
+                        var swapTotal = this.series[0];
+                        var swapUsed = this.series[1];
+
+
+                        socket.on('serverUpdate', function (data) {
+                        
+                            var data = JSON.parse(data),x,y;
+
+                            x = data.timestamp * 1000,
+
+                            y = parseFloat(data.memory.swap.total);
+                            swapTotal.addPoint([x, y], true, true);
+                            
+                            y = parseFloat(data.memory.swap.used);
+                            swapUsed.addPoint([x, y], true, true);
+                        })
+                    }
+                }
+            },
+            title: {
+                text: 'Swap (Last hour)'
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150
+            },
+            yAxis: {
+                title: {
+                    text: 'Swap'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                        Highcharts.dateFormat('%d-%m-%Y %H:%M:%S', this.x) + '<br/>' +
+                        Highcharts.numberFormat(this.y, 2);
+                }
+            },
+            legend: {
+                enabled: true
+            },
+            exporting: {
+                enabled: false
+            },
+            series: [swapTotal, swapUsed]
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         var diskTotal = {
             name: 'Total',
             color: '#dd4b39',
@@ -524,6 +642,8 @@ $(function () {
                 enabled : false
             }
         };
+
+        //TODO disk warning at 80%
 
         var details;
 

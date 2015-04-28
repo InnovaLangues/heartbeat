@@ -148,6 +148,16 @@
     <div class="col-xs-12">
         <div class="box box-solid">
             <div class="box-body">
+                <div id="swap-container"></div>
+            </div><!-- /.box-body -->
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-solid">
+            <div class="box-body">
                 <div id="disk-container"></div>
             </div><!-- /.box-body -->
         </div>
@@ -157,11 +167,11 @@
 
 
 
-<div class="row">
+<div class="row hidden">
     <div class="col-xs-12">
         <div class="box box-solid">
             <div class="box-header">
-              <h3 class="box-title">Debug</h3>
+              <h3 class="box-title">Debug (Last socket data)</h3>
             </div>
             <div class="box-body debug-consol">
                 <ul>
@@ -233,7 +243,7 @@
                     </li>
                 </ul>
 
-                <div id="serverDatas">{{ serverDatas }}</div>
+                <div id="serverDatas" class="hidden">{{ serverDatas }}</div>
 
             </div>
         </div>
