@@ -29,6 +29,7 @@ class SshWorker extends ContainerAware
      */
     public function getData(\GearmanJob $job)
     {
+        echo "Entering job";
         $data = json_decode($job->workload(), true);
         $serverUid = $data['serverUid'];
         $server = $this->getServer($serverUid);
@@ -37,6 +38,7 @@ class SshWorker extends ContainerAware
         $connection = $this->getConnection($serverUid, 'heartbeat', '');
 
         if ($connection != null) {
+            echo "Connected";
             // get data
             $stream = ssh2_exec($connection, '/home/heartbeat/HeartbeatClient/client.sh', 0700);
             stream_set_blocking($stream, true);

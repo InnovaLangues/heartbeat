@@ -322,6 +322,7 @@ $(function () {
         $('#cpu-container').highcharts({
             chart: {
                 type: 'spline',
+                zoomType: 'x',
                 animation: Highcharts.svg, // don't animate in old IE
                 marginRight: 10,
                 events: {
@@ -357,7 +358,7 @@ $(function () {
                 }
             },
             title: {
-                text: 'Load (Last hour)'
+                text: 'Load'
             },
             xAxis: {
                 type: 'datetime',
@@ -441,6 +442,7 @@ $(function () {
         $('#memory-container').highcharts({
             chart: {
                 type: 'spline',
+                zoomType: 'x',
                 animation: Highcharts.svg, // don't animate in old IE
                 marginRight: 10,
                 events: {
@@ -467,7 +469,7 @@ $(function () {
                 }
             },
             title: {
-                text: 'Memory (Last hour)'
+                text: 'RAM'
             },
             xAxis: {
                 type: 'datetime',
@@ -553,6 +555,7 @@ $(function () {
         $('#swap-container').highcharts({
             chart: {
                 type: 'spline',
+                zoomType: 'x',
                 animation: Highcharts.svg, // don't animate in old IE
                 marginRight: 10,
                 events: {
@@ -579,7 +582,7 @@ $(function () {
                 }
             },
             title: {
-                text: 'Swap (Last hour)'
+                text: 'Swap'
             },
             xAxis: {
                 type: 'datetime',
@@ -672,6 +675,7 @@ $(function () {
         $('#disk-container').highcharts({
             chart: {
                 type: 'spline',
+                zoomType: 'x',
                 animation: Highcharts.svg, // don't animate in old IE
                 marginRight: 10,
                 events: {
@@ -698,7 +702,7 @@ $(function () {
                 }
             },
             title: {
-                text: 'Disk (Last hour)'
+                text: 'Disk'
             },
             xAxis: {
                 type: 'datetime',

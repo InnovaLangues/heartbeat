@@ -35,7 +35,7 @@
 {% if details %}
 
 <div class="row">
-    <div class="col-md-6 col-lg-3">
+    <div class="col-sm-12 col-lg-4">
         <div class="info-box info-box-cpu">
             {% if (details.cpu.load.min1 / details.cpu.count) > 0.8 %}
                 <span class="info-box-cpu-icon info-box-icon bg-red"><i class="fa fa-thumbs-o-down"></i></span>
@@ -51,6 +51,7 @@
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
     </div>
+    {# 
     <div class="col-md-6 col-lg-3">
         <div class="info-box info-box-memory">
             {% if (details.memory.used / details.memory.total) > 0.8 %}
@@ -67,7 +68,8 @@
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
     </div>
-    <div class="col-md-6 col-lg-3">
+    #}
+    <div class="col-sm-12 col-lg-4">
         <div class="info-box info-box-memory-swap">
             {% if (details.memory.swap.used / details.memory.swap.total) > 0.8 %}
                 <span class="info-box-memory-swap-icon info-box-icon bg-red"><i class="fa fa-thumbs-o-down"></i></span>
@@ -83,7 +85,7 @@
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
     </div>
-    <div class="col-md-6 col-lg-3">
+    <div class="col-sm-12 col-lg-4">
         <div class="info-box info-box-disk">
             {% if (details.disk.used / details.disk.total) > 0.8 %}
                 <span class="info-box-disk-icon info-box-icon bg-red"><i class="fa fa-thumbs-o-down"></i></span>
