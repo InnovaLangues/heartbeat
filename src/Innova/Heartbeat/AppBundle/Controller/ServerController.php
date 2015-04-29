@@ -64,7 +64,7 @@ class ServerController extends Controller {
 
     /**
      * @Route("server/{id}", name="server")
-     * @Method("POST")
+     * @Method("GET")
      * @Template()
      */
     public function serverDetailsAction($id) {
