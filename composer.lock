@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a10ba3b166396828211c32a27370b3ee",
+    "hash": "c75a09eac7da0535efa9cb45fe48cab1",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -3863,56 +3863,6 @@
                 "templating"
             ],
             "time": "2015-04-19 08:30:27"
-        },
-        {
-            "name": "wa72/htmlpagedom",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/wasinger/htmlpagedom.git",
-                "reference": "3cf7822df0cdc53a23217514c8a81948796df9d6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/wasinger/htmlpagedom/zipball/3cf7822df0cdc53a23217514c8a81948796df9d6",
-                "reference": "3cf7822df0cdc53a23217514c8a81948796df9d6",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.1",
-                "symfony/css-selector": "~2.3",
-                "symfony/dom-crawler": "~2.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Wa72\\HtmlPageDom\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christoph Singer",
-                    "email": "singer@webagentur72.de",
-                    "homepage": "http://www.webagentur72.de"
-                }
-            ],
-            "description": "PHP implementation of the jQuery DOM manipulation API for HTML documents",
-            "homepage": "http://github.com/wasinger/htmlpagedom",
-            "keywords": [
-                "crawler",
-                "dom",
-                "html"
-            ],
-            "time": "2014-12-10 15:21:31"
         }
     ],
     "packages-dev": [
@@ -3972,7 +3922,6 @@
         "doctrine/doctrine-migrations-bundle": 20,
         "friendsofsymfony/user-bundle": 20,
         "cocur/slugify": 0,
-        "wa72/htmlpagedom": 20,
         "doctrine/mongodb-odm": 20,
         "doctrine/mongodb-odm-bundle": 20,
         "hwi/oauth-bundle": 20
