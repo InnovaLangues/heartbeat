@@ -45,25 +45,9 @@ class ServerDataManager
         }
 
     }
-/*
-    public function getConnection($server, $user, $pass){
-        $connection = @ssh2_connect($server->getIp(), 22, array('hostkey' => 'ssh-rsa'));
-        
-        
-        $server->setStatus(FALSE);
-        
-        if ($connection && ssh2_auth_pubkey_file($connection, $user, '/home/heartbeat/.ssh/id_rsa.pub', '/home/heartbeat/.ssh/id_rsa', '')) {
-            $server->setStatus(TRUE);
-        }
 
-        $this->entityManager->persist($server);
-        $this->entityManager->flush();
-
-        return $connection;
-    }
-*/
     public function findByServerId($id, $limit=1){
-        return $result = $this->getRepository()->findBy(array('serverId' => $id), array('date' => 'desc'), $limit, 0);
+        return $this->getRepository()->findBy(array('serverId' => $id), array('date' => 'desc'), $limit, 0);
     }
 
     public function getRepository() {

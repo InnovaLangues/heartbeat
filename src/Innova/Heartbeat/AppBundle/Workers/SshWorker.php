@@ -44,9 +44,6 @@ class SshWorker extends ContainerAware
             stream_set_blocking($stream, true);
             $stream_out = ssh2_fetch_stream($stream, SSH2_STREAM_STDIO);
             $jsonResponse = stream_get_contents($stream_out);
-            $result = json_decode($jsonResponse);
-            
-            $results[$server->getUid()] = $result;
 
             echo "Data returned \n";
             echo $jsonResponse;
