@@ -14,6 +14,7 @@ class ServerController extends Controller {
     /**
      * Get and show the list of servers
      * @Route("servers", name="servers")
+     * @Method("GET")
      * @Template()
      */
     public function serversAction() {
@@ -29,6 +30,7 @@ class ServerController extends Controller {
     /**
      * add a server
      * @Route("server/add", name="add_server")
+     * @Method("GET")
      * @Template()
      */
     public function serverAddAction(Request $request) {
@@ -61,6 +63,7 @@ class ServerController extends Controller {
 
     /**
      * @Route("server/{id}", name="server")
+     * @Method("GET")
      * @Template()
      */
     public function serverDetailsAction($id) {
@@ -95,6 +98,7 @@ class ServerController extends Controller {
 
     /**
      * @Route("serverDel/{id}", name="delete_server")
+     * @Method("GET")
      * @Template()
      */
     public function deleteServerAction($id) {

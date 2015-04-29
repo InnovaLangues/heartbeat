@@ -14,6 +14,7 @@ class HomeController extends Controller
 
     /**
      * @Route("/", name="home")
+     * @Method("GET")
      * @Template()
      */
     public function indexAction() 
@@ -35,6 +36,7 @@ class HomeController extends Controller
     
     /**
      * @Route("apps", name="apps")
+     * @Method("GET")
      * @Template()
      */
     public function appsAction() 
@@ -68,6 +70,7 @@ class HomeController extends Controller
 
     /**
      * @Route("users", name="users")
+     * @Method("GET")
      * @Template()
      */
     public function usersAction() 
@@ -84,6 +87,7 @@ class HomeController extends Controller
 
     /**
      * @Route("keys", name="keys")
+     * @Method("GET")
      * @Template()
      */
     public function keysAction() 

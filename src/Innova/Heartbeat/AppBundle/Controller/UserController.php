@@ -10,6 +10,7 @@ class UserController extends Controller {
 
     /**
      * @Route("users", name="users")
+     * @Method("GET")
      * @Template()
      */
     public function usersAction() {

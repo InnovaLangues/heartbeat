@@ -11,6 +11,7 @@ class AppController extends Controller {
     
     /**
      * @Route("apps", name="apps")
+     * @Method("GET")
      * @Template()
      */
     public function appsAction() {

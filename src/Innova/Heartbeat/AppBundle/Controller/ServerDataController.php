@@ -11,6 +11,7 @@ class ServerDataController extends Controller {
     /**
      * Get all available servers data
      * @Route("serversData", name="servers_data")
+     * @Method("GET")
      */
     public function getServersDataAction() {
         $servers = $this->get('doctrine_mongodb')->getRepository('InnovaHeartbeatAppBundle:Server')->findAll();
