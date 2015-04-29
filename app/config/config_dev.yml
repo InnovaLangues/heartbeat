@@ -53,3 +53,4 @@ doctrine_cache:
         gearman_cache:
             type: array
             namespace: doctrine_cache.ns.gearman
+            
