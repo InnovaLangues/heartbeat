@@ -204,4 +204,3 @@ lopi_pusher:
 
     # Optional configuration
     #auth_service_id: <the_auth_service_id> # optional if you want to use private or presence channels
-    
