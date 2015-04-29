@@ -23,9 +23,9 @@ parameters:
 
     mongodb_server: mongodb://localhost:27017
     mongodb_db: heartbeat
-    github_client_id: ~
-    github_client_secret: ~
-    pusher_app_id: ~
-    pusher_key: ~
-    pusher_secret: ~
-    pusher_host: ~
+    github_client_id: 123
+    github_client_secret: 123
+    pusher_app_id: 123
+    pusher_key: 123
+    pusher_secret: 123
+    pusher_host: http://pusher.innovalangues.net
