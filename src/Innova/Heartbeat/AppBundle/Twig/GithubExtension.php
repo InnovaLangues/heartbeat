@@ -9,21 +9,21 @@ class GithubExtension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('githubAvatarURL', array($this, 'avatarURLFilter')),
-            new \Twig_SimpleFilter('githubHTMLURL', array($this, 'HtmlUrlFilter')),
+            new \Twig_SimpleFilter('githubAvatarURL', array($this, 'avatarUrlFilter')),
+            new \Twig_SimpleFilter('githubHTMLURL', array($this, 'htmlUrlFilter')),
             new \Twig_SimpleFilter('githubName', array($this, 'nameFilter')),
             new \Twig_SimpleFilter('githubLocation', array($this, 'locationFilter')),
             new \Twig_SimpleFilter('githubPublicKeys', array($this, 'publicKeysFilter')),
         );
     }
 
-    public function avatarURLFilter($login)
+    public function avatarUrlFilter($login)
     {
         $githubManager = new GithubManager();
         return $githubManager->getAvatarURL($login);
     }
 
-    public function HtmlUrlFilter($login)
+    public function htmlUrlFilter($login)
     {
         $githubManager = new GithubManager();
         return $githubManager->getHTMLURL($login);
