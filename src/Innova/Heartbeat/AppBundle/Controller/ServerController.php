@@ -31,7 +31,7 @@ class ServerController extends Controller {
     /**
      * add a server
      * @Route("server/add", name="add_server")
-     * @Method("GET")
+     * @Method("POST")
      * @Template()
      */
     public function serverAddAction(Request $request) {
