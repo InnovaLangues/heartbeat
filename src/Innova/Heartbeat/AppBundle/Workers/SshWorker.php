@@ -102,5 +102,4 @@ class SshWorker extends ContainerAware
 
         return $server;
     }
-
 }
