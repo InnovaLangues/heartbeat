@@ -7,7 +7,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Innova\Heartbeat\AppBundle\Entity\Server;
 use Symfony\Component\HttpFoundation\Request;
-// use Innova\Heartbeat\AppBundle\Document\Server;
 use Innova\Heartbeat\AppBundle\Document\ServerData;
 
 class ServerController extends Controller {

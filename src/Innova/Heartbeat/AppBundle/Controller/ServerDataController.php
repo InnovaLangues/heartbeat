@@ -14,14 +14,11 @@ class ServerDataController extends Controller {
      */
     public function getServersDataAction() {
         $servers = $this->get('doctrine_mongodb')->getRepository('InnovaHeartbeatAppBundle:Server')->findAll();
-        
-        
 
         foreach ($servers as $server) {
-            $connection =  $this->get('innova.serverdata.manager')->getConnection($server, 'heartbeat', 'heartbeat');
             // connect to server
+            $connection =  $this->get('innova.serverdata.manager')->getConnection($server, 'heartbeat', 'heartbeat');
            
-            // ssh2_auth_password($connection, 'heartbeat', 'heartbeat');
             // get data
             $stream = ssh2_exec($connection, '/usr/local/bin/php -i');
 

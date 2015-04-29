@@ -19,7 +19,6 @@ class HomeController extends Controller
      */
     public function indexAction() 
     {
-        //$servers = $this->get('doctrine_mongodb')->getRepository('InnovaHeartbeatAppBundle:Server')->findAll();
         $servers = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:Server')->findAll();
         $apps = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:App')->findAll();
         $users = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:User')->findAll();        
