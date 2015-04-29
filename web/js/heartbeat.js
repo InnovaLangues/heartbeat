@@ -1,12 +1,3 @@
-$(document).ready(function(){
-    $(".sticky").sticky({topSpacing:60});
-	$(".knob").knob({
-	    'format' : function (value) {
-	     	return bytesToSize(value * 1024);
-	    }
-	});
-});
-
 function bytesToSize(bytes) {
    if(bytes == 0) return '0 Byte';
    var k = 1024;
