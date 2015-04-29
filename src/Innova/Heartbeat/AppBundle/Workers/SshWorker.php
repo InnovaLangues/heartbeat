@@ -82,18 +82,20 @@ class SshWorker extends ContainerAware
         
         echo "Attempting connection \n";
 
-        $connection = @ssh2_connect($server->getIp(), 22, array('hostkey' => 'ssh-rsa'));
+        $connection = ssh2_connect($server->getIp(), 22, array('hostkey' => 'ssh-rsa'));
 
         $server->setStatus(FALSE);
+
+        if($ssh === true) {
+            if ($connection && ssh2_auth_pubkey_file($connection, $user, '/home/heartbeat/.ssh/id_rsa.pub', '/home/heartbeat/.ssh/id_rsa', '')) {
+                $server->setStatus(TRUE);
+                echo "Connected \n";
+            }
+
+            $this->container->get('doctrine.orm.entity_manager')->persist($server);
+            $this->container->get('doctrine.orm.entity_manager')->flush();
+        } 
         
-        if ($connection && ssh2_auth_pubkey_file($connection, $user, '/home/heartbeat/.ssh/id_rsa.pub', '/home/heartbeat/.ssh/id_rsa', '')) {
-            $server->setStatus(TRUE);
-            echo "Connected \n";
-        }
-
-        $this->container->get('doctrine.orm.entity_manager')->persist($server);
-        $this->container->get('doctrine.orm.entity_manager')->flush();
-
         return $connection;
     }
 
