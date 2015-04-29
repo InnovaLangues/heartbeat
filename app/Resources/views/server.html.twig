@@ -1,7 +1,5 @@
 {% macro bytesToSize(bytes) %}
     {% spaceless %}
-        {# TODO chop off .0s #}
-
         {# bytes are given in 1K-blocks #}
         {% set bytes = bytes * 1024 %}
         {% set kilobyte = 1024 %}

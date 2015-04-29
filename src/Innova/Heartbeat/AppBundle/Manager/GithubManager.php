@@ -2,8 +2,6 @@
 
 namespace Innova\Heartbeat\AppBundle\Manager;
 
-//TODO USE GITHUB API KNP
-
 /**
  * Manager for Github
  *
