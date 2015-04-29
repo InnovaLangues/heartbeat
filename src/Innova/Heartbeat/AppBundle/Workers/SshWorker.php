@@ -37,7 +37,7 @@ class SshWorker extends ContainerAware
         // connect to server
         $connection = $this->getConnection($serverUid, 'heartbeat', '');
 
-        if ($connection != null) {
+        if ($connection !== null) {
             echo "Executing client.sh \n";
             // get data
             $stream = ssh2_exec($connection, '/home/heartbeat/HeartbeatClient/client.sh', 0700);
