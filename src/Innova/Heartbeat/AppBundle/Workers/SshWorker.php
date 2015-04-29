@@ -3,8 +3,6 @@
 namespace Innova\Heartbeat\AppBundle\Workers;
 
 use Mmoreram\GearmanBundle\Driver\Gearman;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Innova\Heartbeat\AppBundle\Document\ServerData;
 use Symfony\Component\DependencyInjection\ContainerAware;
 

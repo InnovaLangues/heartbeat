@@ -5,7 +5,6 @@ namespace Innova\Heartbeat\AppBundle\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Innova\Heartbeat\AppBundle\Document\ServerData;
 
 class FetchDataCommand extends ContainerAwareCommand 
 {
