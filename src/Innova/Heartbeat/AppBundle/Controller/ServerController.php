@@ -64,7 +64,7 @@ class ServerController extends Controller {
 
     /**
      * @Route("server/{id}", name="server")
-     * @Method("GET")
+     * @Method("POST")
      * @Template()
      */
     public function serverDetailsAction($id) {
@@ -99,7 +99,7 @@ class ServerController extends Controller {
 
     /**
      * @Route("serverDel/{id}", name="delete_server")
-     * @Method("GET")
+     * @Method("DELETE")
      * @Template()
      */
     public function deleteServerAction($id) {
@@ -114,6 +114,7 @@ class ServerController extends Controller {
      * Get all available servers data
      * this method is intended to be called from a scheduled script
      * @Route("serversData", name="servers_data")
+     * @Method("GET")
      */
     public function getServersDataAction() {
         $servers = $this->get('innova.server.manager')->getAll();
