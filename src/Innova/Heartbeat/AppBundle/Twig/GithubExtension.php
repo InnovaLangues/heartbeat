@@ -10,7 +10,7 @@ class GithubExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFilter('githubAvatarURL', array($this, 'avatarURLFilter')),
-            new \Twig_SimpleFilter('githubHTMLURL', array($this, 'HTMLURLFilter')),
+            new \Twig_SimpleFilter('githubHTMLURL', array($this, 'HtmlUrlFilter')),
             new \Twig_SimpleFilter('githubName', array($this, 'nameFilter')),
             new \Twig_SimpleFilter('githubLocation', array($this, 'locationFilter')),
             new \Twig_SimpleFilter('githubPublicKeys', array($this, 'publicKeysFilter')),
@@ -23,7 +23,7 @@ class GithubExtension extends \Twig_Extension
         return $githubManager->getAvatarURL($login);
     }
 
-    public function HTMLURLFilter($login)
+    public function HtmlUrlFilter($login)
     {
         $githubManager = new GithubManager();
         return $githubManager->getHTMLURL($login);
