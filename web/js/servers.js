@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 
-
-
 function toggleAddForm(){
     $('.server-form-container').toggle( 'slow' );
 }
