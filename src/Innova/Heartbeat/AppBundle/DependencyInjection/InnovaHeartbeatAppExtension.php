@@ -19,14 +19,10 @@ class InnovaHeartbeatAppExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = new Configuration();
-
         $xmlLoader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $xmlLoader->load('services.xml');
         
         $ymlLoader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $ymlLoader->load('managers.yml');
-        
-        
+        $ymlLoader->load('managers.yml');   
     }
 }

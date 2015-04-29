@@ -112,7 +112,6 @@ class ServerController extends Controller {
      */
     public function getServersDataAction() {
         $servers = $this->get('innova.server.manager')->getAll();
-        $results = array();
         foreach ($servers as $server) {
             // connect to server
             $connection = $this->get('innova.serverdata.manager')->getConnection($server->getIP(), 'heartbeat', '');
