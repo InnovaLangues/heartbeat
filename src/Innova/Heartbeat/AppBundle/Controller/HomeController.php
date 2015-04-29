@@ -84,50 +84,6 @@ class HomeController extends Controller
     }
 
     /**
-     * @Route("devdocs", name="devdocs")
-     * @Template()
-     */
-    public function devdocsAction() 
-    {
-        $path       = $this->get('kernel')->getRootDir() . '/devdocs/index.md';
-        $text       = file_get_contents($path);
-        $html       = $this->container->get('markdown.parser')->transformMarkdown($text);
-        $editedHtml = new HtmlPageCrawler($html);
-        $headings   = array();
-        $title      = null;
-
-        $editedHtml->filter('h1, h2, h3')->each(function ($node, $i) use (&$headings, &$title) {
-
-            if ($i == 0) {
-                $node->addClass('hidden');
-                $title = $node->text();
-            } else {
-                $slug = $this->get('cocur_slugify')->slugify($node->text()) . '_' . $i;
-
-                $heading = new \stdClass();
-
-                $node->setAttribute('id', $slug);
-
-                $heading->text  = $node->text();
-                $heading->class = $node->nodeName();
-                $heading->slug  = $slug;
-
-                $headings[] = $heading;
-            }
-        });
-
-        $html = $editedHtml->saveHTML();
-
-        return $this->render(
-            'devdocs.html.twig', array(
-                'title'    => $title,
-                'headings' => $headings,
-                'html'     => $html
-            )
-        );
-    }
-
-    /**
      * @Route("keys", name="keys")
      * @Template()
      */
