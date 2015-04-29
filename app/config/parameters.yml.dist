@@ -18,3 +18,14 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    base_url: 
+
+    mongodb_server: mongodb://localhost:27017
+    mongodb_db: heartbeat
+    github_client_id: 
+    github_client_secret: 
+    pusher_app_id:
+    pusher_key:
+    pusher_secret:
+    pusher_host:
