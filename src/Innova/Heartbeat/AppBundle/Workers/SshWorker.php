@@ -88,15 +88,13 @@ class SshWorker extends ContainerAware
 
         $connection = ssh2_connect($server->getIp(), 22, array('hostkey' => 'ssh-rsa'));
 
-        echo $connection;
-
         $server->setStatus(false);
 
-        if ($connection === true) {
+        if (is_resource($connection)) {
             echo "Connected \n";
             if (ssh2_auth_pubkey_file($connection, $user, '/home/heartbeat/.ssh/id_rsa.pub', '/home/heartbeat/.ssh/id_rsa', '')) {
-                $server->setStatus(true);
                 echo "Authorized \n";
+                $server->setStatus(true);
             }
 
             echo "Save \n";
