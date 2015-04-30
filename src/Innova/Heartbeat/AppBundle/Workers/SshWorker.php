@@ -84,9 +84,11 @@ class SshWorker extends ContainerAware
     {
         $server = $this->getServer($serverUid);
 
-        echo "Attempting connection \n";
+        echo "Attempting connection to " . $server->getIp() . "\n";
 
         $connection = ssh2_connect($server->getIp(), 22, array('hostkey' => 'ssh-rsa'));
+
+        echo $connection;
 
         $server->setStatus(false);
 
