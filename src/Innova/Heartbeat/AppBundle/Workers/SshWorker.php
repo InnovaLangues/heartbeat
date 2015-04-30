@@ -88,11 +88,13 @@ class SshWorker extends ContainerAware
         $server->setStatus(false);
 
         if ($connection === true) {
+            echo "Connected \n";
             if (ssh2_auth_pubkey_file($connection, $user, '/home/heartbeat/.ssh/id_rsa.pub', '/home/heartbeat/.ssh/id_rsa', '')) {
                 $server->setStatus(true);
-                echo "Connected \n";
+                echo "Authorized \n";
             }
 
+            echo "Save \n";
             $this->container->get('doctrine.orm.entity_manager')->persist($server);
             $this->container->get('doctrine.orm.entity_manager')->flush();
         }
