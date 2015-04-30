@@ -34,7 +34,7 @@ class ServerDataManager
 
         foreach ($servers as $server) {
             $this->gearman->doBackgroundJob(
-                'InnovaHeartbeatAppBundleWorkersSshWorker~getData',
+                'InnovaHeartbeatAppBundleWorkersSshWorker~hasData',
                 json_encode(
                     array(
                         'serverUid' => $server->getUid(),

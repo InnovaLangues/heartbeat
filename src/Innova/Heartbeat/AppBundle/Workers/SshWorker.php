@@ -21,11 +21,11 @@ class SshWorker extends ContainerAware
      * @return bool
      *
      * @Gearman\Job(
-     *     name = "getData",
+     *     name = "hasData",
      *     description = "Gets Data from the client server"
      * )
      */
-    public function getData(\GearmanJob $job)
+    public function hasData(\GearmanJob $job)
     {
         echo "Entering job \n";
         $data = json_decode($job->workload(), true);
@@ -40,8 +40,8 @@ class SshWorker extends ContainerAware
             // get data
             $stream = ssh2_exec($connection, '/home/heartbeat/HeartbeatClient/client.sh', 0700);
             stream_set_blocking($stream, true);
-            $stream_out = ssh2_fetch_stream($stream, SSH2_STREAM_STDIO);
-            $jsonResponse = stream_get_contents($stream_out);
+            $streamOut = ssh2_fetch_stream($stream, SSH2_STREAM_STDIO);
+            $jsonResponse = stream_get_contents($streamOut);
 
             echo "Data returned \n";
             echo $jsonResponse;
@@ -76,7 +76,7 @@ class SshWorker extends ContainerAware
         }
     }
 
-    public function getConnection($serverUid, $user, $pass)
+    public function getConnection($serverUid, $user)
     {
         $server = $this->getServer($serverUid);
 
@@ -86,8 +86,8 @@ class SshWorker extends ContainerAware
 
         $server->setStatus(false);
 
-        if ($ssh === true) {
-            if ($connection && ssh2_auth_pubkey_file($connection, $user, '/home/heartbeat/.ssh/id_rsa.pub', '/home/heartbeat/.ssh/id_rsa', '')) {
+        if ($connection === true) {
+            if (ssh2_auth_pubkey_file($connection, $user, '/home/heartbeat/.ssh/id_rsa.pub', '/home/heartbeat/.ssh/id_rsa', '')) {
                 $server->setStatus(true);
                 echo "Connected \n";
             }
