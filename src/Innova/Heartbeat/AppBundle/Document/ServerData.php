@@ -2,11 +2,10 @@
 
 namespace Innova\Heartbeat\AppBundle\Document;
 
-
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * ServerData
+ * ServerData.
  *
  * @MongoDB\Document
  */
@@ -15,12 +14,12 @@ class ServerData
     /**
      * @var string
      *
-     * 
+     *
      * @MongoDB\Id
      */
     private $id;
-    
-     /**
+
+    /**
      * @var string
      *
      * @MongoDB\String
@@ -33,24 +32,23 @@ class ServerData
      * @MongoDB\String
      */
     private $details;
-    
+
     /**
-     *
      * @var date
-     * @MongoDB\Date 
+     * @MongoDB\Date
      */
     private $date;
-    
-    public function __construct() {
+
+    public function __construct()
+    {
         $date = new \DateTime();
         $this->setDate($date);
     }
 
-   
     /**
-     * Get id
+     * Get id.
      *
-     * @return string 
+     * @return string
      */
     public function getId()
     {
@@ -58,27 +56,27 @@ class ServerData
     }
 
     /**
-     * Set server id
+     * Set server id.
      *
      * @param string $id
+     *
      * @return Server
      */
     public function setServerId($id)
     {
         $this->serverId = $id;
     }
-    
+
     /**
-     * 
      * @return Server
      */
     public function getServerId()
     {
         return $this->serverId;
     }
-    
-     /**
-     * Set details
+
+    /**
+     * Set details.
      *
      * @param String $details
      */
@@ -86,29 +84,28 @@ class ServerData
     {
         $this->details = $details;
     }
-    
+
     /**
-     * 
      * @return Server
      */
     public function getDetails()
     {
         return $this->details;
     }
-    
+
     /**
-     * 
      * @param date $date
      */
-    public function setDate($date){
+    public function setDate($date)
+    {
         $this->date = $date;
     }
-    
+
     /**
-     * 
      * @return Date
      */
-    public function getDate(){
+    public function getDate()
+    {
         return $this->date;
     }
 }

@@ -2,11 +2,10 @@
 
 namespace Innova\Heartbeat\AppBundle\Document;
 
-
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * Server
+ * Server.
  *
  * @MongoDB\Document
  */
@@ -15,7 +14,7 @@ class Server
     /**
      * @var string
      *
-     * 
+     *
      * @MongoDB\Id
      */
     private $id;
@@ -48,11 +47,10 @@ class Server
      */
     private $status;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return string 
+     * @return string
      */
     public function getId()
     {
@@ -60,9 +58,10 @@ class Server
     }
 
     /**
-     * Set ip
+     * Set ip.
      *
      * @param string $ip
+     *
      * @return Server
      */
     public function setIp($ip)
@@ -73,9 +72,9 @@ class Server
     }
 
     /**
-     * Get ip
+     * Get ip.
      *
-     * @return string 
+     * @return string
      */
     public function getIp()
     {
@@ -83,9 +82,10 @@ class Server
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Server
      */
     public function setName($name)
@@ -96,9 +96,9 @@ class Server
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -106,9 +106,10 @@ class Server
     }
 
     /**
-     * Set os
+     * Set os.
      *
      * @param string $os
+     *
      * @return Server
      */
     public function setOs($os)
@@ -119,9 +120,9 @@ class Server
     }
 
     /**
-     * Get os
+     * Get os.
      *
-     * @return string 
+     * @return string
      */
     public function getOs()
     {
@@ -129,9 +130,10 @@ class Server
     }
 
     /**
-     * Set Status
+     * Set Status.
      *
      * @param string $status
+     *
      * @return Server
      */
     public function setStatus($status)
@@ -142,9 +144,9 @@ class Server
     }
 
     /**
-     * Get Status
+     * Get Status.
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {

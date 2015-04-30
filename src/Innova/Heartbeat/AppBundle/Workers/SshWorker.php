@@ -14,11 +14,11 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 class SshWorker extends ContainerAware
 {
     /**
-     * Test method to run as a job
+     * Test method to run as a job.
      *
      * @param \GearmanJob $job Object with job parameters
      *
-     * @return boolean
+     * @return bool
      *
      * @Gearman\Job(
      *     name = "getData",
@@ -64,11 +64,11 @@ class SshWorker extends ContainerAware
 
             // Push update
             $pusher->trigger(
-                $serverData->getServerId(), 
-                'serverUpdate', 
-                $serverData->getDetails(), 
-                null, 
-                null, 
+                $serverData->getServerId(),
+                'serverUpdate',
+                $serverData->getDetails(),
+                null,
+                null,
                 true
             );
 
@@ -76,30 +76,31 @@ class SshWorker extends ContainerAware
         }
     }
 
-    public function getConnection($serverUid, $user, $pass){
-
+    public function getConnection($serverUid, $user, $pass)
+    {
         $server = $this->getServer($serverUid);
-        
+
         echo "Attempting connection \n";
 
         $connection = ssh2_connect($server->getIp(), 22, array('hostkey' => 'ssh-rsa'));
 
-        $server->setStatus(FALSE);
+        $server->setStatus(false);
 
-        if($ssh === true) {
+        if ($ssh === true) {
             if ($connection && ssh2_auth_pubkey_file($connection, $user, '/home/heartbeat/.ssh/id_rsa.pub', '/home/heartbeat/.ssh/id_rsa', '')) {
-                $server->setStatus(TRUE);
+                $server->setStatus(true);
                 echo "Connected \n";
             }
 
             $this->container->get('doctrine.orm.entity_manager')->persist($server);
             $this->container->get('doctrine.orm.entity_manager')->flush();
-        } 
-        
+        }
+
         return $connection;
     }
 
-    public function getServer($serverUid) {
+    public function getServer($serverUid)
+    {
         $server = $this->container->get('doctrine.orm.entity_manager')->getRepository('InnovaHeartbeatAppBundle:Server')->findOneByUid($serverUid);
 
         return $server;

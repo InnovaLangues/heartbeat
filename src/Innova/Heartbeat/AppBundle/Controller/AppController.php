@@ -8,18 +8,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Goutte\Client;
 
-class AppController extends Controller {    
-    
+class AppController extends Controller
+{
     /**
      * @Route("apps", name="apps")
+     *
      * @Method("GET")
      * @Template()
      */
-    public function appsAction() {
+    public function appsAction()
+    {
         $apps = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:App')->findAll();
 
         foreach ($apps as $app) {
-
             $app->statusCode = null;
 
             $client = new Client();
@@ -38,7 +39,7 @@ class AppController extends Controller {
         return $this->render(
                         'apps.html.twig', array(
                     'title' => 'Apps',
-                    'apps' => $apps
+                    'apps' => $apps,
                         )
         );
     }

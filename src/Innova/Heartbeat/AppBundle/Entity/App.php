@@ -5,7 +5,7 @@ namespace Innova\Heartbeat\AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * App
+ * App.
  *
  * @ORM\Table("app")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class App
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -42,11 +42,10 @@ class App
      */
     private $thumb;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -54,9 +53,10 @@ class App
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return App
      */
     public function setName($name)
@@ -67,7 +67,7 @@ class App
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -77,9 +77,10 @@ class App
     }
 
     /**
-     * Set url
+     * Set url.
      *
      * @param string $url
+     *
      * @return App
      */
     public function setUrl($url)
@@ -90,7 +91,7 @@ class App
     }
 
     /**
-     * Get url
+     * Get url.
      *
      * @return string
      */
@@ -100,9 +101,10 @@ class App
     }
 
     /**
-     * Set thumb
+     * Set thumb.
      *
      * @param string $thumb
+     *
      * @return App
      */
     public function setThumb($thumb)
@@ -113,7 +115,7 @@ class App
     }
 
     /**
-     * Get thumb
+     * Get thumb.
      *
      * @return string
      */

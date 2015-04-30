@@ -21,4 +21,3 @@ services:
 
     innova.github.manager:
         class: Innova\Heartbeat\AppBundle\Manager\GithubManager
-

@@ -1,14 +1,14 @@
 {% extends  "::base.html.twig" %}
 
 {% block content %}
-    
+
     <div class="row server-form-container">
         <div class="col-xs-12">
             {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
             {{ form_errors(form) }}
             <div class="form-group">
                 <div class="col-sm-3">
-                    {{ form_label(form.ip, "IP", {'label_attr': {'class': 'control-label'}}) }}                        
+                    {{ form_label(form.ip, "IP", {'label_attr': {'class': 'control-label'}}) }}
                     {{ form_errors(form.ip) }}
                 </div>
                 <div class="col-sm-4">
@@ -17,7 +17,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-3">
-                    {{ form_label(form.name, "Name", {'label_attr': {'class': 'control-label'}}) }}                        
+                    {{ form_label(form.name, "Name", {'label_attr': {'class': 'control-label'}}) }}
                     {{ form_errors(form.name) }}
                 </div>
                 <div class="col-sm-4">
@@ -26,7 +26,7 @@
             </div>
             <div class="form-group required">
                 <div class="col-sm-3">
-                    {{ form_label(form.os, "OS", {'label_attr': {'class': 'control-label'}}) }}                        
+                    {{ form_label(form.os, "OS", {'label_attr': {'class': 'control-label'}}) }}
                     {{ form_errors(form.os) }}
                 </div>
                 <div class="col-sm-4">
@@ -35,7 +35,7 @@
             </div>
             <div class="form-group ">
                 <div class="col-sm-3">
-                    {{ form_label(form.linuxDashUrl, "URL", {'label_attr': {'class': 'control-label'}}) }}                        
+                    {{ form_label(form.linuxDashUrl, "URL", {'label_attr': {'class': 'control-label'}}) }}
                     {{ form_errors(form.linuxDashUrl) }}
                 </div>
                 <div class="col-sm-4">

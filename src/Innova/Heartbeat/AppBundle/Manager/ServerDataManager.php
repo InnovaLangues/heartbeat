@@ -8,18 +8,16 @@ use Innova\Heartbeat\AppBundle\Document\ServerData;
 use Mmoreram\GearmanBundle\Service\GearmanClient;
 
 /**
- * Manager for ServerData Entity
- *
- * 
+ * Manager for ServerData Entity.
  */
 class ServerDataManager
 {
-
     protected $documentManager;
     protected $entityManager;
     protected $gearman;
 
-    public function __construct(DocumentManager $documentManager, EntityManager $entityManager, GearmanClient $gearman) {
+    public function __construct(DocumentManager $documentManager, EntityManager $entityManager, GearmanClient $gearman)
+    {
         $this->documentManager = $documentManager;
         $this->entityManager = $entityManager;
         $this->mongoDataRepo = $this->documentManager->getRepository('InnovaHeartbeatAppBundle:ServerData');
@@ -28,38 +26,42 @@ class ServerDataManager
     }
 
     /**
-     * get server connection
+     * get server connection.
      */
-    public function getConnections() { 
+    public function getConnections()
+    {
         $servers = $this->dataRepo->findAll();
 
         foreach ($servers as $server) {
             $this->gearman->doBackgroundJob(
-                'InnovaHeartbeatAppBundleWorkersSshWorker~getData', 
+                'InnovaHeartbeatAppBundleWorkersSshWorker~getData',
                 json_encode(
                     array(
-                        'serverUid' => $server->getUid()
+                        'serverUid' => $server->getUid(),
                     )
                 )
             );
         }
-
     }
 
-    public function findByServerId($id, $limit=1){
+    public function findByServerId($id, $limit = 1)
+    {
         return $this->getRepository()->findBy(array('serverId' => $id), array('date' => 'desc'), $limit, 0);
     }
 
-    public function getRepository() {
+    public function getRepository()
+    {
         return $this->documentManager->getRepository('InnovaHeartbeatAppBundle:ServerData');
     }
 
-    public function save(ServerData $serverData) {
+    public function save(ServerData $serverData)
+    {
         $this->documentManager->persist($serverData);
         $this->documentManager->flush();
     }
 
-    public function delete(ServerData $serverData) {
+    public function delete(ServerData $serverData)
+    {
         $this->documentManager->remove($serverData);
         $this->documentManager->flush();
     }

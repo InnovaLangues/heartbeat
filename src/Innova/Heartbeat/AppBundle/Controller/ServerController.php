@@ -10,32 +10,38 @@ use Innova\Heartbeat\AppBundle\Entity\Server;
 use Symfony\Component\HttpFoundation\Request;
 use Innova\Heartbeat\AppBundle\Document\ServerData;
 
-class ServerController extends Controller {
-
+class ServerController extends Controller
+{
     /**
-     * Get and show the list of servers
+     * Get and show the list of servers.
+     *
      * @Route("servers", name="servers")
+     *
      * @Method("GET")
      * @Template()
      */
-    public function serversAction() {
+    public function serversAction()
+    {
         $servers = $this->get('innova.server.manager')->getAll();
+
         return $this->render(
             'servers.html.twig', array(
                 'title'   => 'Servers',
-                'servers' => $servers
+                'servers' => $servers,
             )
         );
     }
 
     /**
-     * add a server
+     * add a server.
+     *
      * @Route("server/add", name="add_server")
+     *
      * @Method("POST")
      * @Template()
      */
-    public function serverAddAction(Request $request) {
-
+    public function serverAddAction(Request $request)
+    {
         $server = new Server();
 
         $form = $this->createFormBuilder($server)
@@ -49,7 +55,7 @@ class ServerController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            // save server in database           
+            // save server in database
             $this->get('innova.server.manager')->save($server);
 
             // redirect to server list
@@ -58,16 +64,18 @@ class ServerController extends Controller {
 
         return $this->render('serverAdd.html.twig', array(
                     'title' => 'Add a server',
-                    'form' => $form->createView()
+                    'form' => $form->createView(),
         ));
     }
 
     /**
      * @Route("server/{id}", name="server")
+     *
      * @Method("GET")
      * @Template()
      */
-    public function serverDetailsAction($id) {
+    public function serverDetailsAction($id)
+    {
         $server = $this->get('innova.server.manager')->findOne($id);
         $serverDatas = $this->get('innova.serverdata.manager')->findByServerId($id, 1000); //1440 24h
 
@@ -79,7 +87,7 @@ class ServerController extends Controller {
         $id = null;
         $date = null;
 
-        if($serverData) {
+        if ($serverData) {
             $details = json_decode($serverData->getDetails());
             $id = $serverData->getId();
             $date = $serverData->getDate();
@@ -87,36 +95,42 @@ class ServerController extends Controller {
 
         return $this->render(
                 'server.html.twig', array(
-                'title' => 'Server : ' . $server->getName(),
+                'title' => 'Server : '.$server->getName(),
                 'server' => $server,
                 'data' => array('id' => $id, 'date' => $date),
                 'details' => $details,
                 'channels' => array($server->getUid()),
-                'serverDatas' => $serverDatas
+                'serverDatas' => $serverDatas,
             )
         );
     }
 
     /**
      * @Route("serverDel/{id}", name="delete_server")
+     *
      * @Method("DELETE")
      * @Template()
      */
-    public function deleteServerAction($id) {
+    public function deleteServerAction($id)
+    {
         $server = $this->get('innova.server.manager')->findOne($id);
         if ($server) {
             $this->get('innova.server.manager')->delete($server);
         }
+
         return $this->redirect($this->generateUrl('servers'));
     }
 
     /**
      * Get all available servers data
-     * this method is intended to be called from a scheduled script
+     * this method is intended to be called from a scheduled script.
+     *
      * @Route("serversData", name="servers_data")
+     *
      * @Method("GET")
      */
-    public function getServersDataAction() {
+    public function getServersDataAction()
+    {
         $servers = $this->get('innova.server.manager')->getAll();
         foreach ($servers as $server) {
             // connect to server
@@ -133,7 +147,7 @@ class ServerController extends Controller {
                 $serverData = new ServerData();
                 $serverData->setServerId($server->getUid());
                 $serverData->setDetails($jsonResponse);
-                
+
                 $this->get('innova.serverdata.manager')->save($serverData);
             }
         }

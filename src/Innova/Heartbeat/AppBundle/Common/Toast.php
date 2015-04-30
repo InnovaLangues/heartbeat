@@ -3,7 +3,7 @@
 namespace Innova\Heartbeat\AppBundle\Common;
 
 /**
- * Toast object (notifications)
+ * Toast object (notifications).
  */
 class Toast
 {
@@ -23,9 +23,10 @@ class Toast
     private $message;
 
     /**
-     * Set type
+     * Set type.
      *
      * @param string $type
+     *
      * @return Toast
      */
     public function setType($type)
@@ -36,7 +37,7 @@ class Toast
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @return string
      */
@@ -46,9 +47,10 @@ class Toast
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
+     *
      * @return Toast
      */
     public function setTitle($title)
@@ -59,7 +61,7 @@ class Toast
     }
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string
      */
@@ -69,9 +71,10 @@ class Toast
     }
 
     /**
-     * Set message
+     * Set message.
      *
      * @param string $message
+     *
      * @return Toast
      */
     public function setMessage($message)
@@ -82,7 +85,7 @@ class Toast
     }
 
     /**
-     * Get message
+     * Get message.
      *
      * @return string
      */

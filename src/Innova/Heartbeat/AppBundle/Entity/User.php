@@ -6,7 +6,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * App
+ * App.
  *
  * @ORM\Table("user")
  * @ORM\Entity
@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class User extends BaseUser
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -49,9 +49,9 @@ class User extends BaseUser
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -59,9 +59,10 @@ class User extends BaseUser
     }
 
     /**
-     * Set githubId
+     * Set githubId.
      *
      * @param string $githubID
+     *
      * @return Server
      */
     public function setGithubID($githubId)
@@ -72,9 +73,9 @@ class User extends BaseUser
     }
 
     /**
-     * Get githubId
+     * Get githubId.
      *
-     * @return string 
+     * @return string
      */
     public function getGithubId()
     {
@@ -82,9 +83,10 @@ class User extends BaseUser
     }
 
     /**
-     * Set preferedUID
+     * Set preferedUID.
      *
      * @param string $preferedUID
+     *
      * @return Server
      */
     public function setPreferedUID($preferedUID)
@@ -95,9 +97,9 @@ class User extends BaseUser
     }
 
     /**
-     * Get preferedUID
+     * Get preferedUID.
      *
-     * @return string 
+     * @return string
      */
     public function getPreferedUID()
     {
@@ -105,9 +107,10 @@ class User extends BaseUser
     }
 
     /**
-     * Set preferedGID
+     * Set preferedGID.
      *
      * @param string $preferedGID
+     *
      * @return Server
      */
     public function setPreferedGID($preferedGID)
@@ -118,12 +121,12 @@ class User extends BaseUser
     }
 
     /**
-     * Get preferedGID
+     * Get preferedGID.
      *
-     * @return string 
+     * @return string
      */
     public function getPreferedGID()
     {
         return $this->preferedGID;
-    } 
+    }
 }

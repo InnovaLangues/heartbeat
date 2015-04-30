@@ -3,14 +3,14 @@
 namespace Innova\Heartbeat\AppBundle\Manager;
 
 /**
- * Manager for Github
- *
+ * Manager for Github.
  */
-class GithubManager {
-
+class GithubManager
+{
     protected $client;
 
-    public function __construct() {
+    public function __construct()
+    {
         $client = new \Github\Client(
             new \Github\HttpClient\CachedHttpClient(array('cache_dir' => '/tmp/github-api-cache'))
         );
@@ -26,35 +26,38 @@ class GithubManager {
         $this->client = new \Github\Client($client);
     }
 
-    public function getAvatarURL($login) {
+    public function getAvatarURL($login)
+    {
         $user = $this->client->api('user')->show($login);
-        
+
         return $user['avatar_url'];
     }
 
-    public function getHTMLURL($login) {
+    public function getHTMLURL($login)
+    {
         $user = $this->client->api('user')->show($login);
-        
+
         return $user['html_url'];
     }
 
-    public function getName($login) {
+    public function getName($login)
+    {
         $user = $this->client->api('user')->show($login);
-        
+
         return $user['name'];
     }
 
-    public function getLocation($login) {
+    public function getLocation($login)
+    {
         $user = $this->client->api('user')->show($login);
-        
+
         return $user['location'];
     }
 
-    public function getPublicKeys($login) {
-        return "https://github.com/" . $login . ".keys";
+    public function getPublicKeys($login)
+    {
+        return 'https://github.com/'.$login.'.keys';
     }
-
-
 
 // Get pubkeys
 /*
@@ -89,7 +92,4 @@ class GithubManager {
   "created_at": "2010-11-13T09:31:00Z",
   "updated_at": "2015-03-16T13:24:05Z"
 */
-
-
-
 }

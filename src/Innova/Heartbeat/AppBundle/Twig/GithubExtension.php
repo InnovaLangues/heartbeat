@@ -20,30 +20,35 @@ class GithubExtension extends \Twig_Extension
     public function avatarUrlFilter($login)
     {
         $githubManager = new GithubManager();
+
         return $githubManager->getAvatarURL($login);
     }
 
     public function htmlUrlFilter($login)
     {
         $githubManager = new GithubManager();
+
         return $githubManager->getHTMLURL($login);
     }
 
     public function nameFilter($login)
     {
         $githubManager = new GithubManager();
+
         return $githubManager->getName($login);
     }
 
     public function locationFilter($login)
     {
         $githubManager = new GithubManager();
+
         return $githubManager->getLocation($login);
     }
 
     public function publicKeysFilter($login)
     {
         $githubManager = new GithubManager();
+
         return $githubManager->getPublicKeys($login);
     }
 
