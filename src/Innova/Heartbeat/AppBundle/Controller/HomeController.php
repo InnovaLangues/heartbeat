@@ -31,7 +31,7 @@ class HomeController extends Controller
                 'servers' => $servers,
                 'apps'    => $apps,
                 'users'   => $users,
-           )
+            )
         );
     }
 

@@ -37,7 +37,7 @@ class AppController extends Controller
         }
 
         return $this->render(
-                        'apps.html.twig', array(
+            'apps.html.twig', array(
                     'title' => 'Apps',
                     'apps' => $apps,
                         )

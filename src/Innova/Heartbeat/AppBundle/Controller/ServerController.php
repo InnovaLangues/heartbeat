@@ -94,14 +94,14 @@ class ServerController extends Controller
         }
 
         return $this->render(
-                'server.html.twig', array(
+            'server.html.twig', array(
                 'title' => 'Server : '.$server->getName(),
                 'server' => $server,
                 'data' => array('id' => $id, 'date' => $date),
                 'details' => $details,
                 'channels' => array($server->getUid()),
                 'serverDatas' => $serverDatas,
-            )
+                )
         );
     }
 
