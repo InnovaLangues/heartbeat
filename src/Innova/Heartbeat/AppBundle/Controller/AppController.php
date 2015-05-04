@@ -8,15 +8,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Goutte\Client;
 
+/**
+ * @Route("/app")
+ */
 class AppController extends Controller
 {
     /**
-     * @Route("apps", name="apps")
+     * @Route("/", name="app")
      *
      * @Method("GET")
      * @Template()
      */
-    public function appsAction()
+    public function indexAction()
     {
         $apps = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:App')->findAll();
 
@@ -38,9 +41,9 @@ class AppController extends Controller
 
         return $this->render(
             'apps.html.twig', array(
-                    'title' => 'Apps',
-                    'apps' => $apps,
-                        )
+                'title' => 'Apps',
+                'apps'  => $apps,
+            )
         );
     }
 }

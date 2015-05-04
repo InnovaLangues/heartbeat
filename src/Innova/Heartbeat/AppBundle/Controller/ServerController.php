@@ -10,17 +10,22 @@ use Innova\Heartbeat\AppBundle\Entity\Server;
 use Symfony\Component\HttpFoundation\Request;
 use Innova\Heartbeat\AppBundle\Document\ServerData;
 
+/**
+ * Server controller
+ *
+ * @Route("/server")
+ */
 class ServerController extends Controller
 {
     /**
      * Get and show the list of servers.
      *
-     * @Route("servers", name="servers")
+     * @Route("/", name="server")
      *
      * @Method("GET")
      * @Template()
      */
-    public function serversAction()
+    public function indexAction()
     {
         $servers = $this->get('innova.server.manager')->getAll();
 
@@ -33,59 +38,20 @@ class ServerController extends Controller
     }
 
     /**
-     * add a server.
-     *
-     * @Route("server/add", name="add_server")
-     *
-     * @Method("POST")
-     * @Template()
-     */
-    public function serverAddAction(Request $request)
-    {
-        $server = new Server();
-
-        $form = $this->createFormBuilder($server)
-                ->add('ip', 'text', array('required' => true))
-                ->add('name', 'text', array('required' => true))
-                ->add('os', 'text', array('required' => true))
-                ->add('linuxDashUrl', 'text', array('required' => true))
-                ->add('save', 'submit')
-                ->getForm();
-
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            // save server in database
-            $this->get('innova.server.manager')->save($server);
-
-            // redirect to server list
-            return $this->redirect($this->generateUrl('servers'));
-        }
-
-        return $this->render('serverAdd.html.twig', array(
-                    'title' => 'Add a server',
-                    'form' => $form->createView(),
-        ));
-    }
-
-    /**
-     * @Route("server/{id}", name="server")
+     * @Route("/{id}", name="server_show")
      *
      * @Method("GET")
      * @Template()
      */
-    public function serverDetailsAction($id)
+    public function showAction(Server $server)
     {
-        $server = $this->get('innova.server.manager')->findOne($id);
-        $serverDatas = $this->get('innova.serverdata.manager')->findByServerId($id, 1000); //1440 24h
-
-        $serverData = $serverDatas[0];
-
-        $serverDatas = $this->container->get('serializer')->serialize($serverDatas, 'json');
-
         $details = null;
-        $id = null;
-        $date = null;
+        $id      = null;
+        $date    = null;
+
+        $serverDatas = $this->get('innova.serverdata.manager')->findByServerId($server->getUid(), 1000); //1440 24h
+        $serverData  = $serverDatas[0];
+        $serverDatas = $this->container->get('serializer')->serialize($serverDatas, 'json');
 
         if ($serverData) {
             $details = json_decode($serverData->getDetails());
@@ -101,55 +67,7 @@ class ServerController extends Controller
                 'details' => $details,
                 'channels' => array($server->getUid()),
                 'serverDatas' => $serverDatas,
-                )
+            )
         );
-    }
-
-    /**
-     * @Route("serverDel/{id}", name="delete_server")
-     *
-     * @Method("DELETE")
-     * @Template()
-     */
-    public function deleteServerAction($id)
-    {
-        $server = $this->get('innova.server.manager')->findOne($id);
-        if ($server) {
-            $this->get('innova.server.manager')->delete($server);
-        }
-
-        return $this->redirect($this->generateUrl('servers'));
-    }
-
-    /**
-     * Get all available servers data
-     * this method is intended to be called from a scheduled script.
-     *
-     * @Route("serversData", name="servers_data")
-     *
-     * @Method("GET")
-     */
-    public function getServersDataAction()
-    {
-        $servers = $this->get('innova.server.manager')->getAll();
-        foreach ($servers as $server) {
-            // connect to server
-            $connection = $this->get('innova.serverdata.manager')->getConnection($server->getIP(), 'heartbeat', '');
-
-            if ($connection !== null) {
-                // get data
-                $stream = ssh2_exec($connection, '/home/heartbeat/HeartbeatClient/client.sh', 0700);
-                stream_set_blocking($stream, true);
-                $streamOut = ssh2_fetch_stream($stream, SSH2_STREAM_STDIO);
-                $jsonResponse = stream_get_contents($streamOut);
-
-                // save data in mongodb
-                $serverData = new ServerData();
-                $serverData->setServerId($server->getUid());
-                $serverData->setDetails($jsonResponse);
-
-                $this->get('innova.serverdata.manager')->save($serverData);
-            }
-        }
     }
 }

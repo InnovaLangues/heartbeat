@@ -7,21 +7,24 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+/**
+ * @Route("/user", name="user")
+ */
 class UserController extends Controller
 {
     /**
-     * @Route("users", name="users")
+     * @Route("/", name="user")
      *
      * @Method("GET")
      * @Template()
      */
-    public function usersAction()
+    public function indexAction()
     {
         $users = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:User')->findAll();
 
         return $this->render(
             'users.html.twig', array(
-                'title' => 'Servers',
+                'title' => 'Users',
                 'users' => $users,
             )
         );

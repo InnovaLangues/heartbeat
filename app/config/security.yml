@@ -29,8 +29,8 @@ security:
                 lifetime: 2232000
 
             oauth:
-                failure_path: /connect
-                login_path: /connect
+                failure_path: /login
+                login_path: /login
                 check_path: /connect
                 provider: fos_userbundle
                 resource_owners:
@@ -41,8 +41,7 @@ security:
     access_control:
         - { path: ^/keys, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/connect, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/ssh, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: ^/connect, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, role: ROLE_USER }
