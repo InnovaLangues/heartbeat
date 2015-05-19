@@ -5,7 +5,7 @@ namespace Innova\Heartbeat\AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Server.
+ * Server
  *
  * @ORM\Table("server")
  * @ORM\Entity
