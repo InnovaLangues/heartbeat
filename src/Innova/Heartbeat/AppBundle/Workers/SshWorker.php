@@ -50,9 +50,6 @@ class SshWorker extends ContainerAware
             echo "Data returned \n";
             echo $jsonResponse;
             echo "\n";
-            echo "Data returned - Type\n";
-            echo gettype($jsonResponse);
-            echo "\n";
 
             echo "Saving data to MongoDB \n";
 
