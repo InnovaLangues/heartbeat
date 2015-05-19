@@ -41,4 +41,8 @@
         </div>
     </div>
 
+    {% for serverData in serverDatas %}
+        {{ serverData.timestamp }} </br>
+    {% endfor %} 
+
 {% endblock content %}
