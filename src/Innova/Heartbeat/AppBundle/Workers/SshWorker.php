@@ -56,7 +56,7 @@ class SshWorker extends ContainerAware
             // save data in mongodb
             $serverData = new ServerData();
             $serverData->setServerId($server->getUid());
-            $serverData->setDetails($jsonResponse);
+            $serverData->setDetails(json_decode($jsonResponse));
 
             $documentManager = $this->container->get('doctrine.odm.mongodb.document_manager');
             $documentManager->persist($serverData);
