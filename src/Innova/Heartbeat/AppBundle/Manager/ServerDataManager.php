@@ -46,7 +46,7 @@ class ServerDataManager
 
     public function findByServerId($id, $limit = 1)
     {
-        return $this->getRepository()->findBy(array('serverId' => $id), array('timestamp' => 'desc'), $limit, 0);
+        return $this->getRepository()->findBy(array('serverId' => $id), array('timestamp' => 'asc'), $limit, 0);
     }
 
     public function getRepository()
