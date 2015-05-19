@@ -50,13 +50,16 @@ class SshWorker extends ContainerAware
             echo "Data returned \n";
             echo $jsonResponse;
             echo "\n";
+            echo "Data returned - Type\n";
+            echo gettype($jsonResponse);
+            echo "\n";
 
             echo "Saving data to MongoDB \n";
 
             // save data in mongodb
             $serverData = new ServerData();
             $serverData->setServerId($server->getUid());
-            $serverData->setDetails(json_decode($jsonResponse));
+            $serverData->setDetails($jsonResponse);
 
             $documentManager = $this->container->get('doctrine.odm.mongodb.document_manager');
             $documentManager->persist($serverData);
