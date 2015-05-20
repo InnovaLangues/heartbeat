@@ -51,11 +51,12 @@ class SshWorker extends ContainerAware
             $jsonResponse = json_decode($response);
             echo "\n";
 
-            echo "Saving data to MongoDB \n";
+            echo "Saving data \n";
 
             $snapshot = new snapshot();
             $snapshot->setServer($server);
             $snapshot->setTimestamp($jsonResponse->timestamp);
+            $snapshot->setCpuCount($jsonResponse->cpuCount);
 
             $entityManager = $this->container->get('doctrine.orm.entity_manager');
             $entityManager->persist($snapshot);
