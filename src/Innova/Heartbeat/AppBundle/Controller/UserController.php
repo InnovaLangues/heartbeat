@@ -8,9 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * User controller
- *
- * @Route("/user")
+ * @Route("/user", name="user")
  */
 class UserController extends Controller
 {

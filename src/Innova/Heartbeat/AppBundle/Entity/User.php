@@ -6,7 +6,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * User
+ * App.
  *
  * @ORM\Table("user")
  * @ORM\Entity
@@ -32,16 +32,16 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="preferedUid", type="string", nullable=true, length=255)
+     * @ORM\Column(name="preferedUID", type="string", nullable=true, length=255)
      */
-    private $preferedUid;
+    private $preferedUID;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="preferedGid", type="string", nullable=true, length=255)
+     * @ORM\Column(name="preferedGID", type="string", nullable=true, length=255)
      */
-    private $preferedGid;
+    private $preferedGID;
 
     public function __construct()
     {
@@ -49,9 +49,9 @@ class User extends BaseUser
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -59,12 +59,13 @@ class User extends BaseUser
     }
 
     /**
-     * Set githubId
+     * Set githubId.
      *
-     * @param string $githubId
-     * @return User
+     * @param string $githubID
+     *
+     * @return Server
      */
-    public function setGithubId($githubId)
+    public function setGithubID($githubId)
     {
         $this->githubId = $githubId;
 
@@ -72,9 +73,9 @@ class User extends BaseUser
     }
 
     /**
-     * Get githubId
+     * Get githubId.
      *
-     * @return string 
+     * @return string
      */
     public function getGithubId()
     {
@@ -82,48 +83,50 @@ class User extends BaseUser
     }
 
     /**
-     * Set preferedUid
+     * Set preferedUID.
      *
-     * @param string $preferedUid
-     * @return User
+     * @param string $preferedUID
+     *
+     * @return Server
      */
-    public function setPreferedUid($preferedUid)
+    public function setPreferedUID($preferedUID)
     {
-        $this->preferedUid = $preferedUid;
+        $this->preferedUID = $preferedUID;
 
         return $this;
     }
 
     /**
-     * Get preferedUid
+     * Get preferedUID.
      *
-     * @return string 
+     * @return string
      */
-    public function getPreferedUid()
+    public function getPreferedUID()
     {
-        return $this->preferedUid;
+        return $this->preferedUID;
     }
 
     /**
-     * Set preferedGid
+     * Set preferedGID.
      *
-     * @param string $preferedGid
-     * @return User
+     * @param string $preferedGID
+     *
+     * @return Server
      */
-    public function setPreferedGid($preferedGid)
+    public function setPreferedGID($preferedGID)
     {
-        $this->preferedGid = $preferedGid;
+        $this->preferedGID = $preferedGID;
 
         return $this;
     }
 
     /**
-     * Get preferedGid
+     * Get preferedGID.
      *
-     * @return string 
+     * @return string
      */
-    public function getPreferedGid()
+    public function getPreferedGID()
     {
-        return $this->preferedGid;
+        return $this->preferedGID;
     }
 }

@@ -17,7 +17,7 @@ class FetchDataCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('Starting script');
-        $this->getContainer()->get('innova.snapshot.manager')->getConnections();
+        $this->getContainer()->get('innova.serverdata.manager')->getConnections();
         $output->writeln('Done');
     }
 }

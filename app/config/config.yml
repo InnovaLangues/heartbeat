@@ -82,6 +82,17 @@ fos_user:
         confirmation:
             enabled: true
 
+# app/config/config.yml
+doctrine_mongodb:
+    connections:
+        default:
+            server: %mongodb_server%
+            options: {}
+    default_database: %mongodb_db%
+    document_managers:
+        default:
+            auto_mapping: true
+
 hwi_oauth:
     # name of the firewall in which this bundle is active, this setting MUST be set
     firewall_name: main
