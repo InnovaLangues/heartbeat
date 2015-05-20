@@ -59,7 +59,9 @@ class SshWorker extends ContainerAware
                 echo "Set stream blocking \n";
 
                 stream_set_blocking($stream, true);
+
                 $streamOut = ssh2_fetch_stream($stream, SSH2_STREAM_STDIO);
+
                 $response = stream_get_contents($streamOut);
 
                 if ($response) {
@@ -68,7 +70,7 @@ class SshWorker extends ContainerAware
                     echo $response;
                     echo "\n";
                 } else {
-                    echo "No Ddata returned \n";
+                    echo "No data returned \n";
                 }
 
                 echo "Attempting to decode json \n";
