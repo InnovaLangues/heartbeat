@@ -45,8 +45,9 @@ class ServerController extends Controller
     public function showAction(Server $server)
     {
         $snapshot       = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:Snapshot')->findOneBy(array('server' => $server), array('timestamp' => 'desc'));
+        $snapshots      = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:Snapshot')->findBy(array('server' => $server), array('timestamp' => 'asc'));
         $serializer     = $this->container->get('serializer');
-        $array          = array_reverse($server->getSnapshots()->toArray());
+        $array          = $server->getSnapshots()->toArray();
         $jsonSnapshots  = $serializer->serialize($array, 'json');
 
         return $this->render(
