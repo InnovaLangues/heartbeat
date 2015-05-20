@@ -243,28 +243,28 @@ class SshWorker extends ContainerAware
                             echo "No snapshot found \n";
                         }
 
-                        if ($proc->user) {
+                        if (isset($proc->user)) {
                             $process->setUser($proc->user);
                             echo "Process user set \n";
                         } else {
                             echo "Process user not set \n";
                         }
 
-                        if ($proc->command) {
+                        if (isset($proc->command)) {
                             $process->setCommand($proc->command);
                             echo "Process command set \n";
                         } else {
                             echo "Process command not set \n";
                         }
 
-                        if ($proc->percent_cpu) {
+                        if (isset($proc->percent_cpu)) {
                             $process->setPercentCpu($proc->percent_cpu);
                             echo "Process percent CPU set \n";
                         } else {
                             echo "Process percent CPU not set \n";
                         }
 
-                        if ($proc->memory_used) {
+                        if (isset($proc->memory_used)) {
                             $process->setMemoryUsed($proc->memory_used);
                             echo "Process memory used set \n";
                         } else {
