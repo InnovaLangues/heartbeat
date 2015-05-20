@@ -28,6 +28,11 @@ class Snapshot
     private $server;
 
     /**
+     * @ORM\OneToMany(targetEntity="Process", mappedBy="processes")
+     **/
+    private $processes;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="timestamp", type="string", length=255)
@@ -539,5 +544,45 @@ class Snapshot
     public function getServer()
     {
         return $this->server;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->processes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add processes
+     *
+     * @param \Innova\Heartbeat\AppBundle\Entity\Process $processes
+     * @return Snapshot
+     */
+    public function addProcess(\Innova\Heartbeat\AppBundle\Entity\Process $processes)
+    {
+        $this->processes[] = $processes;
+
+        return $this;
+    }
+
+    /**
+     * Remove processes
+     *
+     * @param \Innova\Heartbeat\AppBundle\Entity\Process $processes
+     */
+    public function removeProcess(\Innova\Heartbeat\AppBundle\Entity\Process $processes)
+    {
+        $this->processes->removeElement($processes);
+    }
+
+    /**
+     * Get processes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProcesses()
+    {
+        return $this->processes;
     }
 }

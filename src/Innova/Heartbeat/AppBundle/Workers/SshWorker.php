@@ -4,6 +4,7 @@ namespace Innova\Heartbeat\AppBundle\Workers;
 
 use Mmoreram\GearmanBundle\Driver\Gearman;
 use Innova\Heartbeat\AppBundle\Entity\Snapshot;
+use Innova\Heartbeat\AppBundle\Entity\Process;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 /**
@@ -56,7 +57,7 @@ class SshWorker extends ContainerAware
 
             echo "Saving data \n";
 
-            $snapshot = new snapshot();
+            $snapshot = new Snapshot();
             $snapshot->setServer($server);
             $snapshot->setTimestamp($jsonResponse->timestamp);
             $snapshot->setCpuCount($jsonResponse->cpu->count);
@@ -77,6 +78,19 @@ class SshWorker extends ContainerAware
 
             $entityManager = $this->container->get('doctrine.orm.entity_manager');
             $entityManager->persist($snapshot);
+
+            foreach ($jsonResponse->processes as $process) {
+                echo "Adding process \n";
+                $process = new Process();
+                $process->setSnapshot($snapshot);
+                $process->setUser($process->user);
+                $process->setCommand($process->command);
+                $process->setPercentCpu($process->percent_cpu);
+                $process->setMemoryUsed($process->memory_used);
+
+                $entityManager->persist($process);
+            }
+
             $entityManager->flush();
 
             $pusher = $this->container->get('lopi_pusher.pusher');
