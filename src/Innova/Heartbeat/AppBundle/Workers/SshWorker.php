@@ -32,6 +32,8 @@ class SshWorker extends ContainerAware
         $serverUid = $data['serverUid'];
         $server = $this->getServer($serverUid);
 
+        echo "Server " . $server->getName() . " \n";
+
         // connect to server
         $connection = $this->getConnection($serverUid, 'heartbeat');
 
@@ -76,8 +78,6 @@ class SshWorker extends ContainerAware
             $entityManager = $this->container->get('doctrine.orm.entity_manager');
             $entityManager->persist($snapshot);
             $entityManager->flush();
-
-
 
             $pusher = $this->container->get('lopi_pusher.pusher');
 
