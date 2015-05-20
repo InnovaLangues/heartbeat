@@ -64,8 +64,8 @@ class SshWorker extends ContainerAware
             $snapshot->setMemoryTotal($jsonResponse->memory->total);
             $snapshot->setMemoryUsed($jsonResponse->memory->used);
             $snapshot->setMemoryFree($jsonResponse->memory->free);
-            $snapshot->memoryBuffersCacheUsed($jsonResponse->memory->buffersCache->used);
-            $snapshot->memoryBuffersCacheFree($jsonResponse->memory->buffersCache->free);
+            $snapshot->setMemoryBuffersCacheUsed($jsonResponse->memory->buffersCache->used);
+            $snapshot->setMemoryBuffersCacheFree($jsonResponse->memory->buffersCache->free);
             $snapshot->setMemorySwapTotal($jsonResponse->memory->swap->total);
             $snapshot->setMemorySwapUsed($jsonResponse->memory->swap->used);
             $snapshot->setMemorySwapFree($jsonResponse->memory->swap->free);
