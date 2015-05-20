@@ -48,7 +48,7 @@ class SshWorker extends ContainerAware
             $response = stream_get_contents($streamOut);
 
             echo "Data returned \n";
-            //echo $jsonResponse = json_decode($response);
+            $jsonResponse = json_decode($response);
             echo "\n";
 
             echo "Saving data to MongoDB \n";
