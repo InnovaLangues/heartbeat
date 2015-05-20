@@ -3,25 +3,22 @@
 namespace Innova\Heartbeat\AppBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ODM\MongoDB\DocumentManager;
-use Innova\Heartbeat\AppBundle\Document\ServerData;
+use Innova\Heartbeat\AppBundle\Entity\Snapshot;
 use Mmoreram\GearmanBundle\Service\GearmanClient;
 
 /**
- * Manager for ServerData Entity.
+ * Manager for Snapshot Entity.
  */
-class ServerDataManager
+class SnapshotManager
 {
-    protected $documentManager;
     protected $entityManager;
     protected $gearman;
 
-    public function __construct(DocumentManager $documentManager, EntityManager $entityManager, GearmanClient $gearman)
+    public function __construct(EntityManager $entityManager, GearmanClient $gearman)
     {
-        $this->documentManager = $documentManager;
         $this->entityManager = $entityManager;
-        $this->mongoDataRepo = $this->documentManager->getRepository('InnovaHeartbeatAppBundle:ServerData');
-        $this->dataRepo = $this->entityManager->getRepository('InnovaHeartbeatAppBundle:Server');
+        //$this->mongoDataRepo = $this->documentManager->getRepository('InnovaHeartbeatAppBundle:ServerData');
+        //$this->dataRepo = $this->entityManager->getRepository('InnovaHeartbeatAppBundle:Server');
         $this->gearman = $gearman;
     }
 
@@ -44,17 +41,17 @@ class ServerDataManager
         }
     }
 
-    public function findByServerId($id, $limit = 1)
+    /*public function findByServerId($id, $limit = 1)
     {
         return $this->getRepository()->findBy(array('serverId' => $id), array('date' => 'asc'), $limit, 0);
-    }
+    }*/
 
-    public function getRepository()
+    /*public function getRepository()
     {
         return $this->documentManager->getRepository('InnovaHeartbeatAppBundle:ServerData');
-    }
+    }*/
 
-    public function save(ServerData $serverData)
+    /*public function save(ServerData $serverData)
     {
         $this->documentManager->persist($serverData);
         $this->documentManager->flush();
@@ -64,5 +61,5 @@ class ServerDataManager
     {
         $this->documentManager->remove($serverData);
         $this->documentManager->flush();
-    }
+    }*/
 }

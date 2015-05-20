@@ -8,7 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Innova\Heartbeat\AppBundle\Entity\Server;
 use Symfony\Component\HttpFoundation\Request;
-use Innova\Heartbeat\AppBundle\Document\ServerData;
 
 /**
  * Server controller
@@ -45,28 +44,18 @@ class ServerController extends Controller
      */
     public function showAction(Server $server)
     {
-        $details = null;
-        $id      = null;
-        $date    = null;
-
-        $serverDatas = $this->get('innova.serverdata.manager')->findByServerId($server->getUid(), 1000); //1440 24h
-        $serverData  = $serverDatas[0];
-        $serverDatas = $this->container->get('serializer')->serialize($serverDatas, 'json');
-
-        if ($serverData) {
-            $details = json_decode($serverData->getDetails());
-            $id = $serverData->getId();
-            $date = $serverData->getDate();
-        }
+        $snapshot       = $this->getDoctrine()->getRepository('InnovaHeartbeatAppBundle:Snapshot')->findOneBy(array('server' => $server), array('timestamp' => 'desc'));
+        $serializer     = $this->container->get('serializer');
+        $array          = array_reverse($server->getSnapshots()->toArray());
+        $jsonSnapshots  = $serializer->serialize($array, 'json');
 
         return $this->render(
             'server.html.twig', array(
-                'title' => 'Server : '.$server->getName(),
+                'title' => 'Server : '. $server->getName(),
                 'server' => $server,
-                'data' => array('id' => $id, 'date' => $date),
-                'details' => $details,
+                'snapshot' => $snapshot,
+                'jsonSnapshots' => $jsonSnapshots,
                 'channels' => array($server->getUid()),
-                'serverDatas' => $serverDatas,
             )
         );
     }

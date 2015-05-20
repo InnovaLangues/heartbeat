@@ -22,7 +22,6 @@ class AppKernel extends Kernel
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
-            new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
             new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
             new Mmoreram\GearmanBundle\GearmanBundle(),
             new Lopi\Bundle\PusherBundle\LopiPusherBundle(),

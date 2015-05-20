@@ -6,8 +6,7 @@ $(function () {
             }
         });
 
-
-        var serverDatas = JSON.parse($('#serverDatas').html()).reverse();
+        var jsonSnapshots = JSON.parse($('#jsonSnapshots').html());
 
         var loadMax = {
             name: 'Maximum Load',
@@ -42,34 +41,117 @@ $(function () {
             }
         };
 
-        var details;
+        var memoryTotal = {
+            name: 'Total',
+            color: '#dd4b39',
+            marker : {
+                enabled : false
+            }
+        };
+
+        var memoryUsed = {
+            name: 'Used',
+            color: '#00c0ef',
+            type: 'areaspline',
+            marker : {
+                enabled : false
+            }
+        };
+
+        var swapTotal = {
+            name: 'Total',
+            color: '#dd4b39',
+            marker : {
+                enabled : false
+            }
+        };
+
+        var swapUsed = {
+            name: 'Used',
+            color: '#00c0ef',
+            type: 'areaspline',
+            marker : {
+                enabled : false
+            }
+        };
+
+        var diskTotal = {
+            name: 'Total',
+            color: '#dd4b39',
+            marker : {
+                enabled : false
+            }
+        };
+
+        var diskUsed = {
+            name: 'Used',
+            color: '#00c0ef',
+            type: 'areaspline',
+            marker : {
+                enabled : false
+            }
+        };
 
         loadMax.data = [];
         load1min.data = [];
         load5min.data = [];
         load15min.data = [];
+        memoryTotal.data = [];
+        memoryUsed.data = [];
+        swapTotal.data = [];
+        swapUsed.data = [];
+        diskTotal.data = [];
+        diskUsed.data = [];
 
-        serverDatas.forEach(function(data) {
-            details = JSON.parse(data.details)
-
+        jsonSnapshots.forEach(function(snapshot) {
             loadMax.data.push({
-                x: details.timestamp * 1000,
-                y: parseFloat(details.cpu.count)
+                x: snapshot.timestamp * 1000,
+                y: parseFloat(snapshot.cpu_count)
             });
 
             load1min.data.push({
-                x: details.timestamp * 1000,
-                y: parseFloat(details.cpu.load.min1)
+                x: snapshot.timestamp * 1000,
+                y: parseFloat(snapshot.cpu_load_min1)
             });
 
             load5min.data.push({
-                x: details.timestamp * 1000,
-                y: parseFloat(details.cpu.load.min5)
+                x: snapshot.timestamp * 1000,
+                y: parseFloat(snapshot.cpu_load_min5)
             });
 
             load15min.data.push({
-                x: details.timestamp * 1000,
-                y: parseFloat(details.cpu.load.min15)
+                x: snapshot.timestamp * 1000,
+                y: parseFloat(snapshot.cpu_load_min15)
+            });
+
+            memoryTotal.data.push({
+                x: snapshot.timestamp * 1000,
+                y: parseFloat(snapshot.memory_total)
+            });
+
+            memoryUsed.data.push({
+                x: snapshot.timestamp * 1000,
+                y: parseFloat(snapshot.memory_used)
+            });
+
+            swapTotal.data.push({
+                x: snapshot.timestamp * 1000,
+                y: parseFloat(snapshot.memory_swap_total)
+            });
+
+            swapUsed.data.push({
+                x: snapshot.timestamp * 1000,
+                y: parseFloat(snapshot.memory_swap_used)
+            });
+
+            diskTotal.data.push({
+                x: snapshot.timestamp * 1000,
+                y: parseFloat(snapshot.disk_total)
+            });
+
+            diskUsed.data.push({
+                x: snapshot.timestamp * 1000,
+                y: parseFloat(snapshot.disk_used)
             });
 
         });
@@ -143,51 +225,6 @@ $(function () {
             series: [loadMax, load1min, load5min, load15min]
         });
 
-
-
-
-
-
-
-
-
-        var memoryTotal = {
-            name: 'Total',
-            color: '#dd4b39',
-            marker : {
-                enabled : false
-            }
-        };
-
-        var memoryUsed = {
-            name: 'Used',
-            color: '#00c0ef',
-            type: 'areaspline',
-            marker : {
-                enabled : false
-            }
-        };
-
-        var details;
-
-        memoryTotal.data = [];
-        memoryUsed.data = [];
-
-        serverDatas.forEach(function(data) {
-            details = JSON.parse(data.details)
-
-            memoryTotal.data.push({
-                x: details.timestamp * 1000,
-                y: parseFloat(details.memory.total)
-            });
-
-            memoryUsed.data.push({
-                x: details.timestamp * 1000,
-                y: parseFloat(details.memory.used)
-            });
-
-        });
-
         $('#memory-container').highcharts({
             chart: {
                 type: 'spline',
@@ -249,53 +286,6 @@ $(function () {
             series: [memoryTotal, memoryUsed]
         });
 
-
-
-
-
-
-
-
-
-
-
-        var swapTotal = {
-            name: 'Total',
-            color: '#dd4b39',
-            marker : {
-                enabled : false
-            }
-        };
-
-        var swapUsed = {
-            name: 'Used',
-            color: '#00c0ef',
-            type: 'areaspline',
-            marker : {
-                enabled : false
-            }
-        };
-
-        var details;
-
-        swapTotal.data = [];
-        swapUsed.data = [];
-
-        serverDatas.forEach(function(data) {
-            details = JSON.parse(data.details)
-
-            swapTotal.data.push({
-                x: details.timestamp * 1000,
-                y: parseFloat(details.memory.swap.total)
-            });
-
-            swapUsed.data.push({
-                x: details.timestamp * 1000,
-                y: parseFloat(details.memory.swap.used)
-            });
-
-        });
-
         $('#swap-container').highcharts({
             chart: {
                 type: 'spline',
@@ -354,47 +344,6 @@ $(function () {
                 enabled: false
             },
             series: [swapTotal, swapUsed]
-        });
-
-
-
-
-
-        var diskTotal = {
-            name: 'Total',
-            color: '#dd4b39',
-            marker : {
-                enabled : false
-            }
-        };
-
-        var diskUsed = {
-            name: 'Used',
-            color: '#00c0ef',
-            type: 'areaspline',
-            marker : {
-                enabled : false
-            }
-        };
-
-        var details;
-
-        diskTotal.data = [];
-        diskUsed.data = [];
-
-        serverDatas.forEach(function(data) {
-            details = JSON.parse(data.details)
-
-            diskTotal.data.push({
-                x: details.timestamp * 1000,
-                y: parseFloat(details.disk.total)
-            });
-
-            diskUsed.data.push({
-                x: details.timestamp * 1000,
-                y: parseFloat(details.disk.used)
-            });
-
         });
 
         $('#disk-container').highcharts({

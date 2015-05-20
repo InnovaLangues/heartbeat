@@ -50,6 +50,12 @@ class Server
     private $status;
 
     /**
+     * @ORM\OneToMany(targetEntity="Snapshot", mappedBy="server")
+     * @ORM\OrderBy({"timestamp" = "ASC"})
+     **/
+    private $snapshots;
+
+    /**
      * Get id.
      *
      * @return int
@@ -153,5 +159,45 @@ class Server
     public function getStatus()
     {
         return $this->status;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->snapshots = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add snapshots
+     *
+     * @param \Innova\Heartbeat\AppBundle\Entity\Snapshot $snapshots
+     * @return Server
+     */
+    public function addSnapshot(\Innova\Heartbeat\AppBundle\Entity\Snapshot $snapshots)
+    {
+        $this->snapshots[] = $snapshots;
+
+        return $this;
+    }
+
+    /**
+     * Remove snapshots
+     *
+     * @param \Innova\Heartbeat\AppBundle\Entity\Snapshot $snapshots
+     */
+    public function removeSnapshot(\Innova\Heartbeat\AppBundle\Entity\Snapshot $snapshots)
+    {
+        $this->snapshots->removeElement($snapshots);
+    }
+
+    /**
+     * Get snapshots
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSnapshots()
+    {
+        return $this->snapshots;
     }
 }
