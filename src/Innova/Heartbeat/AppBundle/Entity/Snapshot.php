@@ -28,7 +28,7 @@ class Snapshot
     private $server;
 
     /**
-     * @ORM\OneToMany(targetEntity="Process", mappedBy="processes")
+     * @ORM\OneToMany(targetEntity="Process", mappedBy="snapshot")
      **/
     private $processes;
 
