@@ -57,9 +57,9 @@ class SshWorker extends ContainerAware
             $snapshot->setServer($server);
             $snapshot->setTimestamp($jsonResponse->timestamp);
 
-            $documentManager = $this->container->get('doctrine.odm.mongodb.document_manager');
-            $documentManager->persist($snapshot);
-            $documentManager->flush();
+            $entityManager = $this->container->get('doctrine.orm.entity_manager');
+            $entityManager->persist($snapshot);
+            $entityManager->flush();
 
             $pusher = $this->container->get('lopi_pusher.pusher');
 
