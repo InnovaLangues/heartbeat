@@ -79,14 +79,14 @@ class SshWorker extends ContainerAware
             $entityManager = $this->container->get('doctrine.orm.entity_manager');
             $entityManager->persist($snapshot);
 
-            foreach ($jsonResponse->processes as $process) {
+            foreach ($jsonResponse->processes as $proc) {
                 echo "Adding process \n";
                 $process = new Process();
                 $process->setSnapshot($snapshot);
-                $process->setUser($process->user);
-                $process->setCommand($process->command);
-                $process->setPercentCpu($process->percent_cpu);
-                $process->setMemoryUsed($process->memory_used);
+                $process->setUser($proc->user);
+                $process->setCommand($proc->command);
+                $process->setPercentCpu($proc->percent_cpu);
+                $process->setMemoryUsed($proc->memory_used);
 
                 $entityManager->persist($process);
             }
