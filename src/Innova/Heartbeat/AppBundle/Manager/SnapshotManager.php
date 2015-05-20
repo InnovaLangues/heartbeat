@@ -17,8 +17,6 @@ class SnapshotManager
     public function __construct(EntityManager $entityManager, GearmanClient $gearman)
     {
         $this->entityManager = $entityManager;
-        //$this->mongoDataRepo = $this->documentManager->getRepository('InnovaHeartbeatAppBundle:ServerData');
-        //$this->dataRepo = $this->entityManager->getRepository('InnovaHeartbeatAppBundle:Server');
         $this->gearman = $gearman;
     }
 
@@ -27,7 +25,7 @@ class SnapshotManager
      */
     public function getConnections()
     {
-        $servers = $this->dataRepo->findAll();
+        $servers = $this->entityManager->getRepository('InnovaHeartbeatAppBundle:Server')->findAll();
 
         foreach ($servers as $server) {
             $this->gearman->doBackgroundJob(
@@ -40,26 +38,4 @@ class SnapshotManager
             );
         }
     }
-
-    /*public function findByServerId($id, $limit = 1)
-    {
-        return $this->getRepository()->findBy(array('serverId' => $id), array('date' => 'asc'), $limit, 0);
-    }*/
-
-    /*public function getRepository()
-    {
-        return $this->documentManager->getRepository('InnovaHeartbeatAppBundle:ServerData');
-    }*/
-
-    /*public function save(ServerData $serverData)
-    {
-        $this->documentManager->persist($serverData);
-        $this->documentManager->flush();
-    }
-
-    public function delete(ServerData $serverData)
-    {
-        $this->documentManager->remove($serverData);
-        $this->documentManager->flush();
-    }*/
 }
