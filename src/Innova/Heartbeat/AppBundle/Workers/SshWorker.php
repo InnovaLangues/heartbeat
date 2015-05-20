@@ -69,10 +69,15 @@ class SshWorker extends ContainerAware
             $snapshot->setMemorySwapTotal($jsonResponse->memory->swap->total);
             $snapshot->setMemorySwapUsed($jsonResponse->memory->swap->used);
             $snapshot->setMemorySwapFree($jsonResponse->memory->swap->free);
+            $snapshot->setDiskTotal($jsonResponse->disk->total);
+            $snapshot->setDiskUsed($jsonResponse->disk->used);
+            $snapshot->setDiskFree($jsonResponse->disk->free);
 
             $entityManager = $this->container->get('doctrine.orm.entity_manager');
             $entityManager->persist($snapshot);
             $entityManager->flush();
+
+
 
             $pusher = $this->container->get('lopi_pusher.pusher');
 
