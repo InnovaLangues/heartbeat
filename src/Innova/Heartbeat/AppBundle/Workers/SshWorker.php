@@ -57,7 +57,7 @@ class SshWorker extends ContainerAware
             $snapshot = new snapshot();
             $snapshot->setServer($server);
             $snapshot->setTimestamp($jsonResponse->timestamp);
-            $snapshot->setCpuCount($jsonResponse->cpuCount);
+            $snapshot->setCpuCount($jsonResponse->cpu->count);
 
             $entityManager = $this->container->get('doctrine.orm.entity_manager');
             $entityManager->persist($snapshot);
