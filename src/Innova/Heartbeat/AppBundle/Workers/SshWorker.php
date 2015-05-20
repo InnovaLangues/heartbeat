@@ -67,9 +67,9 @@ class SshWorker extends ContainerAware
 
             // Push update
             $pusher->trigger(
-                $snapshot->getServerId(),
+                $snapshot->getServer()->getUid(),
                 'serverUpdate',
-                $snapshot->getDetails(),
+                $jsonResponse,
                 null,
                 null,
                 true
