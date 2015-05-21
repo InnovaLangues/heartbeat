@@ -174,7 +174,7 @@ $(function () {
         memoryUsed.data = [];
 
         serverDatas.forEach(function(data) {
-            details = JSON.parse(data.details)
+            details = data.details;
 
             memoryTotal.data.push({
                 x: details.timestamp * 1000,
@@ -282,7 +282,7 @@ $(function () {
         swapUsed.data = [];
 
         serverDatas.forEach(function(data) {
-            details = JSON.parse(data.details)
+            details = data.details;
 
             swapTotal.data.push({
                 x: details.timestamp * 1000,
@@ -383,7 +383,7 @@ $(function () {
         diskUsed.data = [];
 
         serverDatas.forEach(function(data) {
-            details = JSON.parse(data.details)
+            details = data.details;
 
             diskTotal.data.push({
                 x: details.timestamp * 1000,
