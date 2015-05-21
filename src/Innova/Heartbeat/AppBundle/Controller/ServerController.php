@@ -64,7 +64,7 @@ class ServerController extends Controller
                 'server' => $server,
                 'details' => $details,
                 'channels' => array($server->getUid()),
-                'serverDatas' => $serverDatas->toArray(),
+                'serverDatas' => $serverDatas,
             )
         );
     }
