@@ -50,7 +50,7 @@ $(function () {
         load15min.data = [];
 
         serverDatas.forEach(function(data) {
-            details = JSON.parse(data.details)
+            details = data.details;
 
             loadMax.data.push({
                 x: details.timestamp * 1000,
