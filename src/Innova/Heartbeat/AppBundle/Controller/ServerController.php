@@ -54,7 +54,7 @@ class ServerController extends Controller
         //$serverDatas = $this->container->get('serializer')->serialize($serverDatas, 'json');
 
         if ($serverData) {
-            //$details = json_decode($serverData->getDetails());
+            $details = $serverData->getDetails();
             $id = $serverData->getId();
             $date = $serverData->getDate();
         }
