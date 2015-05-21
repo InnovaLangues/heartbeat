@@ -55,15 +55,12 @@ class ServerController extends Controller
 
         if ($serverData) {
             $details = $serverData->getDetails();
-            $id = $serverData->getId();
-            $date = $serverData->getDate();
         }
 
         return $this->render(
             'server.html.twig', array(
                 'title' => 'Server : '.$server->getName(),
                 'server' => $server,
-                'data' => array('id' => $id, 'date' => $date),
                 'details' => $details,
                 'channels' => array($server->getUid()),
                 'serverDatas' => $serverDatas,
