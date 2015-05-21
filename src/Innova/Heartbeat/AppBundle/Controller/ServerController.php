@@ -51,10 +51,10 @@ class ServerController extends Controller
 
         $serverDatas = $this->get('innova.serverdata.manager')->findByServerId($server->getUid(), 1000); //1440 24h
         $serverData  = $serverDatas[0];
-        $serverDatas = $this->container->get('serializer')->serialize($serverDatas, 'json');
+        //$serverDatas = $this->container->get('serializer')->serialize($serverDatas, 'json');
 
         if ($serverData) {
-            $details = json_decode($serverData->getDetails());
+            //$details = json_decode($serverData->getDetails());
             $id = $serverData->getId();
             $date = $serverData->getDate();
         }
