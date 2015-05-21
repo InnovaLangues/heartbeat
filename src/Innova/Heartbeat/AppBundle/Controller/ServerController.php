@@ -50,20 +50,18 @@ class ServerController extends Controller
         $date    = null;
 
         $serverDatas = $this->get('innova.serverdata.manager')->findByServerId($server->getUid(), 1000); //1440 24h
+
         $serverData  = $serverDatas[0];
         $serverDatas = $this->container->get('serializer')->serialize($serverDatas, 'json');
 
         if ($serverData) {
-            $details = json_decode($serverData->getDetails());
-            $id = $serverData->getId();
-            $date = $serverData->getDate();
+            $details = $serverData->getDetails();
         }
 
         return $this->render(
             'server.html.twig', array(
                 'title' => 'Server : '.$server->getName(),
                 'server' => $server,
-                'data' => array('id' => $id, 'date' => $date),
                 'details' => $details,
                 'channels' => array($server->getUid()),
                 'serverDatas' => $serverDatas,

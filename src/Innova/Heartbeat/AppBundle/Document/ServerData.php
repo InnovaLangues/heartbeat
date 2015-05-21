@@ -29,7 +29,7 @@ class ServerData
     /**
      * @var string
      *
-     * @MongoDB\String
+     * @MongoDB\Raw
      */
     private $details;
 
