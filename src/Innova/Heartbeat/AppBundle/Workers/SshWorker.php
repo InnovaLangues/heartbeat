@@ -3,7 +3,7 @@
 namespace Innova\Heartbeat\AppBundle\Workers;
 
 use Mmoreram\GearmanBundle\Driver\Gearman;
-use Innova\Heartbeat\AppBundle\Document\ServerData;
+use Innova\Heartbeat\AppBundle\Document\Snapshot;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 /**
@@ -54,12 +54,12 @@ class SshWorker extends ContainerAware
             echo "Saving data to MongoDB \n";
 
             // save data in mongodb
-            $serverData = new ServerData();
-            $serverData->setServerId($server->getUid());
-            $serverData->setDetails(json_decode($jsonResponse));
+            $snapshot = new Snapshot();
+            $snapshot->setServerId($server->getUid());
+            $snapshot->setDetails(json_decode($jsonResponse));
 
             $documentManager = $this->container->get('doctrine.odm.mongodb.document_manager');
-            $documentManager->persist($serverData);
+            $documentManager->persist($snapshot);
             $documentManager->flush();
 
             $pusher = $this->container->get('lopi_pusher.pusher');
@@ -68,9 +68,9 @@ class SshWorker extends ContainerAware
 
             // Push update
             $pusher->trigger(
-                $serverData->getServerId(),
+                $snapshot->getServerId(),
                 'serverUpdate',
-                $serverData->getDetails(),
+                $snapshot->getDetails(),
                 null,
                 null,
                 true

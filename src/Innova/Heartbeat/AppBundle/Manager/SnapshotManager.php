@@ -53,16 +53,4 @@ class SnapshotManager
     {
         return $this->documentManager->getRepository('InnovaHeartbeatAppBundle:Snapshot');
     }
-
-    public function save(ServerData $serverData)
-    {
-        $this->documentManager->persist($serverData);
-        $this->documentManager->flush();
-    }
-
-    public function delete(ServerData $serverData)
-    {
-        $this->documentManager->remove($serverData);
-        $this->documentManager->flush();
-    }
 }
