@@ -48,10 +48,11 @@ class User extends BaseUser
         parent::__construct();
     }
 
+
     /**
-     * Get id.
+     * Get id
      *
-     * @return int
+     * @return integer 
      */
     public function getId()
     {
@@ -59,13 +60,12 @@ class User extends BaseUser
     }
 
     /**
-     * Set githubId.
+     * Set githubId
      *
-     * @param string $githubID
-     *
-     * @return Server
+     * @param string $githubId
+     * @return User
      */
-    public function setGithubID($githubId)
+    public function setGithubId($githubId)
     {
         $this->githubId = $githubId;
 
@@ -73,9 +73,9 @@ class User extends BaseUser
     }
 
     /**
-     * Get githubId.
+     * Get githubId
      *
-     * @return string
+     * @return string 
      */
     public function getGithubId()
     {
@@ -83,11 +83,10 @@ class User extends BaseUser
     }
 
     /**
-     * Set preferedUID.
+     * Set preferedUID
      *
      * @param string $preferedUID
-     *
-     * @return Server
+     * @return User
      */
     public function setPreferedUID($preferedUID)
     {
@@ -97,9 +96,9 @@ class User extends BaseUser
     }
 
     /**
-     * Get preferedUID.
+     * Get preferedUID
      *
-     * @return string
+     * @return string 
      */
     public function getPreferedUID()
     {
@@ -107,11 +106,10 @@ class User extends BaseUser
     }
 
     /**
-     * Set preferedGID.
+     * Set preferedGID
      *
      * @param string $preferedGID
-     *
-     * @return Server
+     * @return User
      */
     public function setPreferedGID($preferedGID)
     {
@@ -121,9 +119,9 @@ class User extends BaseUser
     }
 
     /**
-     * Get preferedGID.
+     * Get preferedGID
      *
-     * @return string
+     * @return string 
      */
     public function getPreferedGID()
     {
