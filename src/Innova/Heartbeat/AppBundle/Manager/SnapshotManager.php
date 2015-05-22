@@ -4,13 +4,13 @@ namespace Innova\Heartbeat\AppBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Innova\Heartbeat\AppBundle\Document\ServerData;
+use Innova\Heartbeat\AppBundle\Document\Snapshot;
 use Mmoreram\GearmanBundle\Service\GearmanClient;
 
 /**
- * Manager for ServerData Entity.
+ * Manager for Snapshot Entity.
  */
-class ServerDataManager
+class SnapshotManager
 {
     protected $documentManager;
     protected $entityManager;
@@ -20,7 +20,7 @@ class ServerDataManager
     {
         $this->documentManager = $documentManager;
         $this->entityManager = $entityManager;
-        $this->mongoDataRepo = $this->documentManager->getRepository('InnovaHeartbeatAppBundle:ServerData');
+        $this->mongoDataRepo = $this->documentManager->getRepository('InnovaHeartbeatAppBundle:Snapshot');
         $this->dataRepo = $this->entityManager->getRepository('InnovaHeartbeatAppBundle:Server');
         $this->gearman = $gearman;
     }
@@ -51,7 +51,7 @@ class ServerDataManager
 
     public function getRepository()
     {
-        return $this->documentManager->getRepository('InnovaHeartbeatAppBundle:ServerData');
+        return $this->documentManager->getRepository('InnovaHeartbeatAppBundle:Snapshot');
     }
 
     public function save(ServerData $serverData)

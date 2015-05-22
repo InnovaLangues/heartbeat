@@ -2,48 +2,36 @@
 
 {% block content %}
 
-{% if details %}
+{% if server %}
 
 <div class="row">
     <div class="col-sm-12 col-lg-4">
         <div class="info-box info-box-cpu">
-            <span class="info-box-cpu-icon info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
+            <span class="info-box-cpu-icon info-box-icon glyphicon glyphicon-refresh glyphicon-refresh-animate"><i class="fa"></i></span>
             <div class="info-box-content">
-                <div class="info-box-text">Cores : <span class="cpu-count">{{ details.cpu.count }}</span></div>
-                <div class="info-box-number">Cores used : <span class="cpu-cores-percent-used">{{ details.cpu.load.min1 / details.cpu.count}} %</span></div>
-                <div class="info-box-number">Load (1min) : <span class="cpu-load-min1">{{ details.cpu.load.min1 }}</span></div>
+                <div class="info-box-text">Cores : <span class="cpu-count"></span></div>
+                <div class="info-box-number">Cores used : <span class="cpu-cores-percent-used"></span>%</div>
+                <div class="info-box-number">Load (1min) : <span class="cpu-load-min1"></span></div>
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
     </div>
     <div class="col-sm-12 col-lg-4">
         <div class="info-box info-box-memory-swap">
-            {% if (details.memory.swap.used / details.memory.swap.total) > 0.8 %}
-                <span class="info-box-memory-swap-icon info-box-icon bg-red"><i class="fa fa-thumbs-o-down"></i></span>
-            {% elseif (details.memory.swap.used / details.memory.swap.total) > 0.5 %}
-                <span class="info-box-memory-swap-icon info-box-icon bg-orange"><i class="fa fa-thumbs-o-up"></i></span>
-            {% else %}
-                <span class="info-box-memory-swap-icon info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
-            {% endif %}
+                <span class="info-box-memory-swap-icon info-box-icon glyphicon glyphicon-refresh glyphicon-refresh-animate"><i class="fa"></i></span>
             <div class="info-box-content">
                 <div class="info-box-text">SWAP</div>
-                <div class="info-box-number">Used : <span class="memory-swap-percent-used">{{ ((details.memory.swap.used / details.memory.swap.total) * 100)|number_format }} %</span></div>
-                <div class="info-box-number">Total : <span class="memory-swap-total">{{ details.memory.swap.total }}</span></div>
+                <div class="info-box-number">Used : <span class="memory-swap-percent-used"></span>%</div>
+                <div class="info-box-number">Total : <span class="memory-swap-total"></span></div>
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
     </div>
     <div class="col-sm-12 col-lg-4">
         <div class="info-box info-box-disk">
-            {% if (details.disk.used / details.disk.total) > 0.8 %}
-                <span class="info-box-disk-icon info-box-icon bg-red"><i class="fa fa-thumbs-o-down"></i></span>
-            {% elseif (details.disk.used / details.disk.total) > 0.5 %}
-                <span class="info-box-disk-icon info-box-icon bg-orange"><i class="fa fa-thumbs-o-up"></i></span>
-            {% else %}
-                <span class="info-box-disk-icon info-box-icon bg-green"><i class="fa fa-thumbs-o-up"></i></span>
-            {% endif %}
+            <span class="info-box-disk-icon info-box-icon glyphicon glyphicon-refresh glyphicon-refresh-animate"><i class="fa"></i></span>
             <div class="info-box-content">
                 <div class="info-box-text">Disks</div>
-                <div class="info-box-number">Used : <span class="disk-percent-used">{{ ((details.disk.used / details.disk.total) * 100)|number_format }} %</span></div>
-                <div class="info-box-number">Total : <span class="disk-total">{{ details.disk.total }}</span></div>
+                <div class="info-box-number">Used : <span class="disk-percent-used"></span>%</div>
+                <div class="info-box-number">Total : <span class="disk-total"></span></div>
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
     </div>
@@ -52,7 +40,7 @@
     <div class="col-xs-12">
         <div class="box box-solid">
             <div class="box-header">
-              <h3 class="box-title">Network</h3>
+                <h3 class="box-title">Network</h3>
             </div>
             <div class="box-body table-responsive no-padding">
                 <table class="table table-hover">
@@ -75,8 +63,11 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="box box-solid">
+            <div class="box-header">
+                <h3 class="box-title">Cores</h3>
+            </div>
             <div class="box-body">
-                <div id="cpu-container"></div>
+                <div id="cpu-container"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div>
             </div><!-- /.box-body -->
         </div>
     </div>
@@ -85,8 +76,11 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="box box-solid">
+            <div class="box-header">
+                <h3 class="box-title">Memory</h3>
+            </div>
             <div class="box-body">
-                <div id="memory-container"></div>
+                <div id="memory-container"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div>
             </div><!-- /.box-body -->
         </div>
     </div>
@@ -95,8 +89,11 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="box box-solid">
+            <div class="box-header">
+                <h3 class="box-title">Processes</h3>
+            </div>
             <div class="box-body">
-                <div id="swap-container"></div>
+                <div id="process-container"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div>
             </div><!-- /.box-body -->
         </div>
     </div>
@@ -105,14 +102,28 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="box box-solid">
+            <div class="box-header">
+                <h3 class="box-title">Swap</h3>
+            </div>
             <div class="box-body">
-                <div id="disk-container"></div>
+                <div id="swap-container"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div>
             </div><!-- /.box-body -->
         </div>
     </div>
 </div>
 
-<div id="serverDatas" class="">{{ serverDatas }}</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-solid">
+            <div class="box-header">
+                <h3 class="box-title">Disks</h3>
+            </div>
+            <div class="box-body">
+                <div id="disk-container"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div>
+            </div><!-- /.box-body -->
+        </div>
+    </div>
+</div>
 
 {% else %}
 <div class="callout callout-info">

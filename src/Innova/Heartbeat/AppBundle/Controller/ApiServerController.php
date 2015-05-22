@@ -8,19 +8,20 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Innova\Heartbeat\AppBundle\Entity\Server;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Innova\Heartbeat\AppBundle\Document\Snapshot;
 
 /**
  * Server controller
  *
- * @Route("/server")
+ * @Route("/api/server")
  */
-class ServerController extends Controller
+class ApiServerController extends Controller
 {
     /**
      * Get and show the list of servers.
      *
-     * @Route("/", name="server")
+     * @Route("/", name="api_server")
      *
      * @Method("GET")
      * @Template()
@@ -29,27 +30,23 @@ class ServerController extends Controller
     {
         $servers = $this->get('innova.server.manager')->getAll();
 
-        return $this->render(
-            'servers.html.twig', array(
-                'title'   => 'Servers',
-                'servers' => $servers,
-            )
-        );
+        $serialized = $this->container->get('serializer')->serialize($servers, 'json');
+
+        return new Response($serialized, 200, array('Content-Type' => 'application/json'));
+
+
     }
 
     /**
-     * @Route("/{id}", name="server_show")
+     * @Route("/{id}", name="api_server_show")
      *
      * @Method("GET")
      * @Template()
      */
     public function showAction(Server $server)
     {
-        return $this->render(
-            'server.html.twig', array(
-                'title' => 'Server : '. $server->getName(),
-                'server' => $server
-            )
-        );
+        $serialized = $this->container->get('serializer')->serialize($server, 'json');
+
+        return new Response($serialized, 200, array('Content-Type' => 'application/json'));
     }
 }

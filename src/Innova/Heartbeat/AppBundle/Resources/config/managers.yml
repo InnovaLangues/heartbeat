@@ -6,8 +6,8 @@ services:
         arguments:
             entityManager: @doctrine.orm.entity_manager
 
-    innova.serverdata.manager:
-        class: Innova\Heartbeat\AppBundle\Manager\ServerDataManager
+    innova.snapshot.manager:
+        class: Innova\Heartbeat\AppBundle\Manager\SnapshotManager
         arguments:
             documentManager: @doctrine_mongodb.odm.document_manager
             entityManager: @doctrine.orm.entity_manager
