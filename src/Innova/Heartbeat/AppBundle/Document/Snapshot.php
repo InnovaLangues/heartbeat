@@ -36,7 +36,7 @@ class Snapshot
     /**
      * @var string
      *
-     * @MongoDB\String
+     * @MongoDB\Int
      */
     private $diskTotal;
 
