@@ -50,33 +50,69 @@ class SshWorker extends ContainerAware
 
             echo "Data returned \n";
             echo $jsonResponse;
-            echo "\n";
+            echo "\n\n";
 
-            echo "Saving data to MongoDB \n";
 
             // save data in mongodb
+            echo "Building snapshot \n";
             $snapshot = new Snapshot();
+
+            echo "Setting server UID \n";
             $snapshot->setServerId($server->getUid());
+
+            echo "Setting timestamp \n";
             $snapshot->setTimestamp($json->timestamp);
+
+            echo "Setting total disk \n";
             $snapshot->setDiskTotal($json->disk->total);
+
+            echo "Setting used disk \n";
             $snapshot->setDiskUsed($json->disk->used);
+
+            echo "Setting free disk \n";
             $snapshot->setDiskFree($json->disk->free);
+            
+            echo "Setting CPU count \n";
             $snapshot->setCpuCount($json->cpu->count);
+
+            echo "Setting CPU load min1 \n";
             $snapshot->setCpuLoadMin1($json->cpu->load->min1);
+
+            echo "Setting CPU load min5 \n";
             $snapshot->setCpuLoadMin5($json->cpu->load->min5);
+
+            echo "Setting CPU load min15 \n";
             $snapshot->setCpuLoadMin15($json->cpu->load->min15);
+
+            echo "Setting memory total \n";
             $snapshot->setMemoryTotal($json->memory->total);
+
+            echo "Setting memory used \n";
             $snapshot->setMemoryUsed($json->memory->used);
+
+            echo "Setting memory free \n";
             $snapshot->setMemoryFree($json->memory->free);
+
+            echo "Setting memory buffersCache used \n";
             $snapshot->setMemoryBuffersCacheUsed($json->memory->buffersCache->used);
+
+            echo "Setting memory buffersCache free \n";
             $snapshot->setMemoryBuffersCacheFree($json->memory->buffersCache->free);
+
+            echo "Setting memory swap total \n";
             $snapshot->setMemorySwapTotal($json->memory->swap->total);
+
+            echo "Setting memory swap used \n";
             $snapshot->setMemorySwapUsed($json->memory->swap->used);
+
+            echo "Setting memory swap free \n";
             $snapshot->setMemorySwapFree($json->memory->swap->free);
 
             //$snapshot->setDetails(json_decode($jsonResponse));
 
             $documentManager = $this->container->get('doctrine.odm.mongodb.document_manager');
+            
+            echo "Saving data to MongoDB \n";
             $documentManager->persist($snapshot);
             $documentManager->flush();
 
