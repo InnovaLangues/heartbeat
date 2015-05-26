@@ -20,3 +20,6 @@ hwi_oauth_connect:
 
 hwi_github_login:
     pattern: /login/check-github
+    
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

@@ -21,7 +21,7 @@ class ApiServerController extends Controller
     /**
      * Get and show the list of servers.
      *
-     * @Route("/", name="api_server")
+     * @Route("/", name="api_server", options={"expose"=true}))
      *
      * @Method("GET")
      * @Template()
@@ -38,7 +38,7 @@ class ApiServerController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="api_server_show")
+     * @Route("/{id}", name="api_server_show", options={"expose"=true}))
      *
      * @Method("GET")
      * @Template()

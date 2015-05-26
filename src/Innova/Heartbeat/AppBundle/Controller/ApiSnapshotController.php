@@ -21,7 +21,7 @@ class ApiSnapshotController extends Controller
     /**
      * Get and show the list of servers.
      *
-     * @Route("/{uid}", name="api_snapshot")
+     * @Route("/{uid}", name="api_snapshot", options={"expose"=true}))
      *
      * @Method("GET")
      * @Template()
@@ -45,7 +45,7 @@ class ApiSnapshotController extends Controller
     }
 
     /**
-     * @Route("/{uid}/last", name="api_server_show")
+     * @Route("/{uid}/last", name="api_server_show", options={"expose"=true}))
      *
      * @Method("GET")
      * @Template()

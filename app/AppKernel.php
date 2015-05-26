@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Mmoreram\GearmanBundle\GearmanBundle(),
             new Lopi\Bundle\PusherBundle\LopiPusherBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
