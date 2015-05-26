@@ -1,13 +1,21 @@
 $(function () {
     $(document).ready(function () {
+
+        var serverDatas = null;
+
+        $.getJSON( "http://heartbeat.innovalangues.net/api/snapshot/bdeb1e3b-97e4-11e4-a878-f23c91dbba43", function( data ) {
+            serverDatas = data;
+        }); //TODO SF route
+
+        console.log(serverDatas);
+        
         Highcharts.setOptions({
             global: {
                 useUTC: false
             }
         });
 
-
-        var serverDatas = JSON.parse($('#serverDatas').html()).reverse();
+        //var serverDatas = JSON.parse($('#serverDatas').html()).reverse();
 
         var loadMax = {
             name: 'Maximum Load',
