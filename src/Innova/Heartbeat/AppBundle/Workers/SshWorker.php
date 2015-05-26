@@ -65,6 +65,7 @@ class SshWorker extends ContainerAware
             $documentManager->persist($snapshot);
             $documentManager->flush();
 
+            /*
             $pusher = $this->container->get('lopi_pusher.pusher');
 
             echo "Triggering push notification \n";
@@ -78,6 +79,7 @@ class SshWorker extends ContainerAware
                 null,
                 true
             );
+            */
 
             echo "Exiting \n \n";
         }
