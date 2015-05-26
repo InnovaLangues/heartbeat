@@ -41,6 +41,10 @@ class SshWorker extends ContainerAware
             // get data
             $stream = ssh2_exec($connection, '/home/heartbeat/HeartbeatClient/client.sh', 0700);
 
+            echo "Exiting SSH connection \n";
+
+            ssh2_exec($connection,'exit');
+
             echo "Set stream blocking \n";
 
             stream_set_blocking($stream, true);
