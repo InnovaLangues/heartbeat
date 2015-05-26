@@ -44,11 +44,6 @@ class SnapshotManager
         }
     }
 
-    public function findByServerId($id, $limit = 1)
-    {
-        return $this->getRepository()->findBy(array('serverId' => $id), array('date' => 'desc'), $limit, 0);
-    }
-
     public function getRepository()
     {
         return $this->documentManager->getRepository('InnovaHeartbeatAppBundle:Snapshot');

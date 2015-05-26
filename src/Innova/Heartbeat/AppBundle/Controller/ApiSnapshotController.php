@@ -28,7 +28,16 @@ class ApiSnapshotController extends Controller
      */
     public function indexAction(Server $server)
     {
-        $snapshots = $this->get('innova.snapshot.manager')->getRepository('InnovaHeartbeatAppBundle:Snapshot')->findAll();
+        $snapshots = 
+        	$this
+        		->get('innova.snapshot.manager')
+        		->getRepository('InnovaHeartbeatAppBundle:Snapshot')
+        		->findBy(
+        			array(
+        				'serverId' => $server->getUid()
+        			), 
+        			array('timestamp' => 'asc')
+        		);
 
         $serialized = $this->container->get('serializer')->serialize($snapshots, 'json');
 
