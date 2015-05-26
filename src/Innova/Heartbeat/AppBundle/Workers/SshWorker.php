@@ -46,6 +46,7 @@ class SshWorker extends ContainerAware
             stream_set_blocking($stream, true);
             $streamOut = ssh2_fetch_stream($stream, SSH2_STREAM_STDIO);
             $jsonResponse = stream_get_contents($streamOut);
+            $json = json_decode($jsonResponse);
 
             echo "Data returned \n";
             echo $jsonResponse;
@@ -56,7 +57,9 @@ class SshWorker extends ContainerAware
             // save data in mongodb
             $snapshot = new Snapshot();
             $snapshot->setServerId($server->getUid());
-            $snapshot->setDetails(json_decode($jsonResponse));
+            $snapshot->setTimestamp($json->timestamp);
+
+            //$snapshot->setDetails(json_decode($jsonResponse));
 
             $documentManager = $this->container->get('doctrine.odm.mongodb.document_manager');
             $documentManager->persist($snapshot);
