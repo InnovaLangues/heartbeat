@@ -65,6 +65,14 @@ class SshWorker extends ContainerAware
             $snapshot->setCpuLoadMin1($json->cpu->load->min1);
             $snapshot->setCpuLoadMin5($json->cpu->load->min5);
             $snapshot->setCpuLoadMin15($json->cpu->load->min15);
+            $snapshot->setMemoryTotal($json->memory->total);
+            $snapshot->setMemoryUsed($json->memory->used);
+            $snapshot->setMemoryFree($json->memory->free);
+            $snapshot->setMemoryBuffersCacheUsed($json->memory->buffersCache->used);
+            $snapshot->setMemoryBuffersCacheFree($json->memory->buffersCache->free);
+            $snapshot->setMemorySwapTotal($json->memory->swap->total);
+            $snapshot->setMemorySwapUsed($json->memory->swap->used);
+            $snapshot->setMemorySwapFree($json->memory->swap->free);
 
             //$snapshot->setDetails(json_decode($jsonResponse));
 
