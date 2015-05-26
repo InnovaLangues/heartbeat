@@ -58,6 +58,9 @@ class SshWorker extends ContainerAware
             $snapshot = new Snapshot();
             $snapshot->setServerId($server->getUid());
             $snapshot->setTimestamp($json->timestamp);
+            $snapshot->setDiskTotal($json->disk->total);
+            $snapshot->setDiskUsed($json->disk->used);
+            $snapshot->setDiskFree($json->disk->free);
 
             //$snapshot->setDetails(json_decode($jsonResponse));
 
