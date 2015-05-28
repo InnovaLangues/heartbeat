@@ -42,7 +42,34 @@ class ApiSnapshotController extends Controller
 
             $serialized = $this->container->get('serializer')->serialize($snapshots, 'json');
         } elseif ($this->getRequest()->isMethod('POST')) {
-            die("POST");
+
+            if (0 === strpos($this->getRequest()->headers->get('Content-Type'), 'application/json')) {
+                $json = json_decode($this->getRequest()->getContent(), true);
+            }
+
+            // save data in mongodb            
+            $snapshot = new Snapshot();
+            $snapshot->setServerId($server->getUid());
+            $snapshot->setTimestamp($json->timestamp);
+            $snapshot->setDiskTotal($json->disk->total);
+            $snapshot->setDiskUsed($json->disk->used);
+            $snapshot->setDiskFree($json->disk->free);
+            $snapshot->setCpuCount($json->cpu->count);
+            $snapshot->setCpuLoadMin1($json->cpu->load->min1);
+            $snapshot->setCpuLoadMin5($json->cpu->load->min5);
+            $snapshot->setCpuLoadMin15($json->cpu->load->min15);
+            $snapshot->setMemoryTotal($json->memory->total);
+            $snapshot->setMemoryUsed($json->memory->used);
+            $snapshot->setMemoryFree($json->memory->free);
+            $snapshot->setMemoryBuffersCacheUsed($json->memory->buffersCache->used);
+            $snapshot->setMemoryBuffersCacheFree($json->memory->buffersCache->free);
+            $snapshot->setMemorySwapTotal($json->memory->swap->total);
+            $snapshot->setMemorySwapUsed($json->memory->swap->used);
+            $snapshot->setMemorySwapFree($json->memory->swap->free);
+
+            $documentManager = $this->container->get('doctrine.odm.mongodb.document_manager');
+            $documentManager->persist($snapshot);
+            $documentManager->flush();
         }
 
         return new Response($serialized, 200, array('Content-Type' => 'application/json'));
