@@ -23,7 +23,7 @@ class ApiSnapshotController extends Controller
      *
      * @Route("/{uid}", name="api_snapshot", options={"expose"=true}))
      *
-     * @Method("GET", "POST")
+     * @Method({"GET", "POST"})
      * @Template()
      */
     public function indexAction(Server $server)
