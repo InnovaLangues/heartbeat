@@ -45,6 +45,7 @@ class ApiSnapshotController extends Controller
 
             if (0 === strpos($this->getRequest()->headers->get('Content-Type'), 'application/json')) {
                 $json = json_decode($this->getRequest()->getContent(), true);
+                print_r($json);
             }
 
             // save data in mongodb            
