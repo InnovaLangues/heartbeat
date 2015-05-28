@@ -23,23 +23,27 @@ class ApiSnapshotController extends Controller
      *
      * @Route("/{uid}", name="api_snapshot", options={"expose"=true}))
      *
-     * @Method("GET")
+     * @Method("GET", "POST")
      * @Template()
      */
     public function indexAction(Server $server)
     {
-        $snapshots = 
-        	$this
-        		->get('innova.snapshot.manager')
-        		->getRepository('InnovaHeartbeatAppBundle:Snapshot')
-        		->findBy(
-        			array(
-        				'serverId' => $server->getUid()
-        			), 
-        			array('timestamp' => 'asc')
-        		);
+        if ($this->getRequest()->isMethod('GET')) {
+            $snapshots = 
+            	$this
+            		->get('innova.snapshot.manager')
+            		->getRepository('InnovaHeartbeatAppBundle:Snapshot')
+            		->findBy(
+            			array(
+            				'serverId' => $server->getUid()
+            			), 
+            			array('timestamp' => 'asc')
+            		);
 
-        $serialized = $this->container->get('serializer')->serialize($snapshots, 'json');
+            $serialized = $this->container->get('serializer')->serialize($snapshots, 'json');
+        } elseif ($this->getRequest()->isMethod('POST')) {
+            die("POST");
+        }
 
         return new Response($serialized, 200, array('Content-Type' => 'application/json'));
     }
