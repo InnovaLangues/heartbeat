@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Innova\Heartbeat\AppBundle\Entity\Server;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Innova\Heartbeat\AppBundle\Document\Snapshot;
 
 /**
@@ -41,6 +42,9 @@ class ApiSnapshotController extends Controller
             		);
 
             $serialized = $this->container->get('serializer')->serialize($snapshots, 'json');
+            
+            return new Response($serialized, 200, array('Content-Type' => 'application/json'));
+
         } elseif ($this->getRequest()->isMethod('POST')) {
 
             if (0 === strpos($this->getRequest()->headers->get('Content-Type'), 'application/json')) {
@@ -72,7 +76,7 @@ class ApiSnapshotController extends Controller
             $documentManager->flush();
         }
 
-        return new Response($serialized, 200, array('Content-Type' => 'application/json'));
+        return new JsonResponse();
     }
 
     /**
