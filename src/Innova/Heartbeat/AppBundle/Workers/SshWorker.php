@@ -39,7 +39,7 @@ class SshWorker extends ContainerAware
             echo "Executing client.sh \n";
             
             // get data
-            $stream = ssh2_exec($connection, 'go run /home/heartbeat/HeartbeatClient/client.go', 0700);
+            $stream = ssh2_exec($connection, 'heatbeat-client push');
            
             /*
             $pusher = $this->container->get('lopi_pusher.pusher');
