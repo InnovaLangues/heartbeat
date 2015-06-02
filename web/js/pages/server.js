@@ -184,7 +184,15 @@ $(function () {
                     .removeClass('glyphicon-refresh glyphicon-refresh-animate')
                     .addClass('bg-green')
                 $('.info-box-memory-swap-icon i').addClass('fa-thumbs-o-up')
-                    
+
+                //Disk Box
+                diskPercentUsed = (snapshot.disk_used / snapshot.disk_total) * 100;
+                $('.info-box-disk .disk-percent-used').html(diskPercentUsed);
+                $('.info-box-disk .disk-total').html(snapshot.disk_total);
+                $('.info-box-disk-icon')
+                    .removeClass('glyphicon-refresh glyphicon-refresh-animate')
+                    .addClass('bg-green')
+                $('.info-box-disk-icon i').addClass('fa-thumbs-o-up')
             });
 
             $('#cpu-container').highcharts({
