@@ -164,7 +164,10 @@ $(function () {
                     y: parseFloat(snapshot.disk_used)
                 });
 
+                //CPU Box
+                cpuPercentUsed = (snapshot.cpu_load_min15 / snapshot.cpu_count) * 100;
                 $('.info-box-cpu .cpu-count').html(snapshot.cpu_count);
+                $('.info-box-cpu .cpu-cores-percent-used').html(cpuPercentUsed);
                 $('.info-box-cpu-icon')
                     .removeClass('glyphicon-refresh glyphicon-refresh-animate')
                     .addClass('bg-green')
