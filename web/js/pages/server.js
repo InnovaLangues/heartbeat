@@ -44,6 +44,57 @@ $(function () {
                 }
             };
 
+            var memoryTotal = {
+                name: 'Total',
+                color: '#dd4b39',
+                marker : {
+                    enabled : false
+                }
+            };
+
+            var memoryUsed = {
+                name: 'Used',
+                color: '#00c0ef',
+                type: 'areaspline',
+                marker : {
+                    enabled : false
+                }
+            };
+
+            var swapTotal = {
+                name: 'Total',
+                color: '#dd4b39',
+                marker : {
+                    enabled : false
+                }
+            };
+
+            var swapUsed = {
+                name: 'Used',
+                color: '#00c0ef',
+                type: 'areaspline',
+                marker : {
+                    enabled : false
+                }
+            };
+
+            var diskTotal = {
+                name: 'Total',
+                color: '#dd4b39',
+                marker : {
+                    enabled : false
+                }
+            };
+
+            var diskUsed = {
+                name: 'Used',
+                color: '#00c0ef',
+                type: 'areaspline',
+                marker : {
+                    enabled : false
+                }
+            };
+
             var timestamp;
 
             loadMax.data = [];
@@ -187,31 +238,6 @@ $(function () {
                 series: [loadMax, load1min, load5min, load15min]
             });
 
-
-
-
-
-
-
-
-
-            var memoryTotal = {
-                name: 'Total',
-                color: '#dd4b39',
-                marker : {
-                    enabled : false
-                }
-            };
-
-            var memoryUsed = {
-                name: 'Used',
-                color: '#00c0ef',
-                type: 'areaspline',
-                marker : {
-                    enabled : false
-                }
-            };
-
             $('#memory-container').highcharts({
                 chart: {
                     type: 'spline',
@@ -273,33 +299,6 @@ $(function () {
                 },
                 series: [memoryTotal, memoryUsed]
             });
-
-
-
-
-
-
-
-
-
-
-
-            var swapTotal = {
-                name: 'Total',
-                color: '#dd4b39',
-                marker : {
-                    enabled : false
-                }
-            };
-
-            var swapUsed = {
-                name: 'Used',
-                color: '#00c0ef',
-                type: 'areaspline',
-                marker : {
-                    enabled : false
-                }
-            };
 
             $('#swap-container').highcharts({
                 chart: {
@@ -364,27 +363,6 @@ $(function () {
                 },
                 series: [swapTotal, swapUsed]
             });
-
-
-
-
-
-            var diskTotal = {
-                name: 'Total',
-                color: '#dd4b39',
-                marker : {
-                    enabled : false
-                }
-            };
-
-            var diskUsed = {
-                name: 'Used',
-                color: '#00c0ef',
-                type: 'areaspline',
-                marker : {
-                    enabled : false
-                }
-            };
 
             $('#disk-container').highcharts({
                 chart: {
