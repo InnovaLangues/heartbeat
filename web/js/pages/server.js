@@ -163,6 +163,8 @@ $(function () {
                     x: timestamp,
                     y: parseFloat(snapshot.disk_used)
                 });
+
+                $('.info-box-cpu .cpu-count').html(snapshot.cpu_count);
             });
 
             $('#cpu-container').highcharts({
