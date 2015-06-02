@@ -167,7 +167,7 @@ $(function () {
                 //TODO optimise this!
 
                 //CPU Box
-                cpuPercentUsed = (snapshot.cpu_load_min15 / snapshot.cpu_count) * 100;
+                cpuPercentUsed = Math.round((snapshot.cpu_load_min15 / snapshot.cpu_count) * 100);
                 $('.info-box-cpu .cpu-count').html(snapshot.cpu_count);
                 $('.info-box-cpu .cpu-cores-percent-used').html(cpuPercentUsed);
                 $('.info-box-cpu .cpu-load-min1').html(snapshot.cpu_load_min1);
@@ -177,7 +177,7 @@ $(function () {
                 $('.info-box-cpu-icon i').addClass('fa-thumbs-o-up')
 
                 //Swap Box
-                swapPercentUsed = (snapshot.memory_swap_used / snapshot.memory_swap_total) * 100;
+                swapPercentUsed = Math.round((snapshot.memory_swap_used / snapshot.memory_swap_total) * 100);
                 $('.info-box-memory-swap .memory-swap-percent-used').html(swapPercentUsed);
                 $('.info-box-memory-swap .memory-swap-total').html(snapshot.memory_swap_total);
                 $('.info-box-memory-swap-icon')
@@ -186,7 +186,7 @@ $(function () {
                 $('.info-box-memory-swap-icon i').addClass('fa-thumbs-o-up')
 
                 //Disk Box
-                diskPercentUsed = (snapshot.disk_used / snapshot.disk_total) * 100;
+                diskPercentUsed = Math.round((snapshot.disk_used / snapshot.disk_total) * 100);
                 $('.info-box-disk .disk-percent-used').html(diskPercentUsed);
                 $('.info-box-disk .disk-total').html(snapshot.disk_total);
                 $('.info-box-disk-icon')
