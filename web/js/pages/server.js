@@ -44,37 +44,74 @@ $(function () {
                 }
             };
 
-            var details;
+            var timestamp;
 
             loadMax.data = [];
             load1min.data = [];
             load5min.data = [];
             load15min.data = [];
+            memoryTotal.data = [];
+            memoryUsed.data = [];
+            swapTotal.data = [];
+            swapUsed.data = [];
+            diskTotal.data = [];
+            diskUsed.data = [];
 
             snapshots.forEach(function(snapshot) {
 
                 console.log(snapshot);
 
+                timestamp = snapshot.timestamp * 1000;
+
                 loadMax.data.push({
-                    x: snapshot.timestamp * 1000,
+                    x: timestamp,
                     y: parseFloat(snapshot.cpu_count)
                 });
 
                 load1min.data.push({
-                    x: snapshot.timestamp * 1000,
+                    x: timestamp,
                     y: parseFloat(snapshot.cpu_load_min1)
                 });
 
                 load5min.data.push({
-                    x: snapshot.timestamp * 1000,
+                    x: timestamp,
                     y: parseFloat(snapshot.cpu_load_min5)
                 });
 
                 load15min.data.push({
-                    x: snapshot.timestamp * 1000,
+                    x: timestamp,
                     y: parseFloat(snapshot.cpu_load_min15)
                 });
 
+                memoryTotal.data.push({
+                    x: timestamp,
+                    y: parseFloat(snapshot.memory_total)
+                });
+
+                memoryUsed.data.push({
+                    x: timestamp,
+                    y: parseFloat(snapshot.memory_used)
+                });
+
+                swapTotal.data.push({
+                    x: timestamp,
+                    y: parseFloat(snapshot.memory_swap_total)
+                });
+
+                swapUsed.data.push({
+                    x: timestamp,
+                    y: parseFloat(snapshot.memory_swap_used)
+                });
+
+                diskTotal.data.push({
+                    x: timestamp,
+                    y: parseFloat(snapshot.disk_total)
+                });
+
+                diskUsed.data.push({
+                    x: timestamp,
+                    y: parseFloat(snapshot.disk_used)
+                });
             });
 
             $('#cpu-container').highcharts({
@@ -175,25 +212,6 @@ $(function () {
                 }
             };
 
-            var details;
-
-            memoryTotal.data = [];
-            memoryUsed.data = [];
-
-            snapshots.forEach(function(snapshot) {
-
-                memoryTotal.data.push({
-                    x: snapshot.timestamp * 1000,
-                    y: parseFloat(snapshot.memory_total)
-                });
-
-                memoryUsed.data.push({
-                    x: snapshot.timestamp * 1000,
-                    y: parseFloat(snapshot.memory_used)
-                });
-
-            });
-
             $('#memory-container').highcharts({
                 chart: {
                     type: 'spline',
@@ -283,24 +301,6 @@ $(function () {
                 }
             };
 
-            var details;
-
-            swapTotal.data = [];
-            swapUsed.data = [];
-
-            snapshots.forEach(function(snapshot) {
-                swapTotal.data.push({
-                    x: snapshot.timestamp * 1000,
-                    y: parseFloat(snapshot.memory_swap_total)
-                });
-
-                swapUsed.data.push({
-                    x: snapshot.timestamp * 1000,
-                    y: parseFloat(snapshot.memory_swap_used)
-                });
-
-            });
-
             $('#swap-container').highcharts({
                 chart: {
                     type: 'spline',
@@ -385,24 +385,6 @@ $(function () {
                     enabled : false
                 }
             };
-
-            var details;
-
-            diskTotal.data = [];
-            diskUsed.data = [];
-
-            snapshots.forEach(function(snapshot) {
-                diskTotal.data.push({
-                    x: snapshot.timestamp * 1000,
-                    y: parseFloat(snapshot.disk_total)
-                });
-
-                diskUsed.data.push({
-                    x: snapshot.timestamp * 1000,
-                    y: parseFloat(snapshot.disk_used)
-                });
-
-            });
 
             $('#disk-container').highcharts({
                 chart: {
