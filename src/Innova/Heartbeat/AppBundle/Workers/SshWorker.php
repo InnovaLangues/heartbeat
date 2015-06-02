@@ -29,17 +29,29 @@ class SshWorker extends ContainerAware
     {
         echo "Entering job \n";
         $data = json_decode($job->workload(), true);
+
         $serverUid = $data['serverUid'];
+        
+        if(!$serverUid) {
+            echo 'serverUid could not be obtained';
+            return null;
+        }
+
         $server = $this->getServer($serverUid);
+
+        if (!$server) {
+            echo 'Non existant server';
+            return null;
+        }
 
         // connect to server
         $connection = $this->getConnection($serverUid, 'heartbeat');
 
         if ($connection !== null) {
-            echo "Executing client.sh \n";
+            echo "Executing heartbeat-client push \n";
             
             // get data
-            $stream = ssh2_exec($connection, 'heatbeat-client push');
+            $stream = ssh2_exec($connection, '/usr/local/bin/heatbeat-client push');
            
             /*
             $pusher = $this->container->get('lopi_pusher.pusher');
