@@ -179,7 +179,7 @@ $(function () {
                 //Swap Box
                 swapPercentUsed = Math.round((snapshot.memory_swap_used / snapshot.memory_swap_total) * 100);
                 $('.info-box-memory-swap .memory-swap-percent-used').html(swapPercentUsed);
-                $('.info-box-memory-swap .memory-swap-total').html(snapshot.memory_swap_total);
+                $('.info-box-memory-swap .memory-swap-total').html(bytesToSize(snapshot.memory_swap_total));
                 $('.info-box-memory-swap-icon')
                     .removeClass('glyphicon-refresh glyphicon-refresh-animate')
                     .addClass('bg-green')
@@ -188,7 +188,7 @@ $(function () {
                 //Disk Box
                 diskPercentUsed = Math.round((snapshot.disk_used / snapshot.disk_total) * 100);
                 $('.info-box-disk .disk-percent-used').html(diskPercentUsed);
-                $('.info-box-disk .disk-total').html(snapshot.disk_total);
+                $('.info-box-disk .disk-total').html(bytesToSize(snapshot.disk_total));
                 $('.info-box-disk-icon')
                     .removeClass('glyphicon-refresh glyphicon-refresh-animate')
                     .addClass('bg-green')
