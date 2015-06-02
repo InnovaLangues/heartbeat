@@ -51,7 +51,7 @@ class SshWorker extends ContainerAware
             echo "Executing heartbeat-client push \n";
             
             // get data
-            $stream = ssh2_exec($connection, '/usr/local/bin/heatbeat-client push');
+            $stream = ssh2_exec($connection, 'sudo /usr/local/bin/heartbeat-client push');
            
             /*
             $pusher = $this->container->get('lopi_pusher.pusher');
