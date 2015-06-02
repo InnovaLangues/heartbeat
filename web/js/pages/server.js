@@ -165,7 +165,7 @@ $(function () {
                 });
 
                 $('.info-box-cpu .cpu-count').html(snapshot.cpu_count);
-                $('.info-box-cpu .cpu-count').removeClass("glyphicon-refresh glyphicon-refresh-animate")
+                $('.info-box-cpu-icon').removeClass("glyphicon-refresh glyphicon-refresh-animate")
             });
 
             $('#cpu-container').highcharts({
