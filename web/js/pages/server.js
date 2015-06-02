@@ -175,6 +175,15 @@ $(function () {
                     .removeClass('glyphicon-refresh glyphicon-refresh-animate')
                     .addClass('bg-green')
                 $('.info-box-cpu-icon i').addClass('fa-thumbs-o-up')
+
+                //Swap Box
+                swapPercentUsed = (snapshot.memory_swap_used / snapshot.memory_swap_total) * 100;
+                $('.info-box-memory-swap .memory-swap-percent-used').html(swapPercentUsed);
+                $('.info-box-memory-swap .memory-swap-total').html(snapshot.memory_swap_total);
+                $('.info-box-memory-swap-icon')
+                    .removeClass('glyphicon-refresh glyphicon-refresh-animate')
+                    .addClass('bg-green')
+                $('.info-box-memory-swap-icon i').addClass('fa-thumbs-o-up')
                     
             });
 
