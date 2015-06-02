@@ -165,7 +165,11 @@ $(function () {
                 });
 
                 $('.info-box-cpu .cpu-count').html(snapshot.cpu_count);
-                $('.info-box-cpu-icon').removeClass("glyphicon-refresh glyphicon-refresh-animate")
+                $('.info-box-cpu-icon')
+                    .removeClass('glyphicon-refresh glyphicon-refresh-animate')
+                    .addClass('bg-green')
+                $('.info-box-cpu-icon i').addClass('fa-thumbs-o-up')
+                    
             });
 
             $('#cpu-container').highcharts({
