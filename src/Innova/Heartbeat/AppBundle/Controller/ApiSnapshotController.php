@@ -77,10 +77,10 @@ class ApiSnapshotController extends Controller
             foreach ($json->processes as $jsonProcess) {
                 $process = new Process();
                 $process->setSnapshot($snapshot);
-                $process->setUser($jsonProcess["user"]);
-                $process->setComm($jsonProcess["comm"]);
-                $process->setPcpu($jsonProcess["pcpu"]);
-                $process->setVsz($jsonProcess["vsz"]);
+                $process->setUser($jsonProcess->user);
+                $process->setComm($jsonProcess->comm);
+                $process->setPcpu($jsonProcess->pcpu);
+                $process->setVsz($jsonProcess->vsz);
                 $documentManager->persist($process);
             }
 
