@@ -13,6 +13,11 @@ services:
             entityManager: @doctrine.orm.entity_manager
             gearman: @gearman
 
+    innova.process.manager:
+        class: Innova\Heartbeat\AppBundle\Manager\ProcessManager
+        arguments:
+            documentManager: @doctrine_mongodb.odm.document_manager
+
     innova.github.twig_extension:
         class: Innova\Heartbeat\AppBundle\Twig\GithubExtension
         public: false
