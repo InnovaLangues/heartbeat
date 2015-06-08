@@ -58,31 +58,99 @@ class ApiSnapshotController extends Controller
            
             // save data in mongodb            
             $snapshot = new Snapshot();
-            $snapshot->setServerId($server->getUid());
-            $snapshot->setTimestamp($json->timestamp);
-            $snapshot->setDiskTotal($json->diskTotal);
-            $snapshot->setDiskUsed($json->diskUsed);
-            $snapshot->setDiskFree($json->diskFree);
-            $snapshot->setCpuCount($json->cpuCount);
-            $snapshot->setCpuLoadMin1($json->cpuLoadMin1);
-            $snapshot->setCpuLoadMin5($json->cpuLoadMin5);
-            $snapshot->setCpuLoadMin15($json->cpuLoadMin15);
-            $snapshot->setMemoryTotal($json->memoryTotal);
-            $snapshot->setMemoryUsed($json->memoryUsed);
-            $snapshot->setMemoryFree($json->memoryFree);
-            $snapshot->setMemoryBuffersCacheUsed($json->memoryBuffersCacheUsed);
-            $snapshot->setMemoryBuffersCacheFree($json->memoryBuffersCacheFree);
-            $snapshot->setMemorySwapTotal($json->memorySwapTotal);
-            $snapshot->setMemorySwapUsed($json->memorySwapUsed);
-            $snapshot->setMemorySwapFree($json->memorySwapFree);
+            
+            $snapshot->setServerId(
+                $server->getUid()
+            );
+
+            $snapshot->setTimestamp(
+                $json->timestamp
+            );
+
+            $snapshot->setDiskTotal(
+                $json->diskTotal
+            );
+
+            $snapshot->setDiskUsed(
+                $json->diskUsed
+            );
+
+            $snapshot->setDiskFree(
+                $json->diskFree
+            );
+
+            $snapshot->setCpuCount(
+                $json->cpuCount
+            );
+
+            $snapshot->setCpuLoadMin1(
+                $json->cpuLoadMin1
+            );
+
+            $snapshot->setCpuLoadMin5(
+                $json->cpuLoadMin5
+            );
+
+            $snapshot->setCpuLoadMin15(
+                $json->cpuLoadMin15
+            );
+
+            $snapshot->setMemoryTotal(
+                $json->memoryTotal
+            );
+
+            $snapshot->setMemoryUsed(
+                $json->memoryUsed
+            );
+
+            $snapshot->setMemoryFree(
+                $json->memoryFree
+            );
+
+            $snapshot->setMemoryBuffersCacheUsed(
+                $json->memoryBuffersCacheUsed
+            );
+
+            $snapshot->setMemoryBuffersCacheFree(
+                $json->memoryBuffersCacheFree
+            );
+
+            $snapshot->setMemorySwapTotal(
+                $json->memorySwapTotal
+            );
+
+            $snapshot->setMemorySwapUsed(
+                $json->memorySwapUsed
+            );
+
+            $snapshot->setMemorySwapFree(
+                $json->memorySwapFree
+            );
+
             
             foreach ($json->processes as $jsonProcess) {
                 $process = new Process();
-                $process->setSnapshot($snapshot);
-                $process->setUser($jsonProcess->user);
-                $process->setComm($jsonProcess->comm);
-                $process->setPcpu($jsonProcess->pcpu);
-                $process->setVsz($jsonProcess->vsz);
+                
+                $process->setSnapshot(
+                    $snapshot
+                );
+
+                $process->setUser(
+                    $jsonProcess->user
+                );
+
+                $process->setComm(
+                    $jsonProcess->comm
+                );
+
+                $process->setPcpu(
+                    $jsonProcess->pcpu
+                );
+
+                $process->setVsz(
+                    $jsonProcess->vsz
+                );
+
                 $documentManager->persist($process);
             }
 
