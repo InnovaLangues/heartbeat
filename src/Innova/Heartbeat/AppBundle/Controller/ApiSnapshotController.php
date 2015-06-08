@@ -34,15 +34,15 @@ class ApiSnapshotController extends Controller
             // limit the request results
             $limit = 30;
             $snapshots = 
-            	$this
-            		->get('innova.snapshot.manager')
-            		->getRepository('InnovaHeartbeatAppBundle:Snapshot')
-            		->findBy(
-            			array(
-            				'serverId' => $server->getUid()
-            			), 
-            			array('timestamp' => 'asc'), $limit
-            		);
+                $this
+                    ->get('innova.snapshot.manager')
+                    ->getRepository('InnovaHeartbeatAppBundle:Snapshot')
+                    ->findBy(
+                        array(
+                            'serverId' => $server->getUid()
+                        ), 
+                        array('timestamp' => 'asc'), $limit
+                    );
 
             $serialized = $this->container->get('serializer')->serialize($snapshots, 'json');
             
@@ -54,6 +54,8 @@ class ApiSnapshotController extends Controller
                 $json = json_decode($this->getRequest()->getContent());
             }
 
+            $documentManager = $this->container->get('doctrine.odm.mongodb.document_manager');
+           
             // save data in mongodb            
             $snapshot = new Snapshot();
             $snapshot->setServerId($server->getUid());
@@ -84,7 +86,6 @@ class ApiSnapshotController extends Controller
                 $documentManager->persist($process);
             }
 
-            $documentManager = $this->container->get('doctrine.odm.mongodb.document_manager');
             $documentManager->persist($snapshot);
             $documentManager->flush();
         }
