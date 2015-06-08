@@ -30,6 +30,8 @@ class ApiSnapshotController extends Controller
     public function indexAction(Server $server)
     {
         if ($this->getRequest()->isMethod('GET')) {
+            // limit the request results
+            $limit = 30;
             $snapshots = 
             	$this
             		->get('innova.snapshot.manager')
@@ -38,7 +40,7 @@ class ApiSnapshotController extends Controller
             			array(
             				'serverId' => $server->getUid()
             			), 
-            			array('timestamp' => 'asc')
+            			array('timestamp' => 'asc'), $limit
             		);
 
             $serialized = $this->container->get('serializer')->serialize($snapshots, 'json');

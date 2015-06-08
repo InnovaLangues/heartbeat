@@ -1,25 +1,8 @@
 $(function () {
+    // all created charts are pushed in this array
     var charts = [];
 
-    /*function syncTooltip(container, p) {
-     var i = 0, j = 0, data;
-     //console.log(container, p);
-     for (; i < charts.length; i++) {
-     if (container.id !== charts[i].container.id) {
-     data = charts[i].series[0].data;
-     for (; j < data.length; j++) {
-     if (data[j].x === p) {
-     //charts[i].tooltip.refresh(charts[i].series[0].data[j]);
-     var p2 = charts[i].series[0].data[j];
-     charts[i].tooltip.refresh(p2);
-     charts[i].xAxis[0].drawCrosshair({chartX: p2.plotX, chartY: p2.plotY}, p2);
-     }
-     }
-     j = 0;
-     }
-     }
-     }*/
-
+    // sync tooltip and crosshair thrue graphs and series
     function syncTooltip(container, p) {
         var i = 0, j = 0, xData;
         var data;
@@ -27,12 +10,12 @@ $(function () {
             if (container.id !== charts[i].container.id) {
                 // get only x data
                 xData = charts[i].series[0].xData;
+                // get all data
                 data = charts[i].series[0].data;
 
                 var index = xData.indexOf(p);
                 if (index > 0) {
                     var points = [];
-                    //console.log('serires is ', charts[i].series);
                     $.each(charts[i].series, function (k, one) {
                         points.push(one.data[index])
                     });
@@ -51,27 +34,47 @@ $(function () {
 
     }
 
-    function removeTooltips() {
-        for (var i = 0; i < charts.length; i++) {
+    // share zoom value thrue graphs
+    function shareZoomValue(min, max) {
+        var i = 0;
+        for (; i < charts.length; i++) {
+            charts[i].xAxis[0].setExtremes(min, max);
+        }
+    }
+
+    // remove tooltips and crosshairs when mouse out of graphs container
+    function removeTooltipsAndCrosshairs() {
+        var i = 0, j = 0;
+        for (; i < charts.length; i++) {
             charts[i].tooltip.hide();
             charts[i].xAxis[0].hideCrosshair();
-
         }
+    }
+    
+    // on point click show details modal
+    function showDetails(point){
+        console.log(point);
     }
 
     $(document).ready(function () {
 
         var server_uid = $("#server-uid").html();
-        // store all charts
 
         // common charts options
         var options = {
             global: {
                 useUTC: false
             },
+            series: {
+                allowPointSelect: true
+            },
             tooltip: {
                 crosshairs: true,
-                shared: true
+                shared: true,
+                useHTML: true,
+                hideDelay: 10,
+                shadow: false,
+                followPointer: false
             },
             plotOptions: {
                 series: {
@@ -81,16 +84,56 @@ $(function () {
                                 //console.log('sync man');
                                 syncTooltip(this.series.chart.container, this.x);
                             },
-                            mouseOut: function () {
-                                // console.log('remove all tooltips');
-                                //removeTooltips();
+                            click: function () {
+                                console.log('clicked');
+                                showDetails(this);
                             }
                         }
                     }
                 }
+            },
+            chart: {
+                type: 'spline',
+                zoomType: 'x',
+                animation: false, //Highcharts.svg, // don't animate in old IE
+                marginRight: 10,
+                events: {
+                    selection: function (event) {
+                        // selection
+                        var min;
+                        var max;
+                        if (event.xAxis) {
+                            min = event.xAxis[0].min;
+                            max = event.xAxis[0].max;
+                        }
+                        // zoom reset value
+                        else {
+                            min = this.series[0].xAxis.dataMin;
+                            max = this.series[0].xAxis.dataMax;
+                        }
+
+                        shareZoomValue(min, max);
+                    }
+                }
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150
+            },
+            legend: {
+                enabled: true
+            },
+            exporting: {
+                enabled: false
             }
         };
 
+        // handle graphs container mouseout event in order to hide all tooltips and crosshairs
+        $('.graphs-container').on('mouseleave', function () {
+            removeTooltipsAndCrosshairs();
+        });
+
+        // get data
         $.getJSON(Routing.generate('api_snapshot', {uid: server_uid}), function (snapshots) {
 
             var loadMax = {
@@ -226,10 +269,6 @@ $(function () {
             charts[0] = new Highcharts.Chart($.extend(true, {}, options, {
                 chart: {
                     renderTo: 'cpu-container',
-                    type: 'spline',
-                    zoomType: 'x',
-                    animation: Highcharts.svg, // don't animate in old IE
-                    marginRight: 10,
                     events: {
                         load: function () {
 
@@ -265,10 +304,6 @@ $(function () {
                 title: {
                     text: 'Load'
                 },
-                xAxis: {
-                    type: 'datetime',
-                    tickPixelInterval: 150
-                },
                 yAxis: {
                     title: {
                         text: 'Load'
@@ -279,23 +314,6 @@ $(function () {
                             color: '#808080'
                         }]
                 },
-                tooltip: {
-                    /*formatter: function () {
-                     // i u use shared option
-                     for (var i = 0; i < this.points.length; i++) {
-                     var name = this.points[i].series.name;
-                     return '<b>' + name + '</b><br/>' +
-                     Highcharts.dateFormat('%d-%m-%Y %H:%M:%S', this.x) + '<br/>' +
-                     Highcharts.numberFormat(this.y, 2);
-                     }
-                     }*/
-                },
-                legend: {
-                    enabled: true
-                },
-                exporting: {
-                    enabled: false
-                },
                 series: [loadMax, load1min, load5min, load15min]
             }));
 
@@ -303,10 +321,6 @@ $(function () {
             charts[1] = new Highcharts.Chart($.extend(true, {}, options, {
                 chart: {
                     renderTo: 'memory-container',
-                    marginRight: 10,
-                    type: 'spline',
-                    zoomType: 'x',
-                    animation: Highcharts.svg, // don't animate in old IE
                     events: {
                         load: function () {
 
@@ -331,10 +345,6 @@ $(function () {
                 title: {
                     text: 'RAM'
                 },
-                xAxis: {
-                    type: 'datetime',
-                    tickPixelInterval: 150
-                },
                 yAxis: {
                     title: {
                         text: 'Memory'
@@ -345,29 +355,12 @@ $(function () {
                             color: '#808080'
                         }]
                 },
-                /*tooltip: {
-                 formatter: function () {
-                 return '<b>' + this.series.name + '</b><br/>' +
-                 Highcharts.dateFormat('%d-%m-%Y %H:%M:%S', this.x) + '<br/>' +
-                 Highcharts.numberFormat(this.y, 2);
-                 }
-                 },*/
-                legend: {
-                    enabled: true
-                },
-                exporting: {
-                    enabled: false
-                },
                 series: [memoryTotal, memoryUsed]
             }));
 
             charts[2] = new Highcharts.Chart($.extend(true, {}, options, {
                 chart: {
                     renderTo: 'swap-container',
-                    type: 'spline',
-                    zoomType: 'x',
-                    animation: Highcharts.svg, // don't animate in old IE
-                    marginRight: 10,
                     events: {
                         load: function () {
 
@@ -395,10 +388,6 @@ $(function () {
                 title: {
                     text: 'Swap'
                 },
-                xAxis: {
-                    type: 'datetime',
-                    tickPixelInterval: 150
-                },
                 yAxis: {
                     title: {
                         text: 'Swap'
@@ -408,19 +397,6 @@ $(function () {
                             width: 1,
                             color: '#808080'
                         }]
-                }, /*
-                 tooltip: {
-                 formatter: function () {
-                 return '<b>' + this.series.name + '</b><br/>' +
-                 Highcharts.dateFormat('%d-%m-%Y %H:%M:%S', this.x) + '<br/>' +
-                 Highcharts.numberFormat(this.y, 2);
-                 }
-                 },*/
-                legend: {
-                    enabled: true
-                },
-                exporting: {
-                    enabled: false
                 },
                 series: [swapTotal, swapUsed]
             }));
@@ -428,10 +404,6 @@ $(function () {
             charts[3] = new Highcharts.Chart($.extend(true, {}, options, {
                 chart: {
                     renderTo: 'disk-container',
-                    type: 'spline',
-                    zoomType: 'x',
-                    animation: Highcharts.svg, // don't animate in old IE
-                    marginRight: 10,
                     events: {
                         load: function () {
 
@@ -459,10 +431,6 @@ $(function () {
                 title: {
                     text: 'Disk'
                 },
-                xAxis: {
-                    type: 'datetime',
-                    tickPixelInterval: 150
-                },
                 yAxis: {
                     title: {
                         text: 'Disk'
@@ -472,19 +440,6 @@ $(function () {
                             width: 1,
                             color: '#808080'
                         }]
-                },
-                /*tooltip: {
-                 formatter: function () {
-                 return '<b>' + this.series.name + '</b><br/>' +
-                 Highcharts.dateFormat('%d-%m-%Y %H:%M:%S', this.x) + '<br/>' +
-                 Highcharts.numberFormat(this.y, 2);
-                 }
-                 },*/
-                legend: {
-                    enabled: true
-                },
-                exporting: {
-                    enabled: false
                 },
                 series: [diskTotal, diskUsed]
             }));
