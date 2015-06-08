@@ -45,22 +45,24 @@
                           <!-- User Account: style can be found in dropdown.less -->
                           <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                              <img src="{{ app.user.username|githubAvatarURL }}" class="user-image" alt="User avatar"/>
+                                <!--
+                              <img src="{#{ app.user.username|githubAvatarURL }#}" class="user-image" alt="User avatar"/>
+                                -->
                               <span class="hidden-xs">{{ app.user.username }}</span>
                             </a>
                             <ul class="dropdown-menu">
                               <!-- User avatar -->
                               <li class="user-header">
-                                <img src="{{ app.user.username|githubAvatarURL }}" class="img-circle" alt="User avatar" />
+                                <img src="{#{ app.user.username|githubAvatarURL }#}" class="img-circle" alt="User avatar" />
                                 <p>
-                                  {{ app.user.username|githubName }} - Web Developer
+                                  {#{ app.user.username|githubName }#} - Web Developer
                                   <small>Member since Nov. 2012</small>
                                 </p>
                               </li>
                               <!-- Menu Body -->
                               <li class="user-body">
                                 <div class="col-xs-12 text-center">
-                                  <a href="{{ app.user.username|githubHTMLURL }}">Github</a>
+                                  <a href="{#{ app.user.username|githubHTMLURL }#}">Github</a>
                                 </div>
                               </li>
                               <!-- Menu Footer-->
@@ -154,7 +156,11 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" type="text/javascript"></script>
 
             <!-- High charts -->
+           
             <script src="http://code.highcharts.com/highcharts.js" type="text/javascript"></script>
+             <!--
+            <script src="http://github.highcharts.com/master/highstock.js"></script>
+            -->
 
             <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
             <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
