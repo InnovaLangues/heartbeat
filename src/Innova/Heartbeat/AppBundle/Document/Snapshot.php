@@ -138,6 +138,11 @@ class Snapshot
      */
     private $memorySwapFree;
 
+    /** 
+     * @MongoDB\ReferenceMany(targetDocument="Process") 
+     */
+    private $processes;
+
     /**
      * Get id
      *
@@ -520,5 +525,39 @@ class Snapshot
     public function getMemorySwapFree()
     {
         return $this->memorySwapFree;
+    }
+    public function __construct()
+    {
+        $this->processes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add process
+     *
+     * @param Innova\Heartbeat\AppBundle\Document\Process $process
+     */
+    public function addProcess(\Innova\Heartbeat\AppBundle\Document\Process $process)
+    {
+        $this->processes[] = $process;
+    }
+
+    /**
+     * Remove process
+     *
+     * @param Innova\Heartbeat\AppBundle\Document\Process $process
+     */
+    public function removeProcess(\Innova\Heartbeat\AppBundle\Document\Process $process)
+    {
+        $this->processes->removeElement($process);
+    }
+
+    /**
+     * Get processes
+     *
+     * @return \Doctrine\Common\Collections\Collection $processes
+     */
+    public function getProcesses()
+    {
+        return $this->processes;
     }
 }

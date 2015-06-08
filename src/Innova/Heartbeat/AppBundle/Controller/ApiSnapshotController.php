@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Innova\Heartbeat\AppBundle\Document\Snapshot;
+use Innova\Heartbeat\AppBundle\Document\Process;
 
 /**
  * Server controller
@@ -72,6 +73,16 @@ class ApiSnapshotController extends Controller
             $snapshot->setMemorySwapTotal($json->memorySwapTotal);
             $snapshot->setMemorySwapUsed($json->memorySwapUsed);
             $snapshot->setMemorySwapFree($json->memorySwapFree);
+
+            foreach ($json->processes as $jsonProcess) {
+                $process = new Process();
+                $process->setSnapshot($snapshot);
+                $process->setUser($jsonProcess["user"]);
+                $process->setComm($jsonProcess["comm"]);
+                $process->setPcpu($jsonProcess["pcpu"]);
+                $process->setVsz($jsonProcess["vsz"]);
+                $documentManager->persist($process);
+            }
 
             $documentManager = $this->container->get('doctrine.odm.mongodb.document_manager');
             $documentManager->persist($snapshot);
