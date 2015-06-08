@@ -91,6 +91,8 @@ class ApiSnapshotController extends Controller
             $documentManager->flush();
         }
 
+        die();
+
         return new JsonResponse();
     }
 
