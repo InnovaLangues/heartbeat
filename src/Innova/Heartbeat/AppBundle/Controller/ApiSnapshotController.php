@@ -75,9 +75,8 @@ class ApiSnapshotController extends Controller
             $snapshot->setMemorySwapTotal($json->memorySwapTotal);
             $snapshot->setMemorySwapUsed($json->memorySwapUsed);
             $snapshot->setMemorySwapFree($json->memorySwapFree);
-            echo("-");
+            
             foreach ($json->processes as $jsonProcess) {
-                echo($jsonProcess->comm);
                 $process = new Process();
                 $process->setSnapshot($snapshot);
                 $process->setUser($jsonProcess->user);
@@ -90,8 +89,6 @@ class ApiSnapshotController extends Controller
             $documentManager->persist($snapshot);
             $documentManager->flush();
         }
-
-        die();
 
         return new JsonResponse();
     }
