@@ -26,6 +26,7 @@ class ApiProcessController extends Controller
      * @Route("/{id}", name="api_process", options={"expose"=true}))
      *
      * @Method("GET")
+     * @Template()
      */
     public function indexAction(Snapshot $snapshot)
     {
